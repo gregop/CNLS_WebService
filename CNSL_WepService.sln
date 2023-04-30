@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CNSL_WepService", "CNSL_WepService.csproj", "{AEB368C4-B2D1-4099-A676-E7959B9BCCEA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AEB368C4-B2D1-4099-A676-E7959B9BCCEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEB368C4-B2D1-4099-A676-E7959B9BCCEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEB368C4-B2D1-4099-A676-E7959B9BCCEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEB368C4-B2D1-4099-A676-E7959B9BCCEA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {546C6B4D-1B82-4453-AB59-CEEB8E233425}
+	EndGlobalSection
+EndGlobal
