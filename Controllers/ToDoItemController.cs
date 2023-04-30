@@ -57,30 +57,39 @@ namespace CNSL_WepService.Controllers
 
         [HttpPost]
         [Produces("application/json")]
-        public ActionResult<ToDoItem> Get2([FromBody] GetItem Item)
+        public ActionResult<ToDoItem> Get2(
+            [FromBody] GetItem ItemRaw,
+            [FromForm] GetItem ItemFormData)
         {
             try
             {
-                Console.WriteLine(Item.Id);
-                int Id = Item.Id;
-                Console.WriteLine("\n Get2 \n");
-                if (Id == null)
+                //Console.WriteLine(ItemFormData == null);
+                //Console.WriteLine(ItemRaw.Id);
+ 
+                // Bad Request if data pass is null
+                if (ItemRaw == null && ItemFormData == null)
                 {
                     return BadRequest("Id cannot be null");
                 }
 
-                ToDoItem? item = _todoItems.FirstOrDefault(i => i.Id == Id);
-                if (item == null)
+                ToDoItem? item_raw = _todoItems.FirstOrDefault(i => i.Id == ItemRaw.Id);
+                ToDoItem? item_form = _todoItems.FirstOrDefault(i => i.Id == ItemFormData.Id);
+
+                // handle case where Item Id does not exist
+                if (item_form == null && item_raw == null)
                 {
-                    string result = JsonSerializer.Serialize(status404);
-                    
+                    //string result = JsonSerializer.Serialize(status404);
                     return NotFound("The Item Id does not exist");
+
+                } else if (item_raw != null)
+                {
+                    //string result = JsonSerializer.Serialize(item_raw);
+                    return item_raw;
 
                 }
                 else
                 {
-                    string result = JsonSerializer.Serialize(item);
-                    return item;
+                    return item_form;
                 }
 
             }
