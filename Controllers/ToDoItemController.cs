@@ -16,11 +16,11 @@ namespace CNSL_WepService.Controllers
     {
         
 
-        private readonly List<ToDoItem> _todoItems = new List<ToDoItem>
+        private readonly List<WorkoutModel> _todoItems = new List<WorkoutModel>
         {
-            new ToDoItem { Id = 1, Description = "Item 1", IsComplete = false },
-            new ToDoItem { Id = 2, Description = "Item 2", IsComplete = false },
-            new ToDoItem { Id = 3, Description = "Item 3", IsComplete = true }
+            new WorkoutModel { Id = 1, Duration = 30, Distance = 3.58, Calories = 260, Date = new DateTime(2023, 5, 2, 18, 54, 00) },
+            new WorkoutModel { Id = 2, Duration = 30, Distance = 8, Calories = 500 },
+            new WorkoutModel { Id = 3, Duration = 40, Distance = 8 }
         };
 
         private Dictionary<string, string> status404 = new Dictionary<string, string>
@@ -32,7 +32,7 @@ namespace CNSL_WepService.Controllers
 
         [HttpPost]
         [Produces("application/json")]
-        public ActionResult<ToDoItem> Get2([FromForm] GetItem ItemFormData)
+        public ActionResult<WorkoutModel> Get2([FromForm] GetItem ItemFormData)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace CNSL_WepService.Controllers
                 }
 
                 //ToDoItem? item_raw = _todoItems.FirstOrDefault(i => i.Id == ItemRaw.Id);
-                ToDoItem? item_form = _todoItems.FirstOrDefault(i => i.Id == ItemFormData.Id);
+                WorkoutModel? item_form = _todoItems.FirstOrDefault(i => i.Id == ItemFormData.Id);
 
                 // handle case where Item Id does not exist
                 if (//item_raw == null &&
