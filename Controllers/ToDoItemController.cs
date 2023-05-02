@@ -32,7 +32,7 @@ namespace CNSL_WepService.Controllers
 
         [HttpPost]
         [Produces("application/json")]
-        public ActionResult<WorkoutModel> Get2([FromForm] GetItem ItemFormData)
+        public ActionResult<WorkoutModel> GetWorkout([FromForm] GetItem ItemFormData)
         {
             try
             {
