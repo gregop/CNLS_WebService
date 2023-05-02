@@ -29,6 +29,7 @@ namespace CNSL_WepService
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
+            app.UseHttpLogging();
 
             app.UseEndpoints(endpoints =>
             {
