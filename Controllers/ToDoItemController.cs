@@ -42,12 +42,11 @@ namespace CNSL_WepService.Controllers
                     return BadRequest("Id cannot be null");
                 }
 
-                //ToDoItem? item_raw = _todoItems.FirstOrDefault(i => i.Id == ItemRaw.Id);
+                // Get workout by Id
                 WorkoutModel? item_form = _todoItems.FirstOrDefault(i => i.Id == ItemFormData.Id);
 
                 // handle case where Item Id does not exist
-                if (//item_raw == null &&
-                    item_form == null)
+                if (item_form == null)
                 {
                     //string result = JsonSerializer.Serialize(status404);
                     return NotFound("The Item Id does not exist");
@@ -68,6 +67,42 @@ namespace CNSL_WepService.Controllers
 
         }
 
-        
+        [HttpPost]
+        [Produces("application/json")]
+        public ActionResult<IApiResponses> RegisterWorkout([FromForm] WorkoutModel Workout)
+        {
+            try
+            {
+                Console.WriteLine(Workout.Id);
+                // Bad Request if data pass is null
+                if (Workout.Id == null)
+                {
+                    WorkoutNOk response = new WorkoutNOk();
+                    Console.WriteLine(response.Id);
+                    Console.WriteLine(response.Message);
+                    return response;
+                }
+                else
+                {
+                    WorkoutOk response = new WorkoutOk();
+                    response.Id = 1;
+                    Console.WriteLine(response.Id);
+                    Console.WriteLine(response.Message);
+                    // add workout to list
+                    return response;
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR\t" + ex.Message);
+                return BadRequest();
+            }
+
+        }
+
+
     }
 }
