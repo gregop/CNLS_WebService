@@ -11,7 +11,7 @@ namespace CNSL_WepService
     {
 
 
-        public void ConfigureServices(IServiceCollection services)
+        public static void ConfigureServices(IServiceCollection services)
         {
             // Validation errors automatically trigger an HTTP 400 response.
             // Turn off this feature
@@ -24,7 +24,7 @@ namespace CNSL_WepService
             services.AddControllers();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseHttpsRedirection();
             app.UseRouting();
