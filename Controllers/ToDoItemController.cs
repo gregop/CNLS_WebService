@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CNSL_WepService.Models;
 using System.Net.Http.Json;
+using Microsoft.AspNetCore.Http;
 
 namespace CNSL_WepService.Controllers
 {
@@ -13,6 +14,7 @@ namespace CNSL_WepService.Controllers
     [ApiController]
     public class ToDoItemController : ControllerBase
     {
+        
 
         private readonly List<ToDoItem> _todoItems = new List<ToDoItem>
         {
@@ -29,40 +31,11 @@ namespace CNSL_WepService.Controllers
 
 
         [HttpPost]
-        public JsonResult Get1(int Id)
-        {
-            try
-            {
-                Console.WriteLine("\n Get1 \n");
-                ToDoItem? item = _todoItems.FirstOrDefault(i => i.Id == Id);
-                if (item == null)
-                {
-                    return new JsonResult(NotFound());
-                   
-                }
-                else
-                {
-                    string result = JsonSerializer.Serialize(item);
-                    return new JsonResult(Ok(result)); 
-                }
-
-            } catch (Exception ex) 
-            {
-                Console.WriteLine(ex.Message);
-                return new JsonResult(BadRequest());
-                
-            }
-            
-        }
-
-        [HttpPost]
         [Produces("application/json")]
         public ActionResult<ToDoItem> Get2([FromForm] GetItem ItemFormData)
         {
             try
             {
-                Console.WriteLine(ItemFormData.Id);
- 
                 // Bad Request if data pass is null
                 if (ItemFormData == null)
                 {

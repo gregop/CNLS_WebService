@@ -22,6 +22,7 @@ namespace CNSL_WepService
 
             Console.WriteLine("ConfigureServices");
             services.AddControllers();
+            //services.AddHttpContextAccessor();
         }
 
         public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
