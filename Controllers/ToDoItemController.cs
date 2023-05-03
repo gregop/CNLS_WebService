@@ -73,6 +73,11 @@ namespace CNSL_WepService.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    Console.WriteLine("Not Valid");
+                    return new WorkoutNOk();
+                }
                 Console.WriteLine(Workout.Id);
                 // Bad Request if data pass is null
                 if (Workout.Id == null)
@@ -80,6 +85,7 @@ namespace CNSL_WepService.Controllers
                     WorkoutNOk response = new WorkoutNOk();
                     Console.WriteLine(response.Id);
                     Console.WriteLine(response.Message);
+                    
                     return response;
                 }
                 else
@@ -88,6 +94,7 @@ namespace CNSL_WepService.Controllers
                     response.Id = 1;
                     Console.WriteLine(response.Id);
                     Console.WriteLine(response.Message);
+                    Console.WriteLine(Workout.Distance);
                     // add workout to list
                     return response;
                 }
