@@ -19,7 +19,7 @@ namespace CNSL_WepService.Controllers
         private readonly List<WorkoutModel> _todoItems = new List<WorkoutModel>
         {
             new WorkoutModel { Id = 1, Duration = 30, Distance = 3.58, Calories = 260, Date = new DateTime(2023, 5, 2, 18, 54, 00) },
-            new WorkoutModel { Id = 2, Duration = 30, Distance = 8, Calories = 500 },
+            new WorkoutModel { Id = 2, Duration = 30, Distance = 3.84, Calories = 270, Date = new DateTime(2023, 5, 3, 18, 16, 00)},
             new WorkoutModel { Id = 3, Duration = 40, Distance = 8 }
         };
 
