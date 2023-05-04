@@ -10,15 +10,18 @@ namespace CNSL_WepService.Models
 {
     public class WorkoutModel
     {
+        [StrictlyPositivePropery("Id")]
         public int ?Id { get; set; }
 
+        [StrictlyPositivePropery("calories")]
         public int ?Calories { get; set; }
         
         [Required]
-        [StrictlyPositive("duration")]
+        [StrictlyPositivePropery("duration")]
         public int ?Duration { get; set; }
 
         [Required]
+        [StrictlyPositivePropery("distance")]
         public double Distance { get; set; }
 
         //public string DistanceMetricUnit { get; set; }
@@ -30,7 +33,14 @@ namespace CNSL_WepService.Models
     // registerWorkout Response Model if OKAY
     public  class WorkoutOk : IApiResponses
     {
-        public int Id { get;  set; }
+        private readonly string _status = "Success";
+        public string Status
+        {
+            get
+            {
+                return _status;
+            }
+        }
         private readonly string _message = "Success";
         public string Message { 
             get 
@@ -43,13 +53,25 @@ namespace CNSL_WepService.Models
     // registerWorkout Response Model if NOK
     public class WorkoutNOk : IApiResponses
     {
-        public int Id { get; set; }
-        private readonly string _message = "Workout Model is Invalid";
+        private readonly string _status = "Error";
+        public string Status
+        {
+            get
+            {
+                return _status;
+            }
+        }
+        
+        private string _message = "Workout Model is Invalid";
         public string Message
         {
             get
             {
                 return _message;
+            }
+            set 
+            {
+                _message = value;
             }
             
         }

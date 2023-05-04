@@ -19,15 +19,9 @@ namespace CNSL_WepService.Controllers
 
         private readonly List<WorkoutModel> _todoItems = new List<WorkoutModel>
         {
-            new WorkoutModel { Id = 1, Duration = 30, Distance = 3.58, Calories = 260, Date = new DateTime(2023, 5, 2, 18, 54, 00) },
+            new WorkoutModel { Id = 1, Duration = 30, Distance = 3.58, Calories = 260, Date = new DateTime(2023, 5, 2, 18, 54, 00)},
             new WorkoutModel { Id = 2, Duration = 30, Distance = 3.84, Calories = 270, Date = new DateTime(2023, 5, 3, 18, 16, 00)},
             new WorkoutModel { Id = 3, Duration = 40, Distance = 8 }
-        };
-
-        private Dictionary<string, string> status404 = new Dictionary<string, string>
-        {
-            { "stadusCode", "404" },
-            { "Message", "The Item Id does not exist" },
         };
 
 
@@ -74,23 +68,50 @@ namespace CNSL_WepService.Controllers
         {
             try
             {
-                var ValidationResults = new List<ValidationResult>();
-                var ValidationContect = new ValidationContext(Workout, null, null);
-                bool isValid = Validator.TryValidateObject(Workout, ValidationContect, ValidationResults);
+                List<ValidationResult> ValidationResults = new List<ValidationResult>();
+                ValidationContext ValidationContect = new ValidationContext(Workout, null, null);
+                // Validate all object's properties
+                bool isValid = Validator.TryValidateObject(Workout, ValidationContect, ValidationResults, true);
 
                 // Check Validation Results
-
-                if (!ModelState.IsValid)
+                if (ValidationResults.Count > 0)
                 {
-                    Console.WriteLine("Not Valid");
-                    return new WorkoutNOk();
+                    Console.WriteLine("Validation failed. Errors:");
+                    foreach (var validationResult in ValidationResults)
+                    {
+                        Console.WriteLine(validationResult.ErrorMessage);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Validation passed.");
+                }
+
+                // If model is invalid return custom error model WorkoutNok
+                if (!isValid)
+                {
+                    // Check in a Property Validation Message exists in ValidationResults list
+                    if (ValidationResults[0].ErrorMessage != null)
+                    {
+                        WorkoutNOk result = new WorkoutNOk();
+                        // Set the Property Validation Message to the returned error model
+                        Console.WriteLine($"Message {ValidationResults[0].ErrorMessage.ToString()}");
+                        result.Message = ValidationResults[0].ErrorMessage.ToString();
+                        return result;
+                    }
+                    else
+                    {
+                        return new WorkoutNOk();
+                    }
+                    
+                    
                 }
                 Console.WriteLine(Workout.Id);
                 // Bad Request if data pass is null
                 if (Workout.Id == null)
                 {
                     WorkoutNOk response = new WorkoutNOk();
-                    Console.WriteLine(response.Id);
+                    Console.WriteLine(response.Status);
                     Console.WriteLine(response.Message);
                     
                     return response;
@@ -98,8 +119,8 @@ namespace CNSL_WepService.Controllers
                 else
                 {
                     WorkoutOk response = new WorkoutOk();
-                    response.Id = 1;
-                    Console.WriteLine(response.Id);
+                    
+                    Console.WriteLine(response.Status);
                     Console.WriteLine(response.Message);
                     Console.WriteLine(Workout.Distance);
                     // add workout to list

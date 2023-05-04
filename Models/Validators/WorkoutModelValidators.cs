@@ -7,25 +7,27 @@ using System.Threading.Tasks;
 
 namespace CNSL_WepService.Models.Validators.WorkoutModelValidators
 {
-
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class StrictlyPositive : ValidationAttribute
+    /*
+     * CUSTOM DATA ATTRIBUTE VALIDATOR: StrictlyPositivePropery
+     */
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
+    public class StrictlyPositivePropery : ValidationAttribute
     {
         private readonly string _property_name;
-        public StrictlyPositive(string property_name)
+        public StrictlyPositivePropery(string property_name)
         {
             _property_name = property_name;
         }
 
-        protected override ValidationResult? IsValid(object ?value, ValidationContext validationContext)
+        protected override ValidationResult? IsValid(object value, ValidationContext validationContext)
         {
             if (value == null)
             {
-                return new ValidationResult($"The {_property_name} field is required.");
+                return new ValidationResult($"The {_property_name} field is required");
             }
 
             // check if value is number
-            bool isNumber = int.TryParse(_property_name, out int number);
+            bool isNumber = int.TryParse(value.ToString(), out int number);
             
             if (isNumber && number > 0)
             {
@@ -34,7 +36,7 @@ namespace CNSL_WepService.Models.Validators.WorkoutModelValidators
             }
             else
             {
-                return new ValidationResult($"{_property_name} field must be positive integer.");
+                return new ValidationResult($"{_property_name} field must be a positive integer");
                 
             }
 
