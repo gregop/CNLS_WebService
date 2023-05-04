@@ -16,25 +16,8 @@ namespace CNSL_WepService.Models
         [Required]
         public int ?Duration { get; set; }
 
-        private double _distance;
-
         [Required]
-        public double Distance { 
-            get {
-                return _distance;
-            }
-            set {
-
-                if (value > 0)
-                {
-                    _distance = value;
-                }
-                else
-                {
-                    throw new ArgumentException("Distance must be a positive number");
-                }
-            }
-        }
+        public double Distance { get; set; }
 
         //public string DistanceMetricUnit { get; set; }
 
