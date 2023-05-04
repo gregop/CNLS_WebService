@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using CNSL_WepService.Models;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace CNSL_WepService.Controllers
 {
@@ -73,6 +74,12 @@ namespace CNSL_WepService.Controllers
         {
             try
             {
+                var ValidationResults = new List<ValidationResult>();
+                var ValidationContect = new ValidationContext(Workout, null, null);
+                bool isValid = Validator.TryValidateObject(Workout, ValidationContect, ValidationResults);
+
+                // Check Validation Results
+
                 if (!ModelState.IsValid)
                 {
                     Console.WriteLine("Not Valid");

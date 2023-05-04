@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CNSL_WepService.Models.Validators.WorkoutModelValidators;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace CNSL_WepService.Models
         public int ?Calories { get; set; }
         
         [Required]
+        [StrictlyPositive("duration")]
         public int ?Duration { get; set; }
 
         [Required]
