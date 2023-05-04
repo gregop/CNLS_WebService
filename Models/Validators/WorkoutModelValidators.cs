@@ -19,7 +19,7 @@ namespace CNSL_WepService.Models.Validators.WorkoutModelValidators
             _property_name = property_name;
         }
 
-        protected override ValidationResult? IsValid(object value, ValidationContext validationContext)
+        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
             if (value == null)
             {
