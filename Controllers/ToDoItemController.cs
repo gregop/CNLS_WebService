@@ -28,14 +28,33 @@ namespace CNSL_WepService.Controllers
 
         [HttpPost]
         [Produces("application/json")]
-        public ActionResult<WorkoutModel> GetWorkout([FromForm] GetItem ItemFormData)
+        public ActionResult<IApiResponses> GetWorkout([FromForm] GetItem ItemFormData)
         {
             try
             {
-                // Bad Request if data pass is null
-                if (ItemFormData == null)
+                var modelStateErrors = this.ModelState.Keys
+                    .SelectMany(key => this.ModelState[key].Errors);
+
+                List<string> validationErrors = new List<string>();
+                // get the ModelStateErrors in an ListofString
+                foreach (string key in this.ModelState.Keys)
                 {
-                    return BadRequest("Id cannot be null");
+                    Console.WriteLine(key);
+                    if (this.ModelState[key].Errors.Count > 0)
+                    {
+                        validationErrors.Add(this.ModelState[key].Errors[0].ErrorMessage.ToString());
+                        Console.WriteLine(this.ModelState[key].Errors[0].ErrorMessage.ToString());
+                    }
+
+                }
+
+
+                // Bad Request if data pass is null
+                if (!ModelState.IsValid)
+                {
+                    WorkoutNOk response = new WorkoutNOk();
+                    response.Message = validationErrors[0];
+                    return response;
                 }
 
                 // Get workout by Id
@@ -44,8 +63,10 @@ namespace CNSL_WepService.Controllers
                 // handle case where Item Id does not exist
                 if (item_form == null)
                 {
+                    WorkoutNOk response = new WorkoutNOk();
+                    response.Message = $"Item with Id = {ItemFormData.Id} does not exist";
                     //string result = JsonSerializer.Serialize(status404);
-                    return NotFound("The Item Id does not exist");
+                    return response;
                 }
                 else
                 {

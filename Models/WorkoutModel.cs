@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CNSL_WepService.Models
 {
-    public class WorkoutModel
+    public class WorkoutModel : IApiResponses
     {
         [StrictlyPositiveProperty("Id")]
         public int ?Id { get; set; }
@@ -79,7 +79,9 @@ namespace CNSL_WepService.Models
 
     public class GetItem
     {
-        public int Id { get; set; }
+        [Required]
+        [StrictlyPositiveProperty("id")]
+        public int? Id { get; set; }
     }
 
     public interface IApiResponses
