@@ -10,18 +10,18 @@ namespace CNSL_WepService.Models
 {
     public class WorkoutModel
     {
-        [StrictlyPositivePropery("Id")]
+        [StrictlyPositiveProperty("Id")]
         public int ?Id { get; set; }
 
-        [StrictlyPositivePropery("calories")]
+        [StrictlyPositiveProperty("calories")]
         public int ?Calories { get; set; }
         
         [Required]
-        [StrictlyPositivePropery("duration")]
-        public int ?Duration { get; set; }
+        [StrictlyPositiveProperty("duration")]
+        public int Duration { get; set; }
 
         [Required]
-        [StrictlyPositivePropery("distance")]
+        [StrictlyPositiveProperty("distance")]
         public double Distance { get; set; }
 
         //public string DistanceMetricUnit { get; set; }
