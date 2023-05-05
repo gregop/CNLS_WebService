@@ -22,7 +22,7 @@ namespace CNSL_WepService.Models
 
         [Required]
         [StrictlyPositiveProperty("distance")]
-        public double Distance { get; set; }
+        public double ?Distance { get; set; }
 
         //public string DistanceMetricUnit { get; set; }
 

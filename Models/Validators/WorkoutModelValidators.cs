@@ -57,7 +57,6 @@ namespace CNSL_WepService.Models.Validators.WorkoutModelValidators
 
             bool isNumericAndPositive = IsNumericAndPositive(value);
             
-
             if (isNumericAndPositive)
             {
                 return ValidationResult.Success;

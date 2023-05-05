@@ -90,10 +90,10 @@ namespace CNSL_WepService.Controllers
         {
             try
             {
-                List<ValidationResult> ValidationResults = new List<ValidationResult>();
-                ValidationContext ValidationContect = new ValidationContext(Workout, null, null);
-                // Validate all object's properties
-                bool isValid = Validator.TryValidateObject(Workout, ValidationContect, ValidationResults, true);
+                //List<ValidationResult> ValidationResults = new List<ValidationResult>();
+                //ValidationContext ValidationContect = new ValidationContext(Workout, null, null);
+                //// Validate all object's properties
+                //bool isValid = Validator.TryValidateObject(Workout, ValidationContect, ValidationResults, true);
 
                 var modelStateErrors = this.ModelState.Keys
                     .SelectMany(key => this.ModelState[key].Errors);
@@ -112,19 +112,19 @@ namespace CNSL_WepService.Controllers
                 }
 
 
-                // Check Validation Results
-                if (ValidationResults.Count > 0)
-                {
-                    Console.WriteLine("Validation failed. Errors:");
-                    foreach (var validationResult in ValidationResults)
-                    {
-                        Console.WriteLine(validationResult.ErrorMessage);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Validation passed.");
-                }
+                //// Check Validation Results
+                //if (ValidationResults.Count > 0)
+                //{
+                //    Console.WriteLine("Validation failed. Errors:");
+                //    foreach (var validationResult in ValidationResults)
+                //    {
+                //        Console.WriteLine(validationResult.ErrorMessage);
+                //    }
+                //}
+                //else
+                //{
+                //    Console.WriteLine("Validation passed.");
+                //}
 
                 // If model is invalid return custom error model WorkoutNok
                 if (!ModelState.IsValid)
@@ -133,11 +133,11 @@ namespace CNSL_WepService.Controllers
                     
                     
                     // Check in a Property Validation Message exists in ValidationResults list
-                    if (ValidationResults[0].ErrorMessage != null)
+                    if (validationErrors[0] != null)
                     {
                         WorkoutNOk result = new WorkoutNOk();
                         // Set the Property Validation Message to the returned error model
-                        Console.WriteLine($"Message {ValidationResults[0].ErrorMessage.ToString()}");
+                        //Console.WriteLine($"Message {ValidationResults[0].ErrorMessage.ToString()}");
                         //result.Message = ValidationResults[0].ErrorMessage.ToString();
                         result.Message = validationErrors[0];
                         return result;
