@@ -77,10 +77,19 @@ namespace CNSL_WepService.Controllers
                 var modelStateErrors = this.ModelState.Keys
                     .SelectMany(key => this.ModelState[key].Errors);
 
-                foreach (var key in this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors))
+                List<string> validationErrors = new List<string>();
+                // get the ModelStateErrors in an ListofString
+                foreach (string key in this.ModelState.Keys)
                 {
-                    Console.WriteLine($"{key}\t{key.ErrorMessage.ToString()}");
+                    Console.WriteLine(key);
+                    if (this.ModelState[key].Errors.Count > 0)
+                    {
+                        validationErrors.Add(this.ModelState[key].Errors[0].ErrorMessage.ToString());
+                        Console.WriteLine(this.ModelState[key].Errors[0].ErrorMessage.ToString());
+                    }
+
                 }
+
 
                 // Check Validation Results
                 if (ValidationResults.Count > 0)
@@ -97,15 +106,19 @@ namespace CNSL_WepService.Controllers
                 }
 
                 // If model is invalid return custom error model WorkoutNok
-                if (!isValid)
+                if (!ModelState.IsValid)
                 {
+                    
+                    
+                    
                     // Check in a Property Validation Message exists in ValidationResults list
                     if (ValidationResults[0].ErrorMessage != null)
                     {
                         WorkoutNOk result = new WorkoutNOk();
                         // Set the Property Validation Message to the returned error model
                         Console.WriteLine($"Message {ValidationResults[0].ErrorMessage.ToString()}");
-                        result.Message = ValidationResults[0].ErrorMessage.ToString();
+                        //result.Message = ValidationResults[0].ErrorMessage.ToString();
+                        result.Message = validationErrors[0];
                         return result;
                     }
                     else
@@ -132,6 +145,7 @@ namespace CNSL_WepService.Controllers
                     Console.WriteLine(response.Status);
                     Console.WriteLine(response.Message);
                     Console.WriteLine(Workout.Distance);
+                    Console.WriteLine(Workout.Calories);
                     // add workout to list
                     return response;
                 }

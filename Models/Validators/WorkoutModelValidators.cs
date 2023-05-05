@@ -39,7 +39,18 @@ namespace CNSL_WepService.Models.Validators.WorkoutModelValidators
         {
             if (value == null)
             {
-                return new ValidationResult($"The {_property_name} field is requireed");
+                // Property calories is not required, we should not throw validationError
+                // Instead we should define it as 0 and return validation success
+                if (_property_name == "calories")
+                {
+                    return ValidationResult.Success;
+                }
+                else
+                {
+                    return new ValidationResult($"The {_property_name} field is requireed");
+
+                }
+                
             }
 
             // check if value is number
