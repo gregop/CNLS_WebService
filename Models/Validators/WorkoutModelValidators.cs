@@ -39,11 +39,11 @@ namespace CNSL_WepService.Models.Validators.WorkoutModelValidators
         {
             if (value == null)
             {
-                return new ValidationResult($"The {_property_name} field is required");
+                return new ValidationResult($"The {_property_name} field is requireed");
             }
 
             // check if value is number
-            
+
             bool isNumericAndPositive = IsNumericAndPositive(value);
             
 

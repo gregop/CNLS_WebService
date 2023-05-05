@@ -8,6 +8,7 @@ using CNSL_WepService.Models;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace CNSL_WepService.Controllers
 {
@@ -72,6 +73,14 @@ namespace CNSL_WepService.Controllers
                 ValidationContext ValidationContect = new ValidationContext(Workout, null, null);
                 // Validate all object's properties
                 bool isValid = Validator.TryValidateObject(Workout, ValidationContect, ValidationResults, true);
+
+                var modelStateErrors = this.ModelState.Keys
+                    .SelectMany(key => this.ModelState[key].Errors);
+
+                foreach (var key in this.ModelState.Keys.SelectMany(key => this.ModelState[key].Errors))
+                {
+                    Console.WriteLine($"{key}\t{key.ErrorMessage.ToString()}");
+                }
 
                 // Check Validation Results
                 if (ValidationResults.Count > 0)
