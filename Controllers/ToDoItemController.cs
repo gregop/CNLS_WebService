@@ -112,21 +112,6 @@ namespace CNSL_WepService.Controllers
                 }
 
 
-                //// Check Validation Results
-                //if (ValidationResults.Count > 0)
-                //{
-                //    Console.WriteLine("Validation failed. Errors:");
-                //    foreach (var validationResult in ValidationResults)
-                //    {
-                //        Console.WriteLine(validationResult.ErrorMessage);
-                //    }
-                //}
-                //else
-                //{
-                //    Console.WriteLine("Validation passed.");
-                //}
-
-                // If model is invalid return custom error model WorkoutNok
                 if (!ModelState.IsValid)
                 {
                     
