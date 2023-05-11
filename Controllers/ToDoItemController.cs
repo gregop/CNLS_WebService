@@ -54,7 +54,8 @@ namespace CNSL_WepService.Controllers
                 {
                     WorkoutNOk response = new WorkoutNOk();
                     response.Message = validationErrors[0];
-                    return response;
+
+                    return BadRequest(response);
                 }
 
                 // Get workout by Id
@@ -125,16 +126,21 @@ namespace CNSL_WepService.Controllers
                         //Console.WriteLine($"Message {ValidationResults[0].ErrorMessage.ToString()}");
                         //result.Message = ValidationResults[0].ErrorMessage.ToString();
                         result.Message = validationErrors[0];
-                        return result;
+                       
+                        return BadRequest(result);
                     }
                     else
                     {
-                        return new WorkoutNOk();
+                        WorkoutNOk result = new WorkoutNOk();
+                        result.Message = "Model Invalid. Something went wrong. Please contact us.";
+                        return BadRequest(result);
+                        
                     }
                     
                     
                 }
                 Console.WriteLine(Workout.Id);
+
                 // Bad Request if data pass is null
                 if (Workout.Id == null)
                 {
@@ -153,7 +159,7 @@ namespace CNSL_WepService.Controllers
                     Console.WriteLine(Workout.Distance);
                     Console.WriteLine(Workout.Calories);
                     // add workout to list
-                    return response;
+                    return Ok(response);
                 }
 
 
@@ -162,7 +168,7 @@ namespace CNSL_WepService.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine("ERROR\t" + ex.Message);
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
 
         }
