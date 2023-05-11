@@ -77,7 +77,7 @@ namespace CNSL_WepService.Models
         }
     }
 
-    public class GetItem
+    public class GetWorkoutById
     {
         [Required]
         [StrictlyPositiveProperty("id")]

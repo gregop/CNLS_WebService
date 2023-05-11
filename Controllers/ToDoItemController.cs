@@ -5,10 +5,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CNSL_WepService.Models;
-using System.Net.Http.Json;
-using Microsoft.AspNetCore.Http;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace CNSL_WepService.Controllers
 {
@@ -28,7 +24,7 @@ namespace CNSL_WepService.Controllers
 
         [HttpPost]
         [Produces("application/json")]
-        public ActionResult<IApiResponses> GetCardioWorkout([FromForm] GetItem ItemFormData)
+        public ActionResult<IApiResponses> GetCardioWorkout([FromForm] GetWorkoutById ItemFormData)
         {
             try
             {
