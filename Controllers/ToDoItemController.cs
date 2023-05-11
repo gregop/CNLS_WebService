@@ -18,17 +18,17 @@ namespace CNSL_WepService.Controllers
     {
         
 
-        private readonly List<WorkoutModel> _todoItems = new List<WorkoutModel>
+        private readonly List<CardioWorkoutModel> _todoItems = new List<CardioWorkoutModel>
         {
-            new WorkoutModel { Id = 1, Duration = 30, Distance = 3.58, Calories = 260, Date = new DateTime(2023, 5, 2, 18, 54, 00)},
-            new WorkoutModel { Id = 2, Duration = 30, Distance = 3.84, Calories = 270, Date = new DateTime(2023, 5, 3, 18, 16, 00)},
-            new WorkoutModel { Id = 3, Duration = 40, Distance = 8 }
+            new CardioWorkoutModel { Id = 1, Duration = 30, Distance = 3.58, Calories = 260, Date = new DateTime(2023, 5, 2, 18, 54, 00)},
+            new CardioWorkoutModel { Id = 2, Duration = 30, Distance = 3.84, Calories = 270, Date = new DateTime(2023, 5, 3, 18, 16, 00)},
+            new CardioWorkoutModel { Id = 3, Duration = 40, Distance = 8 }
         };
         private object a;
 
         [HttpPost]
         [Produces("application/json")]
-        public ActionResult<IApiResponses> GetWorkout([FromForm] GetItem ItemFormData)
+        public ActionResult<IApiResponses> GetCardioWorkout([FromForm] GetItem ItemFormData)
         {
             try
             {
@@ -52,19 +52,19 @@ namespace CNSL_WepService.Controllers
                 // Bad Request if data pass is null
                 if (!ModelState.IsValid)
                 {
-                    WorkoutNOk response = new WorkoutNOk();
+                    CardioWorkoutNOk response = new CardioWorkoutNOk();
                     response.Message = validationErrors[0];
 
                     return BadRequest(response);
                 }
 
                 // Get workout by Id
-                WorkoutModel? item_form = _todoItems.FirstOrDefault(i => i.Id == ItemFormData.Id);
+                CardioWorkoutModel? item_form = _todoItems.FirstOrDefault(i => i.Id == ItemFormData.Id);
 
                 // handle case where Item Id does not exist
                 if (item_form == null)
                 {
-                    WorkoutNOk response = new WorkoutNOk();
+                    CardioWorkoutNOk response = new CardioWorkoutNOk();
                     response.Message = $"Item with Id = {ItemFormData.Id} does not exist";
                     //string result = JsonSerializer.Serialize(status404);
                     return NotFound(response);
@@ -87,7 +87,7 @@ namespace CNSL_WepService.Controllers
 
         [HttpPost]
         [Produces("application/json")]
-        public ActionResult<IApiResponses> RegisterWorkout([FromForm] WorkoutModel Workout)
+        public ActionResult<IApiResponses> RegisterCardioWorkout([FromForm] CardioWorkoutModel Workout)
         {
             try
             {
@@ -121,7 +121,7 @@ namespace CNSL_WepService.Controllers
                     // Check in a Property Validation Message exists in ValidationResults list
                     if (validationErrors[0] != null)
                     {
-                        WorkoutNOk result = new WorkoutNOk();
+                        CardioWorkoutNOk result = new CardioWorkoutNOk();
                         // Set the Property Validation Message to the returned error model
                         //Console.WriteLine($"Message {ValidationResults[0].ErrorMessage.ToString()}");
                         //result.Message = ValidationResults[0].ErrorMessage.ToString();
@@ -131,7 +131,7 @@ namespace CNSL_WepService.Controllers
                     }
                     else
                     {
-                        WorkoutNOk result = new WorkoutNOk();
+                        CardioWorkoutNOk result = new CardioWorkoutNOk();
                         result.Message = "Model Invalid. Something went wrong. Please contact us.";
                         return BadRequest(result);
                         
@@ -144,7 +144,7 @@ namespace CNSL_WepService.Controllers
                 // Bad Request if data pass is null
                 if (Workout.Id == null)
                 {
-                    WorkoutNOk response = new WorkoutNOk();
+                    CardioWorkoutNOk response = new CardioWorkoutNOk();
                     Console.WriteLine(response.Status);
                     Console.WriteLine(response.Message);
                     
@@ -152,7 +152,7 @@ namespace CNSL_WepService.Controllers
                 }
                 else
                 {
-                    WorkoutOk response = new WorkoutOk();
+                    CardioWorkoutOk response = new CardioWorkoutOk();
                     
                     Console.WriteLine(response.Status);
                     Console.WriteLine(response.Message);
