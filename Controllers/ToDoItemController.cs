@@ -24,7 +24,7 @@ namespace CNSL_WepService.Controllers
             new WorkoutModel { Id = 2, Duration = 30, Distance = 3.84, Calories = 270, Date = new DateTime(2023, 5, 3, 18, 16, 00)},
             new WorkoutModel { Id = 3, Duration = 40, Distance = 8 }
         };
-
+        private object a;
 
         [HttpPost]
         [Produces("application/json")]
@@ -67,11 +67,11 @@ namespace CNSL_WepService.Controllers
                     WorkoutNOk response = new WorkoutNOk();
                     response.Message = $"Item with Id = {ItemFormData.Id} does not exist";
                     //string result = JsonSerializer.Serialize(status404);
-                    return response;
+                    return NotFound(response);
                 }
                 else
                 {
-                    return item_form;
+                    return Ok(item_form);
                 }
 
             }
@@ -79,7 +79,7 @@ namespace CNSL_WepService.Controllers
             {
                 Console.WriteLine();
                 Console.WriteLine("ERROR\t" + ex.Message);
-                return BadRequest();
+                return BadRequest(ex.Message);
 
             }
 
