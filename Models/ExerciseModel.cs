@@ -1,22 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using CNSL_WepService.Interfaces;
 
 namespace CNSL_WepService.Models
 {
-    public class ExerciseModel
+    public class ExerciseModel : IExercise
     {
-        [Required]
-        public string? Name { get; set; }
 
-        [Required]
-        public string? Category { get; set; }
+        private int Reps;
 
-        [Required]
-        public string? BodyPart { get; set; }
+        private int Sets;
 
+        private float Weight;
+
+
+        public int DefineNoReps(int reps)
+        {   
+
+            throw new NotImplementedException();
+        }
+
+        public int DefineNoSets(int sets)
+        {
+            throw new NotImplementedException();
+        }
+
+        public float DefineWeight(float weight)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
