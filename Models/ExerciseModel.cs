@@ -1,32 +1,80 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using CNSL_WepService.Interfaces;
+using CNSL_WepService.Models.Validators;
 
 namespace CNSL_WepService.Models
 {
     public class ExerciseModel : IExercise
     {
 
-        private int Reps;
+        private int _reps;
 
-        private int Sets;
+        private int _sets;
 
-        private float Weight;
+        private float _weight;
+
+        private ValidationMethods _validationMethods;
+
+        private ValidationMessages _validationMessages;
+
+        private ValidationHelper _validationHelper;
 
 
-        public int DefineNoReps(int reps)
-        {   
-
-            throw new NotImplementedException();
-        }
-
-        public int DefineNoSets(int sets)
+        public ExerciseModel()
         {
+            _validationHelper = new ValidationHelper();
+            _validationMessages = new ValidationMessages();
+            _validationMethods = new ValidationMethods();  
+        }
+
+        public void DefineNoReps(object reps)
+        {
+            if (_validationMethods.IsValidPositiveInteger(reps))
+            {
+                _reps = Convert.ToInt32(reps);
+                return;
+            }
+            else
+            {
+                _validationHelper.AddError(_validationMessages.StrictlyPositiveIntegerValMessage("Repetitions"));
+                return;
+            }
+            
             throw new NotImplementedException();
         }
 
-        public float DefineWeight(float weight)
+        public void DefineNoSets(object sets)
         {
+            if (_validationMethods.IsValidPositiveInteger(sets))
+            {
+                _sets = Convert.ToInt32(sets);
+                return;
+            }
+            else
+            {
+                _validationHelper.AddError(_validationMessages.StrictlyPositiveIntegerValMessage("Sets"));
+                return;
+            }
+
             throw new NotImplementedException();
         }
+
+        public void DefineWeight(object weight)
+        {
+            if (_validationMethods.IsValidPositiveNumber(weight))
+            {
+                _weight = Convert.ToSingle(weight);
+                return;
+            }
+            else
+            {
+                _validationHelper.AddError(_validationMessages.StrictlyPositiveIntegerValMessage("Weight"));
+                return;
+            }
+
+            throw new NotImplementedException();
+        }
+
+        
     }
 }
