@@ -68,7 +68,7 @@ namespace CNSL_WepService.Models
             }
             else
             {
-                _validationHelper.AddError(_validationMessages.StrictlyPositiveIntegerValMessage("Weight"));
+                _validationHelper.AddError(_validationMessages.StrictlyPositiveFloatValMessage("Weight"));
                 return;
             }
 

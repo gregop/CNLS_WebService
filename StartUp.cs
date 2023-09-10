@@ -10,7 +10,6 @@ namespace CNSL_WepService
     public class StartUp
     {
 
-
         public static void ConfigureServices(IServiceCollection services)
         {
             // Validation errors automatically trigger an HTTP 400 response.

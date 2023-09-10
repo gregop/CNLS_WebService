@@ -12,7 +12,7 @@ namespace CNSL_WepService
         static void Main(string[] args)
         {
 
-            var host = Host.CreateDefaultBuilder(args)
+            IHost host = Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     Console.WriteLine("Initiating WebBuilder");
