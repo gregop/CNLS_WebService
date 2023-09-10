@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using CNSL_WepService.Interfaces;
-using CNSL_WepService.Models.Validators;
+using CNSL_WepService.Validators;
 
 namespace CNSL_WepService.Models
 {

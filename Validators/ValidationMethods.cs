@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CNSL_WepService.Models.Validators
+namespace CNSL_WepService.Validators
 {
     public class ValidationMethods
     {
@@ -15,7 +15,8 @@ namespace CNSL_WepService.Models.Validators
             if (isNumeric && number > 0)
             {
                 return true;
-            } else { return false; }    
+            }
+            else { return false; }
         }
 
 

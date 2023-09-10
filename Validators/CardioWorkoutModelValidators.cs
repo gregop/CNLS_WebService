@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CNSL_WepService.Models.Validators.CardioWorkoutModelValidators
+namespace CNSL_WepService.Validators
 {
     /*
      * CUSTOM DATA ATTRIBUTE VALIDATOR: StrictlyPositivePropery
@@ -56,12 +56,12 @@ namespace CNSL_WepService.Models.Validators.CardioWorkoutModelValidators
             if (IsNumericAndPositive(value))
             {
                 return ValidationResult.Success;
-                
+
             }
             else
             {
                 return new ValidationResult($"{_property_name} field must be a positive integer");
-                
+
             }
         }
 

@@ -1,14 +1,15 @@
-﻿using CNSL_WepService.Models.Validators.CardioWorkoutModelValidators;
+﻿using CNSL_WepService.Validators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CNSL_WepService.Interfaces;
 
 namespace CNSL_WepService.Models
 {
-    public class CardioWorkoutModel : IApiResponses
+    public class CardioWorkoutModel : IApiResponse
     {
         [StrictlyPositiveProperty("Id")]
         public int ?Id { get; set; }
@@ -31,7 +32,7 @@ namespace CNSL_WepService.Models
     }
 
     // registerWorkout Response Model if OKAY
-    public  class CardioWorkoutOk : IApiResponses
+    public  class CardioWorkoutOk : IApiResponse
     {
         private readonly string _status = "Success";
         public string Status
@@ -51,7 +52,7 @@ namespace CNSL_WepService.Models
     }
 
     // registerWorkout Response Model if NOK
-    public class CardioWorkoutNOk : IApiResponses
+    public class CardioWorkoutNOk : IApiResponse
     {
         private readonly string _status = "Error";
         public string Status
@@ -84,9 +85,5 @@ namespace CNSL_WepService.Models
         public int? Id { get; set; }
     }
 
-    public interface IApiResponses
-    {
-        // common properties and logic yet to be defined
 
-    }
 }

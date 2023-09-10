@@ -26,6 +26,8 @@ namespace CNSL_WepService
 
         public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            Console.WriteLine("Adding API Behaviours");
+
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();

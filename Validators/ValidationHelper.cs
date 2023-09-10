@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CNSL_WepService.Models.Validators
+namespace CNSL_WepService.Validators
 {
     public class ValidationHelper
     {

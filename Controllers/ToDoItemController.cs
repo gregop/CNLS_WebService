@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using CNSL_WepService.Models;
+using CNSL_WepService.Interfaces;
+using Microsoft.Extensions.Configuration;
+using ConfigurationManager = System.Configuration.ConfigurationManager;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace CNSL_WepService.Controllers
 {
@@ -20,16 +19,19 @@ namespace CNSL_WepService.Controllers
             new CardioWorkoutModel { Id = 2, Duration = 30, Distance = 3.84, Calories = 270, Date = new DateTime(2023, 5, 3, 18, 16, 00)},
             new CardioWorkoutModel { Id = 3, Duration = 40, Distance = 8 }
         };
-        private object a;
+        
 
         [HttpPost]
         [Produces("application/json")]
-        public ActionResult<IApiResponses> GetCardioWorkout([FromForm] GetWorkoutById ItemFormData)
+        public ActionResult<IApiResponse> GetCardioWorkout([FromForm] GetWorkoutById ItemFormData)
         {
             try
             {
-                var modelStateErrors = this.ModelState.Keys
-                    .SelectMany(key => this.ModelState[key].Errors);
+                string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["Test"].ConnectionString;
+                Console.WriteLine(connectionString);
+
+                IEnumerable<ModelError> modelStateErrors = this.ModelState.Keys
+                .SelectMany(key => this.ModelState[key].Errors);
 
                 List<string> validationErrors = new List<string>();
                 // get the ModelStateErrors in an ListofString
@@ -83,7 +85,7 @@ namespace CNSL_WepService.Controllers
 
         [HttpPost]
         [Produces("application/json")]
-        public ActionResult<IApiResponses> RegisterCardioWorkout([FromForm] CardioWorkoutModel Workout)
+        public ActionResult<IApiResponse> RegisterCardioWorkout([FromForm] CardioWorkoutModel Workout)
         {
             try
             {
@@ -92,8 +94,9 @@ namespace CNSL_WepService.Controllers
                 //// Validate all object's properties
                 //bool isValid = Validator.TryValidateObject(Workout, ValidationContect, ValidationResults, true);
 
-                var modelStateErrors = this.ModelState.Keys
+                IEnumerable<ModelError> modelStateErrors = this.ModelState.Keys
                     .SelectMany(key => this.ModelState[key].Errors);
+
 
                 List<string> validationErrors = new List<string>();
                 // get the ModelStateErrors in an ListofString
