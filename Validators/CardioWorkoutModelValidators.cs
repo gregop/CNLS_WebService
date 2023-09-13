@@ -10,7 +10,7 @@ namespace CNSL_WepService.Validators
     /*
      * CUSTOM DATA ATTRIBUTE VALIDATOR: StrictlyPositivePropery
      */
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class StrictlyPositiveProperty : ValidationAttribute
     {
         private readonly string _property_name;
