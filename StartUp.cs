@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 
 namespace CNSL_WepService
 {
@@ -37,6 +38,21 @@ namespace CNSL_WepService
             {
                 endpoints.MapControllers();
             });
+        }
+
+        static void Main(string[] args)
+        {
+
+            IHost host = Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    Console.WriteLine("Initiating WebBuilder");
+                    webBuilder.UseStartup<StartUp>();
+                })
+                .Build();
+
+            host.Run();
+
         }
     }
 }
