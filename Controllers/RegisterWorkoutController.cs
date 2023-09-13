@@ -11,12 +11,13 @@ using System.Threading.Tasks;
 
 namespace CNSL_WepService.Controllers
 {
-    [Route("api/[action]")]
+    
     [ApiController]
     public class RegisterWorkoutController : ControllerBase
     {
 
         [HttpPost]
+        [Route("api/[action]")]
         [Produces("application/json")]
         public ActionResult<IApiResponse> RegisterCardioWorkout([FromForm] WorkoutItemModel WorkoutItem)
         {

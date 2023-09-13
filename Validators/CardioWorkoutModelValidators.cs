@@ -14,6 +14,7 @@ namespace CNSL_WepService.Validators
     public class StrictlyPositiveProperty : ValidationAttribute
     {
         private readonly string _property_name;
+
         public StrictlyPositiveProperty(string property_name)
         {
             _property_name = property_name;

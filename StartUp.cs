@@ -13,8 +13,22 @@ namespace CNSL_WepService
 
         public static void ConfigureServices(IServiceCollection services)
         {
-            // Validation errors automatically trigger an HTTP 400 response.
-            // Turn off this feature
+            /* Validation errors automatically trigger an HTTP 400 response.
+            * e.g. 
+            * {
+            *   "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+            *   "title": "One or more validation errors occurred.",
+            *   "status": 400,
+            *   "traceId": "00-15f1e9bcd75d2e0afdbf9cbe657f16d9-6e5f8d80a4acb7c2-00",
+            *   "errors": {
+            *   "Id": [
+            *           "The value '11.5' is not valid for Id."
+            *       ]
+            *   }
+            * }
+            * 
+            * -> Turn off this feature
+            */
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;

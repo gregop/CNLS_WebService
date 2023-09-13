@@ -39,7 +39,7 @@ namespace CNSL_WepService.Models
     {
         [Required]
         [StrictlyPositiveProperty("id")]
-        public int? Id { get; set; }
+        public int Id { get; set; }
     }
 
 

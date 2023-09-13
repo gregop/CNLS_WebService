@@ -1,14 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CNSL_WepService.Models;
 using CNSL_WepService.Interfaces;
-using Microsoft.Extensions.Configuration;
-using ConfigurationManager = System.Configuration.ConfigurationManager;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using CNSL_WepService.APIResponses;
 
 namespace CNSL_WepService.Controllers
 {
-    [Route("api/[action]")]
+    
     [ApiController]
     public class GetWorkoutController : ControllerBase
     {
@@ -23,17 +21,18 @@ namespace CNSL_WepService.Controllers
         
 
         [HttpPost]
+        [Route("api/[action]")]
         [Produces("application/json")]
         public ActionResult<IApiResponse> GetWorkout([FromForm] GetWorkoutById ItemFormData)
         {
             try
             {
-                string connectionString = System.Configuration.ConfigurationManager
-                    .ConnectionStrings["EntityFrameworkConnectionString"].ConnectionString;
-                Console.WriteLine(connectionString);
+                //string connectionString = System.Configuration.ConfigurationManager
+                //    .ConnectionStrings["EntityFrameworkConnectionString"].ConnectionString;
+                //Console.WriteLine(connectionString);
 
                 IEnumerable<ModelError> modelStateErrors = this.ModelState.Keys
-                .SelectMany(key => this.ModelState[key].Errors);
+                    .SelectMany(key => this.ModelState[key].Errors);
 
                 List<string> validationErrors = new List<string>();
                 // get the ModelStateErrors in an ListofString
