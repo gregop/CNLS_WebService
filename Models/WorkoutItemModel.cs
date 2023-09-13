@@ -38,7 +38,7 @@ namespace CNSL_WepService.Models
     public class GetWorkoutById
     {
         [Required]
-        [StrictlyPositiveProperty("id")]
+        [StrictlyPositiveProperty("Id")]
         public int Id { get; set; }
     }
 
