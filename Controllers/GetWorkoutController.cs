@@ -23,7 +23,7 @@ namespace CNSL_WepService.Controllers
         [HttpPost]
         [Route("api/[action]")]
         [Produces("application/json")]
-        public ActionResult<IApiResponse> GetWorkout([FromForm] GetWorkoutById ItemFormData)
+        public ActionResult<IGetWorkoutApiRes> GetWorkout([FromForm] GetWorkoutById ItemFormData)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace CNSL_WepService.Controllers
 
                 }
 
-                IApiResponse apiResponse = new GetWorkoutAPIResponse();
+                IGetWorkoutApiRes apiResponse = new GetWorkoutApiRes();
 
                 // Bad Request if data pass is null
                 if (!ModelState.IsValid)

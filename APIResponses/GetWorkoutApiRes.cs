@@ -1,29 +1,33 @@
 ﻿using CNSL_WepService.Interfaces;
 using CNSL_WepService.Models;
+using System.Text.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace CNSL_WepService.APIResponses
 {
-    public class RegisterWorkoutAPIResponse : IApiResponse
+    public class GetWorkoutApiRes : IGetWorkoutApiRes
     {
         private string? _status;
 
         private string? _message;
 
-        public string? Status { get { return _status; } set { } }
+        private WorkoutItemModel? _workoutItem;
 
-        public string? Message { get { return _message; } set { } }
+        public string? Status { get { return _status; } }
 
+        public string? Message { get { return _message; } }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public WorkoutItemModel WorkoutItem { get { return _workoutItem; } set { } }
 
         public void StatusOK()
         {
             _status = "Success";
-            _message = "Workout Item successfully stored";
+            _message = "Success";
         }
 
         public void StatusNOK()
@@ -38,8 +42,8 @@ namespace CNSL_WepService.APIResponses
 
         public void SetWorkoutItem(WorkoutItemModel workoutItem)
         {
-            return;
+            _workoutItem = workoutItem;
         }
-
     }
+
 }

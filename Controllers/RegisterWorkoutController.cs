@@ -19,7 +19,7 @@ namespace CNSL_WepService.Controllers
         [HttpPost]
         [Route("api/[action]")]
         [Produces("application/json")]
-        public ActionResult<IApiResponse> RegisterCardioWorkout([FromForm] WorkoutItemModel WorkoutItem)
+        public ActionResult<IGetWorkoutApiRes> RegisterCardioWorkout([FromForm] WorkoutItemModel WorkoutItem)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace CNSL_WepService.Controllers
 
                 }
 
-                IApiResponse apiResponse = new RegisterWorkoutAPIResponse();
+                IRegisterWorkoutApiRes apiResponse = new RegisterWorkoutApiRes();
 
                 if (!ModelState.IsValid)
                 {

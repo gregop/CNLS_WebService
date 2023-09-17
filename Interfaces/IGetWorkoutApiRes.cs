@@ -8,8 +8,11 @@ using System.Threading.Tasks;
 
 namespace CNSL_WepService.Interfaces
 {
-    public partial interface IApiResponse
+    public interface IGetWorkoutApiRes
     {
+        string Status { get; }
+
+        string Message { get; }
         void StatusOK();
 
         void StatusNOK();
