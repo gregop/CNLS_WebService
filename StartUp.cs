@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
+using CNSL_WepService.Interfaces;
+using CNSL_WepService.APIResponses;
 
 namespace CNSL_WepService
 {
@@ -33,6 +35,10 @@ namespace CNSL_WepService
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
+
+            services.AddTransient<IGetWorkoutApiRes, IGetWorkoutApiRes>();
+            services.AddTransient<IRegisterWorkoutApiRes, RegisterWorkoutApiRes>();
+
 
             Console.WriteLine("ConfigureServices");
             services.AddControllers();

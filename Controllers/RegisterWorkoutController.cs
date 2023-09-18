@@ -3,6 +3,7 @@ using CNSL_WepService.Interfaces;
 using CNSL_WepService.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,12 @@ namespace CNSL_WepService.Controllers
     [ApiController]
     public class RegisterWorkoutController : ControllerBase
     {
+        private IRegisterWorkoutApiRes _registerWorkoutApiRes;
+        public RegisterWorkoutController(IRegisterWorkoutApiRes registerWorkoutApiRes) 
+        {
+            _registerWorkoutApiRes = registerWorkoutApiRes;
+
+        }
 
         [HttpPost]
         [Route("api/[action]")]
@@ -41,34 +48,32 @@ namespace CNSL_WepService.Controllers
 
                 }
 
-                IRegisterWorkoutApiRes apiResponse = new RegisterWorkoutApiRes();
-
                 if (!ModelState.IsValid)
                 {
 
                     // Check in a Property Validation Message exists in ValidationResults list
                     if (validationErrors[0] != null)
                     {
-                        apiResponse.StatusNOK();
-                        apiResponse.SetMessage(validationErrors[0]);
+                        _registerWorkoutApiRes.StatusNOK();
+                        _registerWorkoutApiRes.SetMessage(validationErrors[0]);
 
-                        return BadRequest(apiResponse);
+                        return BadRequest(_registerWorkoutApiRes);
                     }
                     else
                     {
-                        apiResponse.StatusNOK();
-                        apiResponse.SetMessage("Model Invalid. Something went wrong. Please contact us.");
+                        _registerWorkoutApiRes.StatusNOK();
+                        _registerWorkoutApiRes.SetMessage("Model Invalid. Something went wrong. Please contact us.");
 
-                        return BadRequest(apiResponse);
+                        return BadRequest(_registerWorkoutApiRes);
 
                     }
 
 
                 } else
                 {
-                    apiResponse.StatusOK();
+                    _registerWorkoutApiRes.StatusOK();
                     // add workout to list
-                    return Ok(apiResponse);
+                    return Ok(_registerWorkoutApiRes);
 
                 }
                 

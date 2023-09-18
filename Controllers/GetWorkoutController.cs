@@ -10,7 +10,7 @@ namespace CNSL_WepService.Controllers
     [ApiController]
     public class GetWorkoutController : ControllerBase
     {
-        
+        private IGetWorkoutApiRes _getWorkoutApiRes;
 
         private readonly List<WorkoutItemModel> _todoItems = new List<WorkoutItemModel>
         {
@@ -18,6 +18,11 @@ namespace CNSL_WepService.Controllers
             new WorkoutItemModel { Id = 2, Duration = 30, Distance = 3.84, Calories = 270, Date = new DateTime(2023, 5, 3, 18, 16, 00), Cardio = true, Description = "Outside Run"},
             new WorkoutItemModel { Id = 3, Duration = 40, Distance = 8 }
         };
+
+        public GetWorkoutController(IGetWorkoutApiRes getWorkoutApiRes)
+        {
+            _getWorkoutApiRes = getWorkoutApiRes;
+        }
         
 
         [HttpPost]
@@ -47,15 +52,15 @@ namespace CNSL_WepService.Controllers
 
                 }
 
-                IGetWorkoutApiRes apiResponse = new GetWorkoutApiRes();
+                
 
                 // Bad Request if data pass is null
                 if (!ModelState.IsValid)
                 {
-                    apiResponse.StatusNOK();
-                    apiResponse.SetMessage(validationErrors[0]);
+                    _getWorkoutApiRes.StatusNOK();
+                    _getWorkoutApiRes.SetMessage(validationErrors[0]);
 
-                    return BadRequest(apiResponse);
+                    return BadRequest(_getWorkoutApiRes);
                 }
 
                 // Get workout by Id
@@ -64,16 +69,16 @@ namespace CNSL_WepService.Controllers
                 // handle case where Item Id does not exist
                 if (item_form == null)
                 {
-                    apiResponse.StatusNOK();
-                    apiResponse.SetMessage($"Item with Id = {ItemFormData.Id} does not exist");
+                    _getWorkoutApiRes.StatusNOK();
+                    _getWorkoutApiRes.SetMessage($"Item with Id = {ItemFormData.Id} does not exist");
 
-                    return NotFound(apiResponse);
+                    return NotFound(_getWorkoutApiRes);
                 }
                 else
                 {
-                    apiResponse.StatusOK();
-                    apiResponse.SetWorkoutItem(item_form);
-                    return Ok(apiResponse);
+                    _getWorkoutApiRes.StatusOK();
+                    _getWorkoutApiRes.SetWorkoutItem(item_form);
+                    return Ok(_getWorkoutApiRes);
                 }
 
             }
