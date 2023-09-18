@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using CNSL_WepService.Interfaces;
-using CNSL_WepService.Validators;
+using FitnessApp.Core.Validators.ValidationHelpers;
 
 namespace CNSL_WepService.Models
 {

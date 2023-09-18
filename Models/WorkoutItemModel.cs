@@ -1,4 +1,4 @@
-﻿using CNSL_WepService.Validators;
+﻿using FitnessApp.Core.Validators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

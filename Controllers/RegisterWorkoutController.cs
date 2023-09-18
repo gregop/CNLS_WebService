@@ -20,7 +20,7 @@ namespace CNSL_WepService.Controllers
         [HttpPost]
         [Route("api/[action]")]
         [Produces("application/json")]
-        public ActionResult<IGetWorkoutApiRes> RegisterCardioWorkout([FromForm] WorkoutItemModel WorkoutItem)
+        public ActionResult<IGetWorkoutApiRes> RegisterCardioWorkout([FromForm] RegisterWorkoutDataObject WorkoutItem)
         {
             try
             {

@@ -23,4 +23,10 @@
     <ProjectReference Include="..\DataObjects\FitnessApp.Core.DataObjects\FitnessApp.Core.DataObjects.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="FitnessApp.Core.Validators">
+      <HintPath>..\Validators\FitnessApp.Core.Validators\bin\Debug\net6.0\FitnessApp.Core.Validators.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
