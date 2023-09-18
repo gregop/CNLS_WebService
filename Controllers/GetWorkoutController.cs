@@ -2,7 +2,6 @@
 using CNSL_WepService.Models;
 using CNSL_WepService.Interfaces;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using CNSL_WepService.APIResponses;
 
 namespace CNSL_WepService.Controllers
 {
