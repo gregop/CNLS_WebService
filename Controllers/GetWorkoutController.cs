@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using CNSL_WepService.Models;
+using FitnessApp.Core.DataObjects;
 using CNSL_WepService.Interfaces;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -11,11 +11,11 @@ namespace CNSL_WepService.Controllers
     {
         private IGetWorkoutApiRes _getWorkoutApiRes;
 
-        private readonly List<WorkoutItemModel> _todoItems = new List<WorkoutItemModel>
+        private readonly List<RegisterWorkoutDataObject> _todoItems = new List<RegisterWorkoutDataObject>
         {
-            new WorkoutItemModel { Id = 1, Duration = 30, Distance = 3.58, Calories = 260, Date = new DateTime(2023, 5, 2, 18, 54, 00), Cardio = true, Description = "Tredmill Run"},
-            new WorkoutItemModel { Id = 2, Duration = 30, Distance = 3.84, Calories = 270, Date = new DateTime(2023, 5, 3, 18, 16, 00), Cardio = true, Description = "Outside Run"},
-            new WorkoutItemModel { Id = 3, Duration = 40, Distance = 8 }
+            new RegisterWorkoutDataObject { Id = 1, Duration = 30, Distance = 3.58, Calories = 260, Date = new DateTime(2023, 5, 2, 18, 54, 00), Cardio = true, Description = "Tredmill Run"},
+            new RegisterWorkoutDataObject { Id = 2, Duration = 30, Distance = 3.84, Calories = 270, Date = new DateTime(2023, 5, 3, 18, 16, 00), Cardio = true, Description = "Outside Run"},
+            new RegisterWorkoutDataObject { Id = 3, Duration = 40, Distance = 8 }
         };
 
         public GetWorkoutController(IGetWorkoutApiRes getWorkoutApiRes)
@@ -63,7 +63,7 @@ namespace CNSL_WepService.Controllers
                 }
 
                 // Get workout by Id
-                WorkoutItemModel? item_form = _todoItems.FirstOrDefault(i => i.Id == ItemFormData.Id);
+                RegisterWorkoutDataObject? item_form = _todoItems.FirstOrDefault(i => i.Id == ItemFormData.Id);
 
                 // handle case where Item Id does not exist
                 if (item_form == null)

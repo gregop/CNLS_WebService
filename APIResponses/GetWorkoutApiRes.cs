@@ -1,11 +1,6 @@
 ﻿using CNSL_WepService.Interfaces;
-using CNSL_WepService.Models;
+using FitnessApp.Core.DataObjects;
 using System.Text.Json.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CNSL_WepService.APIResponses
 {
@@ -15,14 +10,14 @@ namespace CNSL_WepService.APIResponses
 
         private string? _message;
 
-        private WorkoutItemModel? _workoutItem;
+        private RegisterWorkoutDataObject? _workoutItem;
 
         public string? Status { get { return _status; } }
 
         public string? Message { get { return _message; } }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public WorkoutItemModel WorkoutItem { get { return _workoutItem; } set { } }
+        public RegisterWorkoutDataObject WorkoutItem { get { return _workoutItem; } set { } }
 
         public void StatusOK()
         {
@@ -40,7 +35,7 @@ namespace CNSL_WepService.APIResponses
             _message = message;
         }
 
-        public void SetWorkoutItem(WorkoutItemModel workoutItem)
+        public void SetWorkoutItem(RegisterWorkoutDataObject workoutItem)
         {
             _workoutItem = workoutItem;
         }

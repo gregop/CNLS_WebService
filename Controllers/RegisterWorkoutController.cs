@@ -1,12 +1,12 @@
 ﻿using CNSL_WepService.APIResponses;
 using CNSL_WepService.Interfaces;
-using CNSL_WepService.Models;
+using FitnessApp.Core.DataObjects;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace CNSL_WepService.Controllers
 {
-    
+
     [ApiController]
     public class RegisterWorkoutController : ControllerBase
     {
