@@ -34,7 +34,7 @@ namespace CNSL_WepService
                 options.SuppressModelStateInvalidFilter = true;
             });
 
-            services.AddTransient<IGetWorkoutApiRes, IGetWorkoutApiRes>();
+            services.AddTransient<IGetWorkoutApiRes, GetWorkoutApiRes>();
             services.AddTransient<IRegisterWorkoutApiRes, RegisterWorkoutApiRes>();
 
 
