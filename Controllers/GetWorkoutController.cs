@@ -31,10 +31,6 @@ namespace CNSL_WepService.Controllers
         {
             try
             {
-                //string connectionString = System.Configuration.ConfigurationManager
-                //    .ConnectionStrings["EntityFrameworkConnectionString"].ConnectionString;
-                //Console.WriteLine(connectionString);
-
                 IEnumerable<ModelError> modelStateErrors = this.ModelState.Keys
                     .SelectMany(key => this.ModelState[key].Errors);
 

@@ -6,13 +6,13 @@ namespace CNSL_WepService.APIResponses
 {
     public class GetWorkoutApiRes : IGetWorkoutApiRes
     {
-        private string? _status;
+        private string _status;
 
         private string? _message;
 
         private RegisterWorkoutDataObject? _workoutItem;
 
-        public string? Status { get { return _status; } }
+        public string Status { get { return _status; } }
 
         public string? Message { get { return _message; } }
 

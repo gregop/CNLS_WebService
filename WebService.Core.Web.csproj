@@ -9,9 +9,9 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.10">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataObjects\FitnessApp.Core.DataObjects\FitnessApp.Core.DataObjects.csproj" />
+    <ProjectReference Include="..\ResourceAccess\FitnessApp.Core.ResourceAccess\FitnessApp.Core.ResourceAccess.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,5 +29,6 @@
       <HintPath>..\Validators\FitnessApp.Core.Validators\bin\Debug\net6.0\FitnessApp.Core.Validators.dll</HintPath>
     </Reference>
   </ItemGroup>
+
 
 </Project>

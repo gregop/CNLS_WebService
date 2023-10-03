@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using CNSL_WepService.Interfaces;
 using CNSL_WepService.APIResponses;
+using FitnessApp.Core.ResourceAccess.DbContexts;
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 namespace CNSL_WepService
 {
@@ -13,6 +16,9 @@ namespace CNSL_WepService
 
         public static void ConfigureServices(IServiceCollection services)
         {
+
+            WebApplicationBuilder builder = WebApplication.CreateBuilder();
+
             /* Validation errors automatically trigger an HTTP 400 response.
             * e.g. 
             * {
@@ -33,6 +39,17 @@ namespace CNSL_WepService
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
+
+            /*
+             * DBContexts             
+             */
+            services.AddDbContext<WorkoutItemDbContext>(options =>
+            {
+                options.UseSqlServer(ConfigurationManager
+                    .ConnectionStrings["EntityFrameworkConnectionString"]
+                    .ConnectionString);
+            });
+
 
             services.AddTransient<IGetWorkoutApiRes, GetWorkoutApiRes>();
             services.AddTransient<IRegisterWorkoutApiRes, RegisterWorkoutApiRes>();
