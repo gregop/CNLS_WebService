@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Mappers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataObjects\FitnessApp.Core.DataObjects\FitnessApp.Core.DataObjects.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="FitnessApp.Core.Validators">
+      <HintPath>..\..\Validators\FitnessApp.Core.Validators\bin\Debug\net6.0\FitnessApp.Core.Validators.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
