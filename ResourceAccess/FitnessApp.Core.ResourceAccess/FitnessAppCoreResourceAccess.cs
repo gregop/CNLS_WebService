@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace FitnessApp.Core.ResourceAccess
 {
@@ -23,8 +24,33 @@ namespace FitnessApp.Core.ResourceAccess
         {
             try
             {
-                WorkoutItemModel model = MapWorkoutItemDataObjectToModel(dataObject);
-                _dbContext.Add(model);
+                WorkoutItemModel? model = null;
+
+                // retrieve from DB:WORKOUITEM all instances with the id = dataObject.Id
+                IQueryable<WorkoutItemModel> queryResult = (from s in _dbContext.WorkoutItem select s)
+                    .Where(a =>  a.Id == dataObject.Id);
+                model = await queryResult.FirstOrDefaultAsync();
+
+                if (model != null)
+                {
+                    model = await queryResult.FirstAsync();
+
+                    model.Duration = dataObject.Duration;
+                    model.Distance = dataObject.Distance;
+                    model.Calories = dataObject.Calories;
+                    model.Date = dataObject.Date;
+                    model.Cardio = dataObject.Cardio;
+                    model.Description = dataObject.Description;
+
+                    _dbContext.Entry(model).State = EntityState.Modified;
+
+
+                } else {
+
+                    model = MapWorkoutItemDataObjectToModel(dataObject);
+                    _dbContext.Add(model);
+                }
+
                 await _dbContext.SaveChangesAsync();
 
                 return new OperationalResult();

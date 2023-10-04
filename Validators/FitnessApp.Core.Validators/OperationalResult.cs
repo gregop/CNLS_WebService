@@ -4,21 +4,21 @@
     {
         public bool IsSuccessfulOperation { get; protected set; }
         public string? FailureMessage { get; protected set; }
-        public Exception? exception { get; protected set; }
+        public Exception? Exception { get; protected set; }
         public object? Data { get; protected set; }
 
         public OperationalResult() 
         {
             IsSuccessfulOperation = true;
             FailureMessage = null;
-            exception = null;
+            Exception = null;
             Data = null;
         }
         public OperationalResult(object data)
         {
             IsSuccessfulOperation = true;
             FailureMessage = null;
-            exception = null;
+            Exception = null;
             Data = data;
         }
 
@@ -26,7 +26,7 @@
         {
             IsSuccessfulOperation = false;
             FailureMessage = messsage;
-            exception = null;
+            Exception = null;
             Data = null;
         }
 
@@ -34,7 +34,7 @@
         {
             IsSuccessfulOperation = false;
             FailureMessage = ex.Message;
-            exception = ex;
+            Exception = ex;
             Data = null;
         }
 
