@@ -62,6 +62,35 @@ namespace FitnessApp.Core.ResourceAccess
             
         } 
 
+        public async Task<OperationalResult> GetWorkoutItemAsync(WorkoutItemDataObject dataObject)
+        {
+
+            try
+            {
+                WorkoutItemModel? model = null;
+
+                IQueryable<WorkoutItemModel> queryResult = (from s in _dbContext.WorkoutItem select s)
+                    .Where(a => a.Id == dataObject.Id);
+
+                model = await queryResult.FirstOrDefaultAsync();
+
+                if (model != null)
+                {
+                    return new OperationalResult();
+                } else
+                {
+                    return new OperationalResult("WorkoutItem not found");
+                }
+
+                
+
+            } catch (Exception ex)
+            {
+                return new OperationalResult(ex);
+            }
+
+        }
+
         private WorkoutItemModel MapWorkoutItemDataObjectToModel(WorkoutItemDataObject dataObject)
         {
             WorkoutItemModel model = new WorkoutItemModel();
