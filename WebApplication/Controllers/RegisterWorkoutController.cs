@@ -1,6 +1,8 @@
 ﻿using CNSL_WepService.APIResponses;
 using CNSL_WepService.Interfaces;
 using FitnessApp.Core.DataObjects;
+using FitnessApp.Core.ResourceAccess;
+using FitnessApp.Core.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -11,16 +13,20 @@ namespace CNSL_WepService.Controllers
     public class RegisterWorkoutController : ControllerBase
     {
         private IRegisterWorkoutApiRes _registerWorkoutApiRes;
-        public RegisterWorkoutController(IRegisterWorkoutApiRes registerWorkoutApiRes) 
+        private readonly FitnessAppCoreResourceAccess _fitnessAppCoreResourceAccess;
+
+        public RegisterWorkoutController(IRegisterWorkoutApiRes registerWorkoutApiRes, 
+            FitnessAppCoreResourceAccess fitnessAppCoreResourceAccess) 
         {
             _registerWorkoutApiRes = registerWorkoutApiRes;
+            _fitnessAppCoreResourceAccess = fitnessAppCoreResourceAccess;
 
         }
 
         [HttpPost]
         [Route("api/[action]")]
         [Produces("application/json")]
-        public ActionResult<IGetWorkoutApiRes> RegisterCardioWorkout([FromForm] RegisterWorkoutDataObject WorkoutItem)
+        public ActionResult<IGetWorkoutApiRes> RegisterCardioWorkout([FromForm] WorkoutItemDataObject WorkoutItem)
         {
             try
             {
@@ -45,7 +51,7 @@ namespace CNSL_WepService.Controllers
                 if (!ModelState.IsValid)
                 {
 
-                    // Check in a Property Validation Message exists in ValidationResults list
+                    // Check if a Property Validation Message exists in ValidationResults list
                     if (validationErrors[0] != null)
                     {
                         _registerWorkoutApiRes.StatusNOK();
@@ -65,9 +71,24 @@ namespace CNSL_WepService.Controllers
 
                 } else
                 {
-                    _registerWorkoutApiRes.StatusOK();
-                    // add workout to list
-                    return Ok(_registerWorkoutApiRes);
+                    
+                    // add workout to Db
+                    Task<OperationalResult<WorkoutItemDataObject>> result = _fitnessAppCoreResourceAccess.LogWorkoutItemAsync(WorkoutItem);
+
+                    if (result.Result.Data != null && result.Result.IsSuccessfulOperation)
+                    {
+                        _registerWorkoutApiRes.StatusOK(result.Result.Data.WorkoutId);
+                        return Ok(_registerWorkoutApiRes);
+                    } 
+                    else
+                    {
+                        _registerWorkoutApiRes.StatusNOK();
+                        _registerWorkoutApiRes.SetMessage("Model Invalid. Something went wrong. Please contact us.");
+
+                        return BadRequest(_registerWorkoutApiRes);
+                    }
+
+                    
 
                 }
                 

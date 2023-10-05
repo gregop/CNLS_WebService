@@ -1,5 +1,6 @@
 ﻿using CNSL_WepService.Interfaces;
 using CNSL_WepService.Models;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,15 +16,20 @@ namespace CNSL_WepService.APIResponses
 
         private string? _message;
 
+        private int _workoutId;
+
         public string? Status { get { return _status; } }
 
         public string? Message { get { return _message; } }
 
+        public int WorkoutId { get { return _workoutId; } }
 
-        public void StatusOK()
+
+        public void StatusOK(int WorkoutId)
         {
             _status = "Success";
             _message = "Workout Item successfully stored";
+            _workoutId = WorkoutId;
         }
 
         public void StatusNOK()

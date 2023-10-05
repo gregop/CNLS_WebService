@@ -28,7 +28,7 @@ namespace FitnessApp.Core.ResourceAccess
 
                 // retrieve from DB:WORKOUITEM all instances with the id = dataObject.Id
                 IQueryable<WorkoutItemModel> queryResult = (from s in _dbContext.WorkoutItem select s)
-                    .Where(a =>  a.Id == dataObject.Id);
+                    .Where(a =>  a.WorkoutId == dataObject.Id);
                 model = await queryResult.FirstOrDefaultAsync();
 
                 if (model != null)
@@ -70,7 +70,7 @@ namespace FitnessApp.Core.ResourceAccess
                 WorkoutItemModel? model = null;
 
                 IQueryable<WorkoutItemModel> queryResult = (from s in _dbContext.WorkoutItem select s)
-                    .Where(a => a.Id == dataObject.Id);
+                    .Where(a => a.WorkoutId == dataObject.Id);
 
                 model = await queryResult.FirstOrDefaultAsync();
 
@@ -98,7 +98,7 @@ namespace FitnessApp.Core.ResourceAccess
         {
             WorkoutItemModel model = new WorkoutItemModel();
 
-            model.Id = dataObject.Id;
+            model.WorkoutId = dataObject.Id;
             model.Duration = dataObject.Duration;
             model.Distance = dataObject.Distance;
             model.Calories = dataObject.Calories;
@@ -113,7 +113,8 @@ namespace FitnessApp.Core.ResourceAccess
         {
             WorkoutItemDataObject dataObject = new WorkoutItemDataObject();
 
-            dataObject.Id = model.Id;
+            dataObject.Id = model.WorkoutId;
+            dataObject.WorkoutId = model.Id;
             dataObject.Duration = model.Duration;
             dataObject.Distance = model.Distance;
             dataObject.Calories = model.Calories;

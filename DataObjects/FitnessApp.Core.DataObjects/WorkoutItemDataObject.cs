@@ -13,6 +13,8 @@ namespace FitnessApp.Core.DataObjects
         [StrictlyPositiveProperty("Id")]
         public int Id { get; set; }
 
+        public int WorkoutId { get; set; }
+
         [Required]
         [StrictlyPositiveProperty("duration")]
         public int Duration { get; set; }

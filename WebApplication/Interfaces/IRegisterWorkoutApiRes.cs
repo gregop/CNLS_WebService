@@ -11,7 +11,8 @@ namespace CNSL_WepService.Interfaces
         string Status { get; }
 
         string Message { get; }
-        void StatusOK();
+        int WorkoutId { get;  }
+        void StatusOK(int WorkoutId);
 
         void StatusNOK();
 

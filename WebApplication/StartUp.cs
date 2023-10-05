@@ -8,6 +8,7 @@ using CNSL_WepService.APIResponses;
 using FitnessApp.Core.ResourceAccess.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
+using FitnessApp.Core.ResourceAccess;
 
 namespace CNSL_WepService
 {
@@ -46,13 +47,14 @@ namespace CNSL_WepService
             services.AddDbContext<WorkoutItemDbContext>(options =>
             {
                 options.UseSqlServer(ConfigurationManager
-                    .ConnectionStrings["EntityFrameworkConnectionString"]
+                    .ConnectionStrings["FitnessWebServiceDb"]
                     .ConnectionString);
             });
 
 
             services.AddTransient<IGetWorkoutApiRes, GetWorkoutApiRes>();
             services.AddTransient<IRegisterWorkoutApiRes, RegisterWorkoutApiRes>();
+            services.AddTransient<FitnessAppCoreResourceAccess>();
 
 
             Console.WriteLine("ConfigureServices");
