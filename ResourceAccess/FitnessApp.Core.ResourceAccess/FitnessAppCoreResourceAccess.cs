@@ -20,7 +20,7 @@ namespace FitnessApp.Core.ResourceAccess
             _dbContext = dbContext;
         }
 
-        public async Task<OperationalResult> LogWorkoutItemAsync(WorkoutItemDataObject dataObject)
+        public async Task<OperationalResult<WorkoutItemDataObject>> LogWorkoutItemAsync(WorkoutItemDataObject dataObject)
         {
             try
             {
@@ -53,16 +53,16 @@ namespace FitnessApp.Core.ResourceAccess
 
                 await _dbContext.SaveChangesAsync();
 
-                return new OperationalResult();
+                return OperationalResult<WorkoutItemDataObject>.SuccessResult(MapWorkoutItemModelToDataObject(model));
 
             } catch (Exception ex)
             {
-                return new OperationalResult(ex);
+                return OperationalResult<WorkoutItemDataObject>.FailureResult(ex);
             }
             
         } 
 
-        public async Task<OperationalResult> GetWorkoutItemAsync(WorkoutItemDataObject dataObject)
+        public async Task<OperationalResult<WorkoutItemDataObject>> GetWorkoutItemAsync(WorkoutItemDataObject dataObject)
         {
 
             try
@@ -74,19 +74,22 @@ namespace FitnessApp.Core.ResourceAccess
 
                 model = await queryResult.FirstOrDefaultAsync();
 
+
                 if (model != null)
                 {
-                    return new OperationalResult();
-                } else
+                    return OperationalResult<WorkoutItemDataObject>.SuccessResult(MapWorkoutItemModelToDataObject(model));
+
+                } 
+                else
                 {
-                    return new OperationalResult("WorkoutItem not found");
+                    return OperationalResult<WorkoutItemDataObject>.FailureResult("WorkoutItem not found");
                 }
 
                 
 
             } catch (Exception ex)
             {
-                return new OperationalResult(ex);
+                return OperationalResult<WorkoutItemDataObject>.FailureResult(ex);
             }
 
         }
