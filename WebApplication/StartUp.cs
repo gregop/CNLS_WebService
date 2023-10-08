@@ -54,7 +54,7 @@ namespace CNSL_WepService
 
             services.AddTransient<IGetWorkoutApiRes, GetWorkoutApiRes>();
             services.AddTransient<IRegisterWorkoutApiRes, RegisterWorkoutApiRes>();
-            services.AddTransient<FitnessAppCoreResourceAccess>();
+            services.AddTransient<WorkoutItemResourceAccess>();
 
 
             Console.WriteLine("ConfigureServices");

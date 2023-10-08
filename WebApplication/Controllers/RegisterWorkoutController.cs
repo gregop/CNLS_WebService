@@ -13,10 +13,10 @@ namespace CNSL_WepService.Controllers
     public class RegisterWorkoutController : ControllerBase
     {
         private IRegisterWorkoutApiRes _registerWorkoutApiRes;
-        private readonly FitnessAppCoreResourceAccess _fitnessAppCoreResourceAccess;
+        private readonly WorkoutItemResourceAccess _fitnessAppCoreResourceAccess;
 
         public RegisterWorkoutController(IRegisterWorkoutApiRes registerWorkoutApiRes, 
-            FitnessAppCoreResourceAccess fitnessAppCoreResourceAccess) 
+            WorkoutItemResourceAccess fitnessAppCoreResourceAccess) 
         {
             _registerWorkoutApiRes = registerWorkoutApiRes;
             _fitnessAppCoreResourceAccess = fitnessAppCoreResourceAccess;

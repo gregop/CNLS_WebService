@@ -2,6 +2,8 @@
 using FitnessApp.Core.DataObjects;
 using CNSL_WepService.Interfaces;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using FitnessApp.Core.ResourceAccess;
+using FitnessApp.Core.Validators;
 
 namespace CNSL_WepService.Controllers
 {
@@ -10,6 +12,7 @@ namespace CNSL_WepService.Controllers
     public class GetWorkoutController : ControllerBase
     {
         private IGetWorkoutApiRes _getWorkoutApiRes;
+        private readonly WorkoutItemResourceAccess _workoutItemContext;
 
         private readonly List<RegisterWorkoutDataObject> _todoItems = new List<RegisterWorkoutDataObject>
         {
@@ -18,16 +21,17 @@ namespace CNSL_WepService.Controllers
             new RegisterWorkoutDataObject { Id = 3, Duration = 40, Distance = 8 }
         };
 
-        public GetWorkoutController(IGetWorkoutApiRes getWorkoutApiRes)
+        public GetWorkoutController(IGetWorkoutApiRes getWorkoutApiRes, WorkoutItemResourceAccess workoutItemContext)
         {
             _getWorkoutApiRes = getWorkoutApiRes;
+            _workoutItemContext = workoutItemContext;
         }
         
 
         [HttpPost]
         [Route("api/[action]")]
         [Produces("application/json")]
-        public ActionResult<IGetWorkoutApiRes> GetWorkout([FromForm] GetWorkoutById ItemFormData)
+        public ActionResult<IGetWorkoutApiRes> GetWorkout([FromForm] GetWorkoutByIdDataObject ItemFormData)
         {
             try
             {
@@ -56,24 +60,37 @@ namespace CNSL_WepService.Controllers
                     _getWorkoutApiRes.SetMessage(validationErrors[0]);
 
                     return BadRequest(_getWorkoutApiRes);
-                }
-
-                // Get workout by Id
-                RegisterWorkoutDataObject? item_form = _todoItems.FirstOrDefault(i => i.Id == ItemFormData.Id);
-
-                // handle case where Item Id does not exist
-                if (item_form == null)
-                {
-                    _getWorkoutApiRes.StatusNOK();
-                    _getWorkoutApiRes.SetMessage($"Item with Id = {ItemFormData.Id} does not exist");
-
-                    return NotFound(_getWorkoutApiRes);
-                }
+                } 
                 else
                 {
-                    _getWorkoutApiRes.StatusOK();
-                    _getWorkoutApiRes.SetWorkoutItem(item_form);
-                    return Ok(_getWorkoutApiRes);
+                    
+                    // Query Db and get the workout item 
+                    Task<OperationalResult<WorkoutItemDataObject>> result = _workoutItemContext.GetWorkoutItemAsync(new WorkoutItemDataObject { Id = ItemFormData.Id });
+
+                    if (result.Result.IsSuccessfulOperation && result.Result.Data != null)
+                    {
+                        WorkoutItemDataObject res = result.Result.Data;
+
+                        _getWorkoutApiRes.StatusOK();
+                        _getWorkoutApiRes.SetWorkoutItem(res);
+                        return Ok(_getWorkoutApiRes);
+
+                    }
+                    else
+                    {
+                        if (result.Result.FailureMessage != null && result.Result.Data == null)
+                        {
+                            _getWorkoutApiRes.StatusNOK();
+                            _getWorkoutApiRes.SetMessage(result.Result.FailureMessage.ToString());
+
+                            return NotFound(_getWorkoutApiRes);
+                        }
+
+                    }
+                    _getWorkoutApiRes.StatusNOK();
+                    _getWorkoutApiRes.SetMessage(result.Result.Exception.ToString());
+                    return BadRequest(_getWorkoutApiRes);
+                        
                 }
 
             }

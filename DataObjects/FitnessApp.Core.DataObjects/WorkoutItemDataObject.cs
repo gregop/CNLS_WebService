@@ -21,7 +21,7 @@ namespace FitnessApp.Core.DataObjects
 
         [Required]
         [StrictlyPositiveProperty("distance")]
-        public double Distance { get; set; }
+        public int Distance { get; set; }
 
         [StrictlyPositiveProperty("calories")]
         public int Calories { get; set; }

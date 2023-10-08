@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FitnessApp.Core.Validators;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace FitnessApp.Core.DataObjects
 {
-    internal class GetWorkoutDataObject
+    public class GetWorkoutByIdDataObject
     {
+        [Required]
+        [StrictlyPositiveProperty("Id")]
+        public int Id { get; set; }
     }
 }

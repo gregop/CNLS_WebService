@@ -32,11 +32,4 @@ namespace FitnessApp.Core.DataObjects
 
     }
 
-
-    public class GetWorkoutById
-    {
-        [Required]
-        [StrictlyPositiveProperty("Id")]
-        public int Id { get; set; }
-    }
 }

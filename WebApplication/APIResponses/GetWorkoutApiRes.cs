@@ -10,14 +10,14 @@ namespace CNSL_WepService.APIResponses
 
         private string? _message;
 
-        private RegisterWorkoutDataObject? _workoutItem;
+        private WorkoutItemDataObject? _workoutItem;
 
         public string Status { get { return _status; } }
 
         public string? Message { get { return _message; } }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public RegisterWorkoutDataObject WorkoutItem { get { return _workoutItem; } set { } }
+        public WorkoutItemDataObject WorkoutItem { get { return _workoutItem; } set { } }
 
         public void StatusOK()
         {
@@ -35,10 +35,11 @@ namespace CNSL_WepService.APIResponses
             _message = message;
         }
 
-        public void SetWorkoutItem(RegisterWorkoutDataObject workoutItem)
+        public void SetWorkoutItem(WorkoutItemDataObject workoutItem)
         {
             _workoutItem = workoutItem;
         }
+
     }
 
 }
