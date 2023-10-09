@@ -3,12 +3,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
 using CNSL_WepService.Interfaces;
 using CNSL_WepService.APIResponses;
 using FitnessApp.Core.ResourceAccess.DbContexts;
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
+using sysCongif = System.Configuration;
 using FitnessApp.Core.ResourceAccess;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CNSL_WepService
 {
@@ -18,7 +21,7 @@ namespace CNSL_WepService
         public static void ConfigureServices(IServiceCollection services)
         {
 
-            WebApplicationBuilder builder = WebApplication.CreateBuilder();
+            //WebApplicationBuilder builder = WebApplication.CreateBuilder();
 
             /* Validation errors automatically trigger an HTTP 400 response.
             * e.g. 
@@ -46,7 +49,7 @@ namespace CNSL_WepService
              */
             services.AddDbContext<WorkoutItemDbContext>(options =>
             {
-                options.UseSqlServer(ConfigurationManager
+                options.UseSqlServer(sysCongif.ConfigurationManager
                     .ConnectionStrings["FitnessWebServiceDb"]
                     .ConnectionString);
             });
@@ -84,7 +87,29 @@ namespace CNSL_WepService
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     Console.WriteLine("Initiating WebBuilder");
-                    webBuilder.UseStartup<StartUp>();
+
+                    // Adding hosting.json to configuration from Project Directory
+                    IConfigurationBuilder configuration = new ConfigurationBuilder()
+                        .SetBasePath(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName)
+                        .AddJsonFile($"hosting.json");
+
+                    // Build hosting configuration
+                    IConfiguration hostConfig = configuration.Build();
+
+                    try
+                    {
+                        // retreiving host url
+                        string hostUrl = hostConfig["hosts:default"].ToString();
+                        webBuilder.UseStartup<StartUp>();
+                        webBuilder.UseUrls(hostUrl);
+
+                    } catch (Exception ex) 
+                    {
+                        Console.WriteLine(ex.ToString());
+                        Console.WriteLine("Couldn't retrieve host. Check hosting.json file");
+                        System.Environment.Exit(1);
+                    }
+                  
                 })
                 .Build();
 
