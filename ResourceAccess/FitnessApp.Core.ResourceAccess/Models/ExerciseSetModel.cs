@@ -12,12 +12,16 @@ namespace FitnessApp.Core.ResourceAccess.Models
         [StrictlyPositiveProperty("Id")]
         public int Id { get; set; }
 
+        [StrictlyPositiveProperty("ExerciseHistoryId")]
         public int ExerciseHistoryId { get; set; }
 
-        [StrictlyPositiveProperty("Id")]
+        [StrictlyPositiveProperty("WorkoutId")]
+        public int WorkoutId { get; set; }
+
+        [StrictlyPositiveProperty("Reps")]
         public int Reps { get; set; }
 
-        [StrictlyPositiveProperty("Id")]
+        [StrictlyPositiveProperty("Kg")]
         public double Kg { get; set; }
     }
 }
