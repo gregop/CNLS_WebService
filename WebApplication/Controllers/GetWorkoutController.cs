@@ -14,13 +14,6 @@ namespace CNSL_WepService.Controllers
         private IGetWorkoutApiRes _getWorkoutApiRes;
         private readonly WorkoutItemResourceAccess _workoutItemContext;
 
-        private readonly List<RegisterWorkoutDataObject> _todoItems = new List<RegisterWorkoutDataObject>
-        {
-            new RegisterWorkoutDataObject { Id = 1, Duration = 30, Distance = 3.58, Calories = 260, Date = new DateTime(2023, 5, 2, 18, 54, 00), Cardio = true, Description = "Tredmill Run"},
-            new RegisterWorkoutDataObject { Id = 2, Duration = 30, Distance = 3.84, Calories = 270, Date = new DateTime(2023, 5, 3, 18, 16, 00), Cardio = true, Description = "Outside Run"},
-            new RegisterWorkoutDataObject { Id = 3, Duration = 40, Distance = 8 }
-        };
-
         public GetWorkoutController(IGetWorkoutApiRes getWorkoutApiRes, WorkoutItemResourceAccess workoutItemContext)
         {
             _getWorkoutApiRes = getWorkoutApiRes;
