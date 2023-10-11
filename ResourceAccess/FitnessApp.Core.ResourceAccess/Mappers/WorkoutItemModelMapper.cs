@@ -1,6 +1,10 @@
 ﻿using FitnessApp.Core.DataObjects;
+using FitnessApp.Core.ResourceAccess.Models;
 
-namespace FitnessApp.Core.ResourceAccess.Models
+#pragma warning disable IDE0017 // Simplify object initialization
+#pragma warning disable IDE0090 // Use 'new(...)'
+
+namespace FitnessApp.Core.ResourceAccess.Mappers
 {
     public class WorkoutItemModelMapper
     {
@@ -24,6 +28,7 @@ namespace FitnessApp.Core.ResourceAccess.Models
 
         public static WorkoutItemDataObject MapWorkoutItemModelToDataObject(WorkoutItemModel model)
         {
+
             WorkoutItemDataObject dataObject = new WorkoutItemDataObject();
 
             dataObject.Id = model.WorkoutId;

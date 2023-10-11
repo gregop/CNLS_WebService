@@ -5,13 +5,15 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using FitnessApp.Core.ResourceAccess;
 using FitnessApp.Core.Validators;
 
+#pragma warning disable IDE0090 // Use 'new(...)'
+
 namespace CNSL_WepService.Controllers
 {
     
     [ApiController]
     public class GetWorkoutController : ControllerBase
     {
-        private IGetWorkoutApiRes _getWorkoutApiRes;
+        private readonly IGetWorkoutApiRes _getWorkoutApiRes;
         private readonly WorkoutItemResourceAccess _workoutItemContext;
 
         public GetWorkoutController(IGetWorkoutApiRes getWorkoutApiRes, WorkoutItemResourceAccess workoutItemContext)

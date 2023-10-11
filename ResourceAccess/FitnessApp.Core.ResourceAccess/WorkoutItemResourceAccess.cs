@@ -2,12 +2,8 @@
 using FitnessApp.Core.ResourceAccess.Models;
 using FitnessApp.Core.Validators;
 using FitnessApp.Core.DataObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using FitnessApp.Core.ResourceAccess.Mappers;
 
 namespace FitnessApp.Core.ResourceAccess
 {
