@@ -1,7 +1,7 @@
 ﻿using FitnessApp.Core.Validators;
 
 
-namespace FitnessApp.Core.DataObjects
+namespace FitnessApp.Core.DataObjects.Users
 {
     public class UserDataObject
     {
