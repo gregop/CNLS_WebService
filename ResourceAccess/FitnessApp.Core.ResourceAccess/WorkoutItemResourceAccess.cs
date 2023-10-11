@@ -48,13 +48,13 @@ namespace FitnessApp.Core.ResourceAccess
 
                 } else {
 
-                    model = MapWorkoutItemDataObjectToModel(dataObject);
+                    model = WorkoutItemModelMapper.MapWorkoutItemDataObjectToModel(dataObject);
                     _dbContext.Add(model);
                 }
 
                 await _dbContext.SaveChangesAsync();
 
-                return OperationalResult<WorkoutItemDataObject>.SuccessResult(MapWorkoutItemModelToDataObject(model));
+                return OperationalResult<WorkoutItemDataObject>.SuccessResult(WorkoutItemModelMapper.MapWorkoutItemModelToDataObject(model));
 
             } catch (Exception ex)
             {
@@ -78,7 +78,7 @@ namespace FitnessApp.Core.ResourceAccess
 
                 if (model != null)
                 {
-                    return OperationalResult<WorkoutItemDataObject>.SuccessResult(MapWorkoutItemModelToDataObject(model));
+                    return OperationalResult<WorkoutItemDataObject>.SuccessResult(WorkoutItemModelMapper.MapWorkoutItemModelToDataObject(model));
 
                 } 
                 else
@@ -95,38 +95,7 @@ namespace FitnessApp.Core.ResourceAccess
 
         }
 
-        private static WorkoutItemModel MapWorkoutItemDataObjectToModel(WorkoutItemDataObject dataObject)
-        {
-            WorkoutItemModel model = new WorkoutItemModel();
-
-            model.WorkoutId = dataObject.Id;
-            model.UserId = dataObject.Id;
-            model.Duration = dataObject.Duration;
-            model.Distance = dataObject.Distance;
-            model.Calories = dataObject.Calories;
-            model.Date = dataObject.Date;
-            model.Cardio = dataObject.Cardio;
-            model.Description = dataObject.Description;
-
-            return model;
-        }
-
-        private static WorkoutItemDataObject MapWorkoutItemModelToDataObject(WorkoutItemModel model)
-        {
-            WorkoutItemDataObject dataObject = new WorkoutItemDataObject();
-
-            dataObject.Id = model.WorkoutId;
-            dataObject.WorkoutId = model.Id;
-            dataObject.UserId = model.UserId;
-            dataObject.Duration = model.Duration;
-            dataObject.Distance = model.Distance;
-            dataObject.Calories = model.Calories;
-            dataObject.Date = model.Date;
-            dataObject.Cardio = model.Cardio;
-            dataObject.Description = model.Description;
-
-            return dataObject;
-        }
+        
 
     }
 }
