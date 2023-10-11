@@ -11,6 +11,6 @@ namespace FitnessApp.Core.ResourceAccess.DbContexts
 
         public DbSet<UserModel> Users { get; set; }
 
-        public DbSet<UserLoginActivityModel> UserLoginActivities { get; set; }
+        public DbSet<UserLoginActivityModel> UsersLoginActivity { get; set; }
     }
 }

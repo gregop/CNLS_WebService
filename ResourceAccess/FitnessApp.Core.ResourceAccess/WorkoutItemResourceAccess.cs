@@ -41,6 +41,7 @@ namespace FitnessApp.Core.ResourceAccess
                     model.Date = dataObject.Date;
                     model.Cardio = dataObject.Cardio;
                     model.Description = dataObject.Description;
+                    model.UserId = dataObject.UserId;
 
                     _dbContext.Entry(model).State = EntityState.Modified;
 
@@ -99,6 +100,7 @@ namespace FitnessApp.Core.ResourceAccess
             WorkoutItemModel model = new WorkoutItemModel();
 
             model.WorkoutId = dataObject.Id;
+            model.UserId = dataObject.Id;
             model.Duration = dataObject.Duration;
             model.Distance = dataObject.Distance;
             model.Calories = dataObject.Calories;
@@ -115,6 +117,7 @@ namespace FitnessApp.Core.ResourceAccess
 
             dataObject.Id = model.WorkoutId;
             dataObject.WorkoutId = model.Id;
+            dataObject.UserId = model.UserId;
             dataObject.Duration = model.Duration;
             dataObject.Distance = model.Distance;
             dataObject.Calories = model.Calories;

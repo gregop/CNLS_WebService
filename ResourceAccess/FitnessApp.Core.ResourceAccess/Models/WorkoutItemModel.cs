@@ -8,8 +8,13 @@ namespace FitnessApp.Core.ResourceAccess.Models
         [StrictlyPositiveProperty("Id")]
         public int Id { get; set; }
 
+        [Required]
         [StrictlyPositiveProperty("WorkoutId")]
         public int WorkoutId { get; set; }
+
+        [Required]
+        [StrictlyPositiveProperty("UserId")]
+        public int UserId { get; set; }
 
         [Required]
         [StrictlyPositiveProperty("duration")]
