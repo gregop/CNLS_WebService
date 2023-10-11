@@ -44,13 +44,13 @@ namespace FitnessApp.Core.ResourceAccess
 
                 } else {
 
-                    model = WorkoutItemModelMapper.MapWorkoutItemDataObjectToModel(dataObject);
+                    model = WorkoutItemModelMapper.MapWorkoutItemDataObjectToModel(dataObject).Data;
                     _dbContext.Add(model);
                 }
 
                 await _dbContext.SaveChangesAsync();
 
-                return OperationalResult<WorkoutItemDataObject>.SuccessResult(WorkoutItemModelMapper.MapWorkoutItemModelToDataObject(model));
+                return OperationalResult<WorkoutItemDataObject>.SuccessResult(WorkoutItemModelMapper.MapWorkoutItemModelToDataObject(model).Data);
 
             } catch (Exception ex)
             {
@@ -74,7 +74,7 @@ namespace FitnessApp.Core.ResourceAccess
 
                 if (model != null)
                 {
-                    return OperationalResult<WorkoutItemDataObject>.SuccessResult(WorkoutItemModelMapper.MapWorkoutItemModelToDataObject(model));
+                    return OperationalResult<WorkoutItemDataObject>.SuccessResult(WorkoutItemModelMapper.MapWorkoutItemModelToDataObject(model).Data);
 
                 } 
                 else
