@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FitnessApp.Core.ResourceAccess.Models
 {
-    public class ExerciseItemHistoryModel
+    public class WorkoutExercisesHistoryModel
     {
         [StrictlyPositiveProperty("Id")]
         public int Id { get; set; }
@@ -15,11 +15,13 @@ namespace FitnessApp.Core.ResourceAccess.Models
         [StrictlyPositiveProperty("WorkoutId")]
         public int WorkoutId { get; set; }
 
+        [StrictlyPositiveProperty("UserId")]
+        public int UserId { get; set; }
+
         [StrictlyPositiveProperty("ExerciseId")]
         public int ExerciseId { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime DateCreated { get; set; }
 
-        public List<ExerciseSetModel> ExerciseSets { get; set; }
     }
 }

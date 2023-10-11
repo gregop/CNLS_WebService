@@ -23,5 +23,7 @@ namespace FitnessApp.Core.ResourceAccess.Models
 
         [StrictlyPositiveProperty("Kg")]
         public double Kg { get; set; }
+
+        public DateTime DateCreated { get; set; } 
     }
 }

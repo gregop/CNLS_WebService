@@ -12,7 +12,7 @@ namespace FitnessApp.Core.ResourceAccess.DbContexts
 
         public DbSet<ExerciseItemModel> ExerciseItems { get; set; }
 
-        public DbSet<ExerciseItemHistoryModel>  ExerciseItemsHistory { get; set; }
+        public DbSet<WorkoutExercisesHistoryModel>  ExerciseItemsHistory { get; set; }
 
         public DbSet<ExerciseSetModel> ExerciseSets { get; set; }
     }
