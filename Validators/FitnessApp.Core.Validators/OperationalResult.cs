@@ -27,7 +27,7 @@ namespace FitnessApp.Core.Validators
         public OperationalResult(Exception ex)
         {
             IsSuccessfulOperation = false;
-            FailureMessage = ex.Message;
+            FailureMessage = ex.Message.ToString();
             Exception = ex;
         }
 
