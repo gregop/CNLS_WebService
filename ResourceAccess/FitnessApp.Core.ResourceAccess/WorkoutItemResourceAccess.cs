@@ -45,7 +45,11 @@ namespace FitnessApp.Core.ResourceAccess
                 } else {
 
                     model = WorkoutItemModelMapper.MapWorkoutItemDataObjectToModel(dataObject).Data;
-                    _dbContext.Add(model);
+                    if (model != null)
+                    {
+                        _dbContext.Add(model);
+                    }
+                    
                 }
 
                 await _dbContext.SaveChangesAsync();
