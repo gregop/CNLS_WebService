@@ -21,7 +21,7 @@ namespace FitnessApp.Core.ResourceAccess
         {
             try
             {
-                ExerciseItemModel model = null;
+                ExerciseItemModel? model = null;
 
                 IQueryable<ExerciseItemModel> queryResult = (from s in _dbContext.ExerciseItems select s)
                     .Where(a => a.Id == dataObject.Id);
