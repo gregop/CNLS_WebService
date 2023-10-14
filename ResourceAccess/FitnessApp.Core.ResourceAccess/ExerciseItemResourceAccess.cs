@@ -41,7 +41,7 @@ namespace FitnessApp.Core.ResourceAccess
                 } 
                 else
                 {
-                    model = ExerciseItemModelMapper.MapExerciseItemDataObjectToModel(dataObject).Data;
+                    model = ExerciseItemModelMapper.MapExerciseItemDataObjectToModel(dataObject);
 
                     if (model != null)
                     {
@@ -52,7 +52,7 @@ namespace FitnessApp.Core.ResourceAccess
 
                 _dbContext.SaveChanges();
 
-                return OperationalResult<ExerciseItemDataObject>.SuccessResult(ExerciseItemModelMapper.MapExerciseItemModelToDataObject(model).Data);
+                return OperationalResult<ExerciseItemDataObject>.SuccessResult(ExerciseItemModelMapper.MapExerciseItemModelToDataObject(model));
 
 
             }
@@ -86,7 +86,7 @@ namespace FitnessApp.Core.ResourceAccess
 
                     foreach (ExerciseItemModel m in models)
                     {
-                        ExerciseItemDataObject obj = ExerciseItemModelMapper.MapExerciseItemModelToDataObject(m).Data;
+                        ExerciseItemDataObject obj = ExerciseItemModelMapper.MapExerciseItemModelToDataObject(m);
                         objects.Add(obj);
                     }
 

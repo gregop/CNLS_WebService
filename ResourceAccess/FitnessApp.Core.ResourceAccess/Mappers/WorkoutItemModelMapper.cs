@@ -1,20 +1,24 @@
 ﻿using FitnessApp.Core.DataObjects;
 using FitnessApp.Core.ResourceAccess.Models;
 using FitnessApp.Core.Validators;
+using System.Text.RegularExpressions;
 
 #pragma warning disable IDE0090 // Use 'new(...)'
 
 namespace FitnessApp.Core.ResourceAccess.Mappers
 {
-    public class WorkoutItemModelMapper
+    internal static class WorkoutItemModelMapper
     {
-        public WorkoutItemModelMapper() { }
-
-        public static OperationalResult<WorkoutItemModel> MapWorkoutItemDataObjectToModel(WorkoutItemDataObject dataObject)
+        internal static WorkoutItemModel? MapWorkoutItemDataObjectToModel(WorkoutItemDataObject dataObject)
         {
             try
             {
-                WorkoutItemModel model = new WorkoutItemModel
+                if (dataObject == null)
+                {
+                    return null;
+                }
+
+                return new WorkoutItemModel
                 {
                     WorkoutId = dataObject.Id,
                     UserId = dataObject.Id,
@@ -27,23 +31,26 @@ namespace FitnessApp.Core.ResourceAccess.Mappers
             
                 };
 
-                return OperationalResult<WorkoutItemModel>.SuccessResult(model);
-
 
             } catch (Exception ex) 
             {
                 Console.WriteLine(ex.Message.ToString());
-                return OperationalResult<WorkoutItemModel>.FailureResult(ex);
+                return null;
             }
 
             
         }
 
-        public static OperationalResult<WorkoutItemDataObject> MapWorkoutItemModelToDataObject(WorkoutItemModel model)
+        internal static WorkoutItemDataObject? MapWorkoutItemModelToDataObject(WorkoutItemModel model)
         {
             try
             {
-                WorkoutItemDataObject dataObject = new WorkoutItemDataObject
+                if (model == null)
+                {
+                    return null;
+                }
+
+                return new WorkoutItemDataObject
                 {
                     Id = model.WorkoutId,
                     WorkoutId = model.Id,
@@ -57,13 +64,11 @@ namespace FitnessApp.Core.ResourceAccess.Mappers
 
                 };
 
-                return OperationalResult<WorkoutItemDataObject>.SuccessResult(dataObject);
-
-
+                
             } catch (Exception ex)
             {
                 Console.WriteLine(ex.Message.ToString());
-                return OperationalResult<WorkoutItemDataObject>.FailureResult(ex);
+                return null;
             }
 
             

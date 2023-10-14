@@ -4,15 +4,18 @@ using FitnessApp.Core.Validators;
 
 namespace FitnessApp.Core.ResourceAccess.Mappers
 {
-    public class ExerciseItemModelMapper
+    internal static class ExerciseItemModelMapper
     {
-        public ExerciseItemModelMapper() { }
-
-        public static OperationalResult<ExerciseItemModel> MapExerciseItemDataObjectToModel(ExerciseItemDataObject dataObject) 
+        internal static ExerciseItemModel? MapExerciseItemDataObjectToModel(ExerciseItemDataObject dataObject) 
         {
             try
             {
-                ExerciseItemModel model = new ExerciseItemModel
+                if (dataObject == null)
+                {
+                    return null;
+                }
+
+                return new ExerciseItemModel
                 {
                     ExerciseName = dataObject.ExerciseName,
                     ExerciseUrl = dataObject.ExerciseUrl,
@@ -20,23 +23,26 @@ namespace FitnessApp.Core.ResourceAccess.Mappers
 
                 };
 
-                return OperationalResult<ExerciseItemModel>.SuccessResult(model);
-
             }
             catch (Exception ex) 
             {
                 Console.WriteLine(ex.Message.ToString());
-                return OperationalResult<ExerciseItemModel>.FailureResult(ex);
+                return null;
             }
         
         
         }
 
-        public static OperationalResult<ExerciseItemDataObject> MapExerciseItemModelToDataObject(ExerciseItemModel model)
+        internal static ExerciseItemDataObject? MapExerciseItemModelToDataObject(ExerciseItemModel model)
         {
             try
             {
-                ExerciseItemDataObject dataObject = new ExerciseItemDataObject
+                if (model == null)
+                {
+                    return null;
+                }
+
+                return new ExerciseItemDataObject
                 {
                     Id = model.Id,
                     ExerciseName = model.ExerciseName,
@@ -45,14 +51,12 @@ namespace FitnessApp.Core.ResourceAccess.Mappers
 
                 };
 
-                return OperationalResult<ExerciseItemDataObject>.SuccessResult(dataObject);
-
-
+                
             } 
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message.ToString());
-                return OperationalResult<ExerciseItemDataObject>.FailureResult(ex);
+                return null;
             }
             
 
