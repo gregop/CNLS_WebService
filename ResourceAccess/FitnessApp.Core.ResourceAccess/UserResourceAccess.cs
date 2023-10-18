@@ -5,6 +5,7 @@ using FitnessApp.Core.ResourceAccess.Mappers;
 using FitnessApp.Core.Validators;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Data.Common;
 
 namespace FitnessApp.Core.ResourceAccess
 {
@@ -53,7 +54,6 @@ namespace FitnessApp.Core.ResourceAccess
         {
             try
             {
-                UserDataObject? user = null;
 
                 IQueryable<UserModel> queryResult = (from s in _dbContext.Users select s)
                     .Where(a => a.Email == dataObject.Email);
@@ -69,6 +69,94 @@ namespace FitnessApp.Core.ResourceAccess
 
                     return OperationalResult<UserDataObject>.SuccessResult(UserModelMapper.MapUserModelToDataObject(model));
                 }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                return OperationalResult<UserDataObject>.FailureResult(ex);
+            }
+
+        }
+
+        public async Task<OperationalResult<UserDataObject>> AddUser(UserDataObject dataObject)
+        {
+            try
+            {
+                UserModel? model = new UserModel();
+
+                IQueryable<UserModel> query = (from s in _dbContext.Users select s)
+                    .Where(a => a.Email == dataObject.Email);
+
+                model = await query.FirstOrDefaultAsync();
+
+                if (model != null)
+                {
+                    return OperationalResult<UserDataObject>.FailureResult("User already exists");
+                } 
+                else
+                {
+                    model.Name = dataObject.Name;
+                    model.Surname = dataObject.Surname;
+                    model.Email = dataObject.Email;
+                    model.Password = dataObject.Password;
+                    model.Age = dataObject.Age;
+                    model.IsActive = dataObject.IsActive;
+                    model.IsLockedOut = dataObject.IsLockedOut;
+                    model.DateCreated = dataObject.DateCreated.ToUniversalTime();
+
+                    _dbContext.Add(model);
+                }
+
+                await _dbContext.SaveChangesAsync();
+
+                return OperationalResult<UserDataObject>.SuccessResult(UserModelMapper.MapUserModelToDataObject(model));
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                return OperationalResult<UserDataObject>.FailureResult(ex); 
+            }
+
+        }
+
+        public async Task<OperationalResult<UserDataObject>> UpdateUser(UserDataObject dataObject)
+        {
+
+            try
+            {
+                UserModel? model = null;
+
+                IQueryable<UserModel> query = (from s in _dbContext.Users select s)
+                    .Where(a => a.Email == dataObject.Email);
+
+                model = await query.FirstOrDefaultAsync();
+
+                if (model == null)
+                {
+                    return OperationalResult<UserDataObject>.FailureResult("User does not exists");
+                }
+                else
+                {
+                    model = await query.FirstAsync();
+
+                    model.Name = dataObject.Name;
+                    model.Surname = dataObject.Surname;
+                    model.Email = dataObject.Email;
+                    model.Password = dataObject.Password;
+                    model.Age = dataObject.Age;
+                    model.IsActive = dataObject.IsActive;
+                    model.IsLockedOut = dataObject.IsLockedOut;
+
+                    _dbContext.Entry(model).State = EntityState.Modified;
+                }
+
+                await _dbContext.SaveChangesAsync();
+
+                return OperationalResult<UserDataObject>.SuccessResult(UserModelMapper.MapUserModelToDataObject(model));
+
 
             }
             catch (Exception ex)
