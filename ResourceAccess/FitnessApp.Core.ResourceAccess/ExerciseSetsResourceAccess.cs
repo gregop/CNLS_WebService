@@ -16,7 +16,7 @@ namespace FitnessApp.Core.ResourceAccess
             _dbContext = exerciseItemDbContext; 
         }
 
-        public async Task<OperationalResult<ExerciseSetDataObject>> LogExerciseSet(ExerciseSetDataObject dataObject)
+        public async Task<OperationalResult<ExerciseSetDataObject>> LogExerciseSetAsync(ExerciseSetDataObject dataObject)
         {
 
             try
@@ -43,7 +43,7 @@ namespace FitnessApp.Core.ResourceAccess
             }
         }
 
-        public async Task<OperationalResult<ExerciseSetDataObject>> UpdateExerciseSet(ExerciseSetDataObject dataObject)
+        public async Task<OperationalResult<ExerciseSetDataObject>> UpdateExerciseSetAsync(ExerciseSetDataObject dataObject)
         {
 
             try

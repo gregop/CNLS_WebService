@@ -21,7 +21,7 @@ namespace FitnessApp.Core.ResourceAccess
 
         }
 
-        public async Task<OperationalResult<UserLoginActivityDataObject>> LogUserLoginActivity(UserLoginActivityDataObject dataObject)
+        public async Task<OperationalResult<UserLoginActivityDataObject>> LogUserLoginActivityAsync(UserLoginActivityDataObject dataObject)
         {
 
             try
@@ -44,7 +44,7 @@ namespace FitnessApp.Core.ResourceAccess
             }
         }
 
-        public async Task<OperationalResult<List<UserLoginActivityDataObject>>> GetUserActivity(int userId)
+        public async Task<OperationalResult<List<UserLoginActivityDataObject>>> GetUserActivityAsync(int userId)
         {
             try
             {

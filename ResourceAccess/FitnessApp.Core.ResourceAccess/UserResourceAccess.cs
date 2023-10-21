@@ -79,7 +79,7 @@ namespace FitnessApp.Core.ResourceAccess
 
         }
 
-        public async Task<OperationalResult<UserDataObject>> AddUser(UserDataObject dataObject)
+        public async Task<OperationalResult<UserDataObject>> AddUserAsync(UserDataObject dataObject)
         {
             try
             {
@@ -122,7 +122,7 @@ namespace FitnessApp.Core.ResourceAccess
 
         }
 
-        public async Task<OperationalResult<UserDataObject>> UpdateUser(UserDataObject dataObject)
+        public async Task<OperationalResult<UserDataObject>> UpdateUserAsync(UserDataObject dataObject)
         {
 
             try
