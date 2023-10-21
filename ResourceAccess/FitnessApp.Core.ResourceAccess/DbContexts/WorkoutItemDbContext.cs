@@ -10,5 +10,7 @@ namespace FitnessApp.Core.ResourceAccess.DbContexts
         {  }
 
         public DbSet<WorkoutItemModel> WorkoutItem { get; set; }
+
+        public DbSet<WorkoutExercisesHistoryModel> WorkoutExercisesHistoryModels { get; set; }
     }
 }
