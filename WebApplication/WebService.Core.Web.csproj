@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataObjects\FitnessApp.Core.DataObjects\FitnessApp.Core.DataObjects.csproj" />
+    <ProjectReference Include="..\Orchestrators\FitnessApp.Core.Orchestrators\FitnessApp.Core.Orchestrators.csproj" />
     <ProjectReference Include="..\ResourceAccess\FitnessApp.Core.ResourceAccess\FitnessApp.Core.ResourceAccess.csproj" />
   </ItemGroup>
 
