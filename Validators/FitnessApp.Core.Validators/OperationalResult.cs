@@ -2,7 +2,7 @@
 
 namespace FitnessApp.Core.Validators
 {
-    public class OperationalResult<T>
+    public class OperationalResult<T> : IOperationalResult<T>
     {
         public bool IsSuccessfulOperation { get; protected set; }
         public T? Data { get; protected set; }
@@ -46,5 +46,7 @@ namespace FitnessApp.Core.Validators
         {
             return new OperationalResult<T>(ex);
         }
+
+
     }
 }
