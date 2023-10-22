@@ -1,5 +1,5 @@
-﻿using CNSL_WepService.Interfaces;
-using FitnessApp.Core.DataObjects;
+﻿using FitnessApp.Core.DataObjects;
+using FitnessApp.Core.DataObjects.Interfaces;
 using System.Text.Json.Serialization;
 
 namespace CNSL_WepService.APIResponses
