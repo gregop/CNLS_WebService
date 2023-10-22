@@ -42,6 +42,7 @@ namespace CNSL_WepService
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;
+                options.SuppressMapClientErrors = true;
             });
 
             /*
