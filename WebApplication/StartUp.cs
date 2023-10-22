@@ -13,6 +13,7 @@ using FitnessApp.Core.ResourceAccess;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using FitnessApp.Core.DataObjects.Interfaces;
 using FitnessApp.Core.Orchestrators;
+using FitnessApp.Core.Engines;
 
 namespace CNSL_WepService
 {
@@ -61,6 +62,7 @@ namespace CNSL_WepService
             services.AddTransient<IRegisterWorkoutApiRes, RegisterWorkoutApiRes>();
             services.AddTransient<WorkoutItemResourceAccess>();
             services.AddTransient<WorkoutMessagesOrchestrator>();
+            services.AddTransient<WorkoutItemEngine>();
 
 
             Console.WriteLine("ConfigureServices");
