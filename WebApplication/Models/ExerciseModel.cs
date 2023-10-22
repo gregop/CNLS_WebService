@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using CNSL_WepService.Interfaces;
+using FitnessApp.Core.DataObjects.Interfaces;
 using FitnessApp.Core.Validators.ValidationHelpers;
 
 namespace CNSL_WepService.Models
