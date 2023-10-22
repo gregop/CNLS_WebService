@@ -8,9 +8,9 @@ namespace FitnessApp.Core.DataObjects.Interfaces
 {
     public interface IRegisterWorkoutApiRes
     {
-        string Status { get; }
+        string? Status { get; }
 
-        string Message { get; }
+        string? Message { get; }
         int WorkoutId { get;  }
         void StatusOK(int WorkoutId);
 
