@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\ResourceAccess\FitnessApp.Core.ResourceAccess\FitnessApp.Core.ResourceAccess.csproj" />
+    <ProjectReference Include="..\..\Validators\FitnessApp.Core.Validators\FitnessApp.Core.Validators.csproj" />
+  </ItemGroup>
+
 </Project>
