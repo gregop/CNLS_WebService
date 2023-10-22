@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CNSL_WepService.Interfaces
+namespace FitnessApp.Core.DataObjects.Interfaces
 {
     public interface IRegisterWorkoutApiRes
     {

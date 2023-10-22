@@ -1,6 +1,6 @@
-﻿using FitnessApp.Core.DataObjects;
+﻿
 
-namespace CNSL_WepService.Interfaces
+namespace FitnessApp.Core.DataObjects.Interfaces
 {
     public interface IGetWorkoutApiRes
     {

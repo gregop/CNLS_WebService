@@ -1,6 +1,6 @@
-﻿using CNSL_WepService.Models;
+﻿
 
-namespace CNSL_WepService.Interfaces
+namespace FitnessApp.Core.DataObjects.Interfaces
 {
     public interface IExercise
     {
