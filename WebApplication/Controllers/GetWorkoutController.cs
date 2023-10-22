@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using FitnessApp.Core.DataObjects;
-using CNSL_WepService.Interfaces;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using FitnessApp.Core.ResourceAccess;
 using FitnessApp.Core.Validators;
+using FitnessApp.Core.DataObjects.Interfaces;
 
 #pragma warning disable IDE0090 // Use 'new(...)'
 
