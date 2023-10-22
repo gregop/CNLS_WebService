@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using FitnessApp.Core.Validators.Interfaces;
 
 namespace FitnessApp.Core.Validators
 {
