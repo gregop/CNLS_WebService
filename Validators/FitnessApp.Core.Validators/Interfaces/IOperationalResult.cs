@@ -1,4 +1,4 @@
-﻿namespace FitnessApp.Core.Validators
+﻿namespace FitnessApp.Core.Validators.Interfaces
 {
     public interface IOperationalResult<T>
     {
