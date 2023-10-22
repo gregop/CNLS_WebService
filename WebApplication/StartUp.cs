@@ -5,13 +5,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
-using CNSL_WepService.Interfaces;
 using CNSL_WepService.APIResponses;
 using FitnessApp.Core.ResourceAccess.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using sysCongif = System.Configuration;
 using FitnessApp.Core.ResourceAccess;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using FitnessApp.Core.DataObjects.Interfaces;
+using FitnessApp.Core.Orchestrators;
 
 namespace CNSL_WepService
 {
@@ -59,6 +60,7 @@ namespace CNSL_WepService
             services.AddTransient<IGetWorkoutApiRes, GetWorkoutApiRes>();
             services.AddTransient<IRegisterWorkoutApiRes, RegisterWorkoutApiRes>();
             services.AddTransient<WorkoutItemResourceAccess>();
+            services.AddTransient<WorkoutMessagesOrchestrator>();
 
 
             Console.WriteLine("ConfigureServices");
