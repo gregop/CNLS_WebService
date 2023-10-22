@@ -6,6 +6,7 @@ using CNSL_WepService.APIResponses;
 using Microsoft.AspNetCore.Http;
 using FitnessApp.Core.Orchestrators;
 using System.Text.Json;
+using FitnessApp.Core.Validators;
 
 namespace CNSL_WepService.Controllers
 {
@@ -36,8 +37,8 @@ namespace CNSL_WepService.Controllers
 
                 var response = await _workoutMessagesOrchestrator.HandleWorkoutCreationMessagesAsync(requestDataSerialized);
 
-
-                return Ok();
+                
+                return Ok(response.Data.Response);
 
             }
             catch (Exception ex)
