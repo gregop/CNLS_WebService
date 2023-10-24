@@ -1,5 +1,6 @@
 ﻿using FitnessApp.Core.DataObjects;
 using FitnessApp.Core.ResourceAccess.DbContexts;
+using FitnessApp.Core.ResourceAccess.Interfaces;
 using FitnessApp.Core.ResourceAccess.Mappers;
 using FitnessApp.Core.ResourceAccess.Models;
 using FitnessApp.Core.Validators;
@@ -8,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FitnessApp.Core.ResourceAccess
 {
-    public class ExerciseItemResourceAccess
+    public class ExerciseItemResourceAccess : IExerciseItemResourceAccess
     {
         private readonly ExerciseItemDbContext _dbContext;
 
-        public ExerciseItemResourceAccess(ExerciseItemDbContext dbContext) 
+        public ExerciseItemResourceAccess(ExerciseItemDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -28,7 +29,7 @@ namespace FitnessApp.Core.ResourceAccess
 
                 model = await queryResult.FirstOrDefaultAsync();
 
-                if (model != null) 
+                if (model != null)
                 {
                     model = await queryResult.FirstAsync();
 
@@ -38,7 +39,7 @@ namespace FitnessApp.Core.ResourceAccess
 
                     _dbContext.Entry(model).State = EntityState.Modified;
 
-                } 
+                }
                 else
                 {
                     model = ExerciseItemModelMapper.MapExerciseItemDataObjectToModel(dataObject);
@@ -47,7 +48,7 @@ namespace FitnessApp.Core.ResourceAccess
                     {
                         _dbContext.Add(model);
                     }
-                    
+
                 }
 
                 _dbContext.SaveChanges();
@@ -56,11 +57,11 @@ namespace FitnessApp.Core.ResourceAccess
 
 
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message.ToString());
                 return OperationalResult<ExerciseItemDataObject>.FailureResult(ex);
-            
+
             }
 
         }
@@ -79,7 +80,7 @@ namespace FitnessApp.Core.ResourceAccess
                 if (models.Count == 0)
                 {
                     return OperationalResult<List<ExerciseItemDataObject>>.FailureResult("ExerciseItemsNotFound");
-                } 
+                }
                 else
                 {
                     List<ExerciseItemDataObject> objects = new List<ExerciseItemDataObject>();
@@ -93,7 +94,7 @@ namespace FitnessApp.Core.ResourceAccess
                     return OperationalResult<List<ExerciseItemDataObject>>.SuccessResult(objects);
                 }
 
-                
+
             }
             catch (Exception ex)
             {

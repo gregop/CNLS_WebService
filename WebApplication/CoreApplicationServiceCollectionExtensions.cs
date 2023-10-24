@@ -3,6 +3,7 @@ using FitnessApp.Core.DataObjects.Interfaces;
 using FitnessApp.Core.Engines;
 using FitnessApp.Core.Orchestrators;
 using FitnessApp.Core.ResourceAccess;
+using FitnessApp.Core.ResourceAccess.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -14,6 +15,7 @@ namespace WebService.Core.Web
         public static IServiceCollection AddCoreApplicationResourceAccess(this IServiceCollection services)
         {
             services.AddTransient<WorkoutItemResourceAccess>();
+            services.AddTransient<IExerciseItemResourceAccess, ExerciseItemResourceAccess>();
 
             return services;
         }
