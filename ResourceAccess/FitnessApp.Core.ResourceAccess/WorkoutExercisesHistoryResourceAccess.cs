@@ -1,5 +1,6 @@
 ﻿using FitnessApp.Core.DataObjects;
 using FitnessApp.Core.ResourceAccess.DbContexts;
+using FitnessApp.Core.ResourceAccess.Interfaces;
 using FitnessApp.Core.ResourceAccess.Mappers;
 using FitnessApp.Core.ResourceAccess.Models;
 using FitnessApp.Core.Validators;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace FitnessApp.Core.ResourceAccess
 {
-    public class WorkoutExercisesHistoryResourceAccess
+    public class WorkoutExercisesHistoryResourceAccess : IWorkoutExercisesHistoryResourceAccess
     {
         private readonly WorkoutItemDbContext _dbContext;
 
@@ -40,7 +41,7 @@ namespace FitnessApp.Core.ResourceAccess
                 if (model != null)
                 {
                     return OperationalResult<WorkoutExercisesHistoryDataObject>.FailureResult("Exercise already exists for that workout");
-                } 
+                }
                 else
                 {
                     model.WorkoutId = dataObject.WorkoutId;
@@ -79,7 +80,7 @@ namespace FitnessApp.Core.ResourceAccess
                 IQueryable<WorkoutExercisesHistoryModel> query = (from s in _dbContext.WorkoutExercisesHistory select s)
                     .Where(a => a.WorkoutId == dataObject.WorkoutId && a.UserId == dataObject.UserId);
 
-                List<WorkoutExercisesHistoryModel>  queryResults = await query.ToListAsync();
+                List<WorkoutExercisesHistoryModel> queryResults = await query.ToListAsync();
 
                 if (!queryResults.Any())
                 {
@@ -87,17 +88,17 @@ namespace FitnessApp.Core.ResourceAccess
                 }
                 else
                 {
-                    foreach(WorkoutExercisesHistoryModel workoutExercise in queryResults)
+                    foreach (WorkoutExercisesHistoryModel workoutExercise in queryResults)
                     {
                         results.Add(WorkoutExercisesHistoryModelMapper.MapWWorkoutExercisesHistoryModelToDataObject(workoutExercise));
                     }
 
                 }
 
-                return OperationalResult<List<WorkoutExercisesHistoryDataObject>>.SuccessResult(results); 
+                return OperationalResult<List<WorkoutExercisesHistoryDataObject>>.SuccessResult(results);
 
             }
-            catch (Exception ex )
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message.ToString());
                 return OperationalResult<List<WorkoutExercisesHistoryDataObject>>.FailureResult(ex);
