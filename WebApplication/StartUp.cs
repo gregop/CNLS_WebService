@@ -14,11 +14,18 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using FitnessApp.Core.DataObjects.Interfaces;
 using FitnessApp.Core.Orchestrators;
 using FitnessApp.Core.Engines;
+using WebService.Core.Web;
 
 namespace CNSL_WepService
 {
     public class StartUp
     {
+        public IConfigurationRoot Configuration { get; set; }
+
+        public StartUp(IConfigurationRoot configuration)
+        {
+            Configuration = configuration as IConfigurationRoot;
+        }
 
         public static void ConfigureServices(IServiceCollection services)
         {
@@ -57,13 +64,10 @@ namespace CNSL_WepService
                     .ConnectionString);
             });
 
-
-            services.AddTransient<IGetWorkoutApiRes, GetWorkoutApiRes>();
-            services.AddTransient<IRegisterWorkoutApiRes, RegisterWorkoutApiRes>();
-            services.AddTransient<WorkoutItemResourceAccess>();
-            services.AddTransient<WorkoutMessagesOrchestrator>();
-            services.AddTransient<WorkoutItemEngine>();
-
+            /*
+             * Dependenced Class Services Injection
+             */
+            services.AddCoreApplicationServices();
 
             Console.WriteLine("ConfigureServices");
             services.AddControllers();
