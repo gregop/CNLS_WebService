@@ -1,7 +1,7 @@
 ﻿using FitnessApp.Core.DataObjects;
 using FitnessApp.Core.Validators;
 
-namespace FitnessApp.Core.ResourceAccess
+namespace FitnessApp.Core.ResourceAccess.Interfaces
 {
     public interface IExerciseSetsResourceAccess
     {

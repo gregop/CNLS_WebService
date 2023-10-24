@@ -17,21 +17,19 @@ namespace WebService.Core.Web
             services.AddTransient<WorkoutItemResourceAccess>();
             services.AddTransient<IExerciseItemResourceAccess, ExerciseItemResourceAccess>();
             services.AddTransient<IExerciseSetsResourceAccess, ExerciseSetsResourceAccess>();
-
+            services.AddTransient<IUserLoginActivityResourceAccess, UserLoginActivityResourceAccess>();
             return services;
         }
 
         public static IServiceCollection AddCoreApplicationOrchestrators(this IServiceCollection services)
         {
             services.AddTransient<WorkoutMessagesOrchestrator>();
-
             return services;
         }
 
         public static IServiceCollection AddCoreApplicationEngines(this IServiceCollection services)
         {
             services.AddTransient<WorkoutItemEngine>();
-
             return services;
         }
 

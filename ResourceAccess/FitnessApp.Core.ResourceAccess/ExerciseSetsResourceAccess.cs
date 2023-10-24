@@ -1,11 +1,12 @@
 ﻿using FitnessApp.Core.DataObjects;
 using FitnessApp.Core.ResourceAccess.DbContexts;
+using FitnessApp.Core.ResourceAccess.Interfaces;
 using FitnessApp.Core.ResourceAccess.Mappers;
 using FitnessApp.Core.ResourceAccess.Models;
 using FitnessApp.Core.Validators;
 using Microsoft.EntityFrameworkCore;
 
-namespace FitnessApp.Core.ResourceAccess.Interfaces
+namespace FitnessApp.Core.ResourceAccess
 {
     public class ExerciseSetsResourceAccess : IExerciseSetsResourceAccess
     {

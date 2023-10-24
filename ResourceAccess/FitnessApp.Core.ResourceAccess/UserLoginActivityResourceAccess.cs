@@ -1,5 +1,6 @@
 ﻿using FitnessApp.Core.DataObjects.Users;
 using FitnessApp.Core.ResourceAccess.DbContexts;
+using FitnessApp.Core.ResourceAccess.Interfaces;
 using FitnessApp.Core.ResourceAccess.Mappers;
 using FitnessApp.Core.ResourceAccess.Models;
 using FitnessApp.Core.Validators;
@@ -12,10 +13,10 @@ using System.Threading.Tasks;
 
 namespace FitnessApp.Core.ResourceAccess
 {
-    public class UserLoginActivityResourceAccess
+    public class UserLoginActivityResourceAccess : IUserLoginActivityResourceAccess
     {
         private readonly UserDbContext _dbContext;
-        public UserLoginActivityResourceAccess(UserDbContext userDbContext) 
+        public UserLoginActivityResourceAccess(UserDbContext userDbContext)
         {
             _dbContext = userDbContext;
 
@@ -37,8 +38,8 @@ namespace FitnessApp.Core.ResourceAccess
                 return OperationalResult<UserLoginActivityDataObject>.SuccessResult(UserLoginActivityModelMapper.MapUserLoginActivityModelToDataObject(activityModel));
 
             }
-            catch (Exception ex) 
-            { 
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.Message.ToString());
                 return OperationalResult<UserLoginActivityDataObject>.FailureResult(ex);
             }
@@ -61,7 +62,7 @@ namespace FitnessApp.Core.ResourceAccess
                 }
                 else
                 {
-                    foreach(UserLoginActivityModel model in userActivityModels)
+                    foreach (UserLoginActivityModel model in userActivityModels)
                     {
                         results.Add(UserLoginActivityModelMapper.MapUserLoginActivityModelToDataObject(model));
                     }
