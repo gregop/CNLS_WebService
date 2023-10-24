@@ -14,7 +14,7 @@ namespace WebService.Core.Web
 
         public static IServiceCollection AddCoreApplicationResourceAccess(this IServiceCollection services)
         {
-            services.AddTransient<WorkoutItemResourceAccess>();
+            services.AddTransient<IWorkoutItemResourceAccess, WorkoutItemResourceAccess>();
             services.AddTransient<IExerciseItemResourceAccess, ExerciseItemResourceAccess>();
             services.AddTransient<IExerciseSetsResourceAccess, ExerciseSetsResourceAccess>();
             services.AddTransient<IUserLoginActivityResourceAccess, UserLoginActivityResourceAccess>();

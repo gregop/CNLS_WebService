@@ -4,10 +4,11 @@ using FitnessApp.Core.Validators;
 using FitnessApp.Core.DataObjects;
 using Microsoft.EntityFrameworkCore;
 using FitnessApp.Core.ResourceAccess.Mappers;
+using FitnessApp.Core.ResourceAccess.Interfaces;
 
 namespace FitnessApp.Core.ResourceAccess
 {
-    public class WorkoutItemResourceAccess
+    public class WorkoutItemResourceAccess : IWorkoutItemResourceAccess
     {
         private readonly WorkoutItemDbContext _dbContext;
 
@@ -24,7 +25,7 @@ namespace FitnessApp.Core.ResourceAccess
 
                 // retrieve from DB:WORKOUITEM all instances with the id = dataObject.Id
                 IQueryable<WorkoutItemModel> queryResult = (from s in _dbContext.WorkoutItem select s)
-                    .Where(a =>  a.WorkoutId == dataObject.Id);
+                    .Where(a => a.WorkoutId == dataObject.Id);
                 model = await queryResult.FirstOrDefaultAsync();
 
                 if (model != null)
@@ -42,26 +43,29 @@ namespace FitnessApp.Core.ResourceAccess
                     _dbContext.Entry(model).State = EntityState.Modified;
 
 
-                } else {
+                }
+                else
+                {
 
                     model = WorkoutItemModelMapper.MapWorkoutItemDataObjectToModel(dataObject);
                     if (model != null)
                     {
                         _dbContext.Add(model);
                     }
-                    
+
                 }
 
                 await _dbContext.SaveChangesAsync();
 
                 return OperationalResult<WorkoutItemDataObject>.SuccessResult(WorkoutItemModelMapper.MapWorkoutItemModelToDataObject(model));
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return OperationalResult<WorkoutItemDataObject>.FailureResult(ex);
             }
-            
-        } 
+
+        }
 
         public async Task<OperationalResult<WorkoutItemDataObject>> GetWorkoutItemAsync(WorkoutItemDataObject dataObject)
         {
@@ -80,22 +84,23 @@ namespace FitnessApp.Core.ResourceAccess
                 {
                     return OperationalResult<WorkoutItemDataObject>.SuccessResult(WorkoutItemModelMapper.MapWorkoutItemModelToDataObject(model));
 
-                } 
+                }
                 else
                 {
                     return OperationalResult<WorkoutItemDataObject>.FailureResult($"Item with Id = {dataObject.Id} not found");
                 }
 
-                
 
-            } catch (Exception ex)
+
+            }
+            catch (Exception ex)
             {
                 return OperationalResult<WorkoutItemDataObject>.FailureResult(ex);
             }
 
         }
 
-        
+
 
     }
 }
