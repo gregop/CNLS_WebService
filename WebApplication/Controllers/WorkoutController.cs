@@ -37,8 +37,16 @@ namespace CNSL_WepService.Controllers
 
                 var response = await _workoutMessagesOrchestrator.HandleWorkoutCreationMessagesAsync(requestDataSerialized);
 
+                if (response.IsSuccessfulOperation && response.Data?.Response != null) 
+                {
+                    return Ok(response.Data.Response);
+                } 
+                else 
+                {
+                    return BadRequest();
+                }
                 
-                return Ok(response.Data.Response);
+                
 
             }
             catch (Exception ex)
