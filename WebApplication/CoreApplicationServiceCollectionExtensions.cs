@@ -18,6 +18,7 @@ namespace WebService.Core.Web
             services.AddTransient<IExerciseItemResourceAccess, ExerciseItemResourceAccess>();
             services.AddTransient<IExerciseSetsResourceAccess, ExerciseSetsResourceAccess>();
             services.AddTransient<IUserLoginActivityResourceAccess, UserLoginActivityResourceAccess>();
+            services.AddTransient<IUserResourceAccess, UserResourceAccess>();
             return services;
         }
 

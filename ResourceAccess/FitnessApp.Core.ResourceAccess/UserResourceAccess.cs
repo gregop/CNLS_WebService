@@ -6,14 +6,15 @@ using FitnessApp.Core.Validators;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Data.Common;
+using FitnessApp.Core.ResourceAccess.Interfaces;
 
 namespace FitnessApp.Core.ResourceAccess
 {
-    public class UserResourceAccess
+    public class UserResourceAccess : IUserResourceAccess
     {
         private readonly UserDbContext _dbContext;
 
-        public UserResourceAccess(UserDbContext dbContext) 
+        public UserResourceAccess(UserDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -27,13 +28,13 @@ namespace FitnessApp.Core.ResourceAccess
                 IQueryable<UserModel> queryResult = (from s in _dbContext.Users select s);
                 List<UserModel> userModels = await queryResult.ToListAsync();
 
-                if (!userModels.Any()) 
+                if (!userModels.Any())
                 {
                     return OperationalResult<List<UserDataObject>>.FailureResult($"No {nameof(_dbContext.Users)} found");
-                } 
+                }
                 else
                 {
-                    foreach(UserModel user in userModels)
+                    foreach (UserModel user in userModels)
                     {
                         users.Add(UserModelMapper.MapUserModelToDataObject(user));
                     }
@@ -41,9 +42,9 @@ namespace FitnessApp.Core.ResourceAccess
                     return OperationalResult<List<UserDataObject>>.SuccessResult(users);
                 }
 
-            } 
-            catch (Exception ex) 
-            { 
+            }
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.Message.ToString());
                 return OperationalResult<List<UserDataObject>>.FailureResult(ex);
             }
@@ -93,7 +94,7 @@ namespace FitnessApp.Core.ResourceAccess
                 if (model != null)
                 {
                     return OperationalResult<UserDataObject>.FailureResult("User already exists");
-                } 
+                }
                 else
                 {
                     model.Name = dataObject.Name;
@@ -117,7 +118,7 @@ namespace FitnessApp.Core.ResourceAccess
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message.ToString());
-                return OperationalResult<UserDataObject>.FailureResult(ex); 
+                return OperationalResult<UserDataObject>.FailureResult(ex);
             }
 
         }
