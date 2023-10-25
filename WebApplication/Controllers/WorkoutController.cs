@@ -30,20 +30,20 @@ namespace CNSL_WepService.Controllers
             {
                 if (requestData == null)
                 {
-                    return BadRequest();
+                    return StatusCode(StatusCodes.Status400BadRequest);
                 }
 
                 string requestDataSerialized = JsonSerializer.Serialize(requestData);
 
-                var response = await _workoutMessagesOrchestrator.HandleWorkoutCreationMessagesAsync(requestDataSerialized);
+                OperationalResult<ResponseContext<IRegisterWorkoutApiRes>> response = await _workoutMessagesOrchestrator.HandleWorkoutCreationMessagesAsync(requestDataSerialized);
 
                 if (response.IsSuccessfulOperation && response.Data?.Response != null) 
                 {
-                    return Ok(response.Data.Response);
+                    return StatusCode(StatusCodes.Status200OK, response.Data.Response);
                 } 
                 else 
                 {
-                    return BadRequest();
+                    return StatusCode(StatusCodes.Status400BadRequest);
                 }
                 
                 
@@ -52,12 +52,46 @@ namespace CNSL_WepService.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message.ToString());
-                return StatusCode((int)StatusCodes.Status500InternalServerError);
+                return StatusCode(StatusCodes.Status500InternalServerError);
                     
             }
 
 
         }
 
+        [HttpPost]
+        [Route("api/[action]")]
+        [Produces("application/json")]
+        public async Task<ActionResult<IGetWorkoutApiRes>> GetWorkout(object requestData)
+        {
+            try
+            {
+                if (requestData == null)
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest);
+                }
+
+                string requestDataSerialized = JsonSerializer.Serialize(requestData);
+
+                OperationalResult<ResponseContext<IGetWorkoutApiRes>> response = await _workoutMessagesOrchestrator.HandleWorkoutRequestMessagesAsync(requestDataSerialized);
+
+                if (response.IsSuccessfulOperation && response.Data?.Response != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, response.Data?.Response);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+
+            return Ok();
+        }
     }
 }
