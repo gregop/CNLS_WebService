@@ -64,5 +64,10 @@ namespace FitnessApp.Core.Orchestrators
 
 
         }
+
+        public async Task<OperationalResult<ResponseContext<IGetWorkoutApiRes>>> HandleWorkoutRequestMessagesAsync(string payload)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
