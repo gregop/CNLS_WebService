@@ -52,13 +52,7 @@ namespace CNSL_WepService
             /*
              * DBContexts             
              */
-            services.AddDbContext<WorkoutItemDbContext>(options =>
-            {
-
-                options.UseSqlServer(sysCongif.ConfigurationManager
-                    .ConnectionStrings["FitnessWebServiceDb"]
-                    .ConnectionString);
-            });
+            services.AddCoreApplicationDbContexts();
 
             /*
              * Dependenced Class Services Injection
