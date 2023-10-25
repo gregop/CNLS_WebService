@@ -13,7 +13,7 @@ namespace WebService.Core.Web
 {
     public static class CoreApplicationDbContextExtensions
     {
-        private static readonly string _connectionString = sysConfig.ConfigurationManager
+        private static readonly string _sqlConnectionString = sysConfig.ConfigurationManager
                     .ConnectionStrings["FitnessWebServiceDb"]
                     .ConnectionString;
 
@@ -21,17 +21,17 @@ namespace WebService.Core.Web
         {
             services.AddDbContext<WorkoutItemDbContext>(options =>
             {
-                options.UseSqlServer(_connectionString);
+                options.UseSqlServer(_sqlConnectionString);
             });
 
             services.AddDbContext<ExerciseItemDbContext>(options =>
             {
-                options.UseSqlServer(_connectionString);
+                options.UseSqlServer(_sqlConnectionString);
             });
 
             services.AddDbContext<UserDbContext>(options =>
             {
-                options.UseSqlServer(_connectionString);
+                options.UseSqlServer(_sqlConnectionString);
             });
 
             return services;
