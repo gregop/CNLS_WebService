@@ -10,10 +10,11 @@ using CNSL_WepService.APIResponses;
 using FitnessApp.Core.Engines;
 using FitnessApp.Core.DataObjects;
 using System.Text.Json;
+using FitnessApp.Core.Orchestrators.Interfaces;
 
 namespace FitnessApp.Core.Orchestrators
 {
-    public class WorkoutMessagesOrchestrator
+    public class WorkoutMessagesOrchestrator : IWorkoutMessagesOrchestrator
     {
         private readonly WorkoutItemEngine _workoutItemEngine;
 
@@ -54,7 +55,7 @@ namespace FitnessApp.Core.Orchestrators
                 });
 
 
-            } 
+            }
             catch (Exception ex)
             {
                 Console.Write(ex.Message.ToString());

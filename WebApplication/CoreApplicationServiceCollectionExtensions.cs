@@ -3,6 +3,7 @@ using FitnessApp.Core.DataObjects.Interfaces;
 using FitnessApp.Core.Engines;
 using FitnessApp.Core.Engines.Interfaces;
 using FitnessApp.Core.Orchestrators;
+using FitnessApp.Core.Orchestrators.Interfaces;
 using FitnessApp.Core.ResourceAccess;
 using FitnessApp.Core.ResourceAccess.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,7 +27,7 @@ namespace WebService.Core.Web
 
         public static IServiceCollection AddCoreApplicationOrchestrators(this IServiceCollection services)
         {
-            services.AddTransient<WorkoutMessagesOrchestrator>();
+            services.AddTransient<IWorkoutMessagesOrchestrator, WorkoutMessagesOrchestrator>();
             return services;
         }
 
