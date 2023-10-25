@@ -15,17 +15,12 @@ using FitnessApp.Core.DataObjects.Interfaces;
 using FitnessApp.Core.Orchestrators;
 using FitnessApp.Core.Engines;
 using WebService.Core.Web;
+using System.Configuration;
 
 namespace CNSL_WepService
 {
     public class StartUp
     {
-        public IConfigurationRoot Configuration { get; set; }
-
-        public StartUp(IConfigurationRoot configuration)
-        {
-            Configuration = configuration as IConfigurationRoot;
-        }
 
         public static void ConfigureServices(IServiceCollection services)
         {
@@ -59,6 +54,7 @@ namespace CNSL_WepService
              */
             services.AddDbContext<WorkoutItemDbContext>(options =>
             {
+
                 options.UseSqlServer(sysCongif.ConfigurationManager
                     .ConnectionStrings["FitnessWebServiceDb"]
                     .ConnectionString);
