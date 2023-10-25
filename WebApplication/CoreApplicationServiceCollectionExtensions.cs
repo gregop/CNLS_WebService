@@ -1,6 +1,7 @@
 ﻿using CNSL_WepService.APIResponses;
 using FitnessApp.Core.DataObjects.Interfaces;
 using FitnessApp.Core.Engines;
+using FitnessApp.Core.Engines.Interfaces;
 using FitnessApp.Core.Orchestrators;
 using FitnessApp.Core.ResourceAccess;
 using FitnessApp.Core.ResourceAccess.Interfaces;
@@ -31,7 +32,7 @@ namespace WebService.Core.Web
 
         public static IServiceCollection AddCoreApplicationEngines(this IServiceCollection services)
         {
-            services.AddTransient<WorkoutItemEngine>();
+            services.AddTransient<IWorkoutItemEngine, WorkoutItemEngine>();
             return services;
         }
 

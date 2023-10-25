@@ -1,4 +1,5 @@
 ﻿using FitnessApp.Core.DataObjects;
+using FitnessApp.Core.Engines.Interfaces;
 using FitnessApp.Core.ResourceAccess;
 using FitnessApp.Core.Validators;
 using System;
@@ -9,21 +10,21 @@ using System.Threading.Tasks;
 
 namespace FitnessApp.Core.Engines
 {
-    public class WorkoutItemEngine
+    public class WorkoutItemEngine : IWorkoutItemEngine
     {
         private readonly WorkoutItemResourceAccess _workoutItemResourceAccess;
 
-        public WorkoutItemEngine(WorkoutItemResourceAccess workoutItemResourceAccess) 
+        public WorkoutItemEngine(WorkoutItemResourceAccess workoutItemResourceAccess)
         {
             _workoutItemResourceAccess = workoutItemResourceAccess;
 
         }
 
-        //public async Task<OperationalResult<WorkoutItemDataObject>> HandleWorkoutCreationAsync(WorkoutItemDataObject workoutItemDataObject)
-        //{
-        
-        
-        //}
+        public Task<OperationalResult<WorkoutItemDataObject>> HandleWorkoutCreationAsync(WorkoutItemDataObject workoutItemDataObject)
+        {
+            throw new NotImplementedException();
+        }
+
 
     }
 }
