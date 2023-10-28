@@ -6,5 +6,7 @@ namespace FitnessApp.Core.Engines.Interfaces
     public interface IWorkoutItemEngine
     {
         Task<OperationalResult<WorkoutItemDataObject>> HandleWorkoutCreationAsync(WorkoutItemDataObject workoutItemDataObject);
+
+        Task<OperationalResult<WorkoutItemDataObject>> HandleWorkoutRequestAsync(WorkoutItemDataObject workoutItemDataObject);
     }
 }
