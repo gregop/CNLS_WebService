@@ -75,7 +75,7 @@ namespace FitnessApp.Core.ResourceAccess
                 WorkoutItemModel? model = null;
 
                 IQueryable<WorkoutItemModel> queryResult = (from s in _dbContext.WorkoutItem select s)
-                    .Where(a => a.WorkoutId == dataObject.Id);
+                    .Where(a => a.WorkoutId == dataObject.WorkoutId);
 
                 model = await queryResult.FirstOrDefaultAsync();
 
@@ -87,7 +87,7 @@ namespace FitnessApp.Core.ResourceAccess
                 }
                 else
                 {
-                    return OperationalResult<WorkoutItemDataObject>.FailureResult($"Item with Id = {dataObject.Id} not found");
+                    return OperationalResult<WorkoutItemDataObject>.FailureResult($"Item with Id = {dataObject.WorkoutId} not found");
                 }
 
 
