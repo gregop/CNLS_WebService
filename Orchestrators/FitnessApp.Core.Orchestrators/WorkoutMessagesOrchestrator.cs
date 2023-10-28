@@ -6,6 +6,7 @@ using System.Text.Json;
 using FitnessApp.Core.Orchestrators.Interfaces;
 using FitnessApp.Core.DataObjects.Requests;
 using FitnessApp.Core.Engines.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace FitnessApp.Core.Orchestrators
 {
@@ -74,8 +75,24 @@ namespace FitnessApp.Core.Orchestrators
                     return OperationalResult<ResponseContext<IGetWorkoutApiRes>>.FailureResult(response.Message);
                 }
 
-                GetWorkoutRequestDataObject? workoutId = JsonSerializer.Deserialize<GetWorkoutRequestDataObject>(payload);
+                // Parse payload to DataObject
+                OperationalResult<GetWorkoutRequestDataObject?> parsedPayload = PayloadParser<GetWorkoutRequestDataObject?>.TryParse(payload);
 
+                // If parsing was not successful return error
+                if (!parsedPayload.IsSuccessfulOperation) 
+                {
+                    response.StatusNOK();
+                    response.SetMessage("error");
+
+                    return OperationalResult<ResponseContext<IGetWorkoutApiRes>>.FailureResult(response.Message);
+                }
+
+                GetWorkoutRequestDataObject? workoutId = parsedPayload.Data;
+
+                ValidationContext context = new ValidationContext(workoutId);
+                List<ValidationResult> validationResults = new List<ValidationResult>();
+
+                bool isValid = Validator.TryValidateObject(workoutId, context, validationResults, true);
 
                 if (workoutId != null)
                 {
