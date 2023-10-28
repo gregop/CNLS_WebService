@@ -20,7 +20,7 @@ namespace FitnessApp.Core.ResourceAccess.Mappers
 
                 return new WorkoutItemModel
                 {
-                    WorkoutId = dataObject.Id,
+                    WorkoutId = dataObject.WorkoutId,
                     UserId = dataObject.Id,
                     Duration = dataObject.Duration,
                     Distance = dataObject.Distance,
@@ -52,8 +52,8 @@ namespace FitnessApp.Core.ResourceAccess.Mappers
 
                 return new WorkoutItemDataObject
                 {
-                    Id = model.WorkoutId,
-                    WorkoutId = model.Id,
+                    Id = model.Id,
+                    WorkoutId = model.WorkoutId,
                     UserId = model.UserId,
                     Duration = model.Duration,
                     Distance = model.Distance,
