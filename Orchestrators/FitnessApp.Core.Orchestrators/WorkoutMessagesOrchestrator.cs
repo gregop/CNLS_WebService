@@ -1,24 +1,19 @@
 ﻿using FitnessApp.Core.Validators;
 using FitnessApp.Core.DataObjects.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FitnessApp.Core.Validators.Interfaces;
 using CNSL_WepService.APIResponses;
-using FitnessApp.Core.Engines;
 using FitnessApp.Core.DataObjects;
 using System.Text.Json;
 using FitnessApp.Core.Orchestrators.Interfaces;
+using FitnessApp.Core.DataObjects.Requests;
+using FitnessApp.Core.Engines.Interfaces;
 
 namespace FitnessApp.Core.Orchestrators
 {
     public class WorkoutMessagesOrchestrator : IWorkoutMessagesOrchestrator
     {
-        private readonly WorkoutItemEngine _workoutItemEngine;
+        private readonly IWorkoutItemEngine _workoutItemEngine;
 
-        public WorkoutMessagesOrchestrator(WorkoutItemEngine workoutItemEngine)
+        public WorkoutMessagesOrchestrator(IWorkoutItemEngine workoutItemEngine)
         {
             _workoutItemEngine = workoutItemEngine;
         }
@@ -67,7 +62,66 @@ namespace FitnessApp.Core.Orchestrators
 
         public async Task<OperationalResult<ResponseContext<IGetWorkoutApiRes>>> HandleWorkoutRequestMessagesAsync(string payload)
         {
-            throw new NotImplementedException();
+            try
+            {
+                IGetWorkoutApiRes response = new GetWorkoutApiRes();
+
+                if (payload == null)
+                {
+                    response.StatusNOK();
+                    response.SetMessage("error");
+
+                    return OperationalResult<ResponseContext<IGetWorkoutApiRes>>.FailureResult(response.Message);
+                }
+
+                GetWorkoutRequestDataObject? workoutId = JsonSerializer.Deserialize<GetWorkoutRequestDataObject>(payload);
+
+
+                if (workoutId != null)
+                {
+                    OperationalResult<WorkoutItemDataObject> workout = await _workoutItemEngine.HandleWorkoutRequestAsync(new WorkoutItemDataObject
+                    {
+                        WorkoutId = workoutId.Id
+                    });
+
+                    if (workout.Data != null)
+                    {
+                        response.StatusOK();
+                        response.SetWorkoutItem(workout.Data);
+
+                        return OperationalResult<ResponseContext<IGetWorkoutApiRes>>.SuccessResult(new ResponseContext<IGetWorkoutApiRes>()
+                        {
+                            StatusCode = 200,
+                            StatusMessage = response.Message,
+                            Response = response
+                        });
+                    }
+
+                    response.StatusNOK();
+                    response.SetMessage(workout.FailureMessage);
+
+                    return OperationalResult<ResponseContext<IGetWorkoutApiRes>>.SuccessResult(new ResponseContext<IGetWorkoutApiRes>()
+                    {
+                        StatusCode = 200,
+                        StatusMessage = workout.FailureMessage,
+                        Response = null
+                    });
+
+                } 
+                else
+                {
+                    response.StatusNOK();
+                    response.SetMessage("error");
+
+                    return OperationalResult<ResponseContext<IGetWorkoutApiRes>>.FailureResult(response.Message);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                return OperationalResult<ResponseContext<IGetWorkoutApiRes>>.FailureResult(ex);
+            }
         }
     }
 }
