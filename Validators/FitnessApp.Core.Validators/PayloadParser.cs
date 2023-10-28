@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Text.Json;
@@ -27,7 +28,7 @@ namespace FitnessApp.Core.Validators
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Exception at {nameof(PayloadParser<T>)} : {ex.Message}");
+                Console.WriteLine($"Exception at {MethodBase.GetCurrentMethod()} : {ex.Message}");
                 return OperationalResult<T?>.FailureResult(ex);
             }
             
