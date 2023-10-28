@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using FitnessApp.Core.Orchestrators;
 using System.Text.Json;
 using FitnessApp.Core.Validators;
+using FitnessApp.Core.Orchestrators.Interfaces;
 
 namespace CNSL_WepService.Controllers
 {
@@ -14,9 +15,9 @@ namespace CNSL_WepService.Controllers
     [ApiController]
     public class WorkoutController : ControllerBase
     {
-        private readonly WorkoutMessagesOrchestrator _workoutMessagesOrchestrator;
+        private readonly IWorkoutMessagesOrchestrator _workoutMessagesOrchestrator;
 
-        public WorkoutController(WorkoutMessagesOrchestrator workoutMessagesOrchestrator) 
+        public WorkoutController(IWorkoutMessagesOrchestrator workoutMessagesOrchestrator) 
         {
             _workoutMessagesOrchestrator = workoutMessagesOrchestrator;
         }
@@ -75,9 +76,15 @@ namespace CNSL_WepService.Controllers
 
                 OperationalResult<ResponseContext<IGetWorkoutApiRes>> response = await _workoutMessagesOrchestrator.HandleWorkoutRequestMessagesAsync(requestDataSerialized);
 
+
+
                 if (response.IsSuccessfulOperation && response.Data?.Response != null)
                 {
                     return StatusCode(StatusCodes.Status200OK, response.Data?.Response);
+                }
+                else if (response.IsSuccessfulOperation && response.Data?.Response == null)
+                {
+                    return StatusCode(StatusCodes.Status404NotFound, response.Data);
                 }
                 else
                 {
