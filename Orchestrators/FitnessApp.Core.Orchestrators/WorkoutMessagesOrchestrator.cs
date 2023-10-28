@@ -7,6 +7,8 @@ using FitnessApp.Core.Orchestrators.Interfaces;
 using FitnessApp.Core.DataObjects.Requests;
 using FitnessApp.Core.Engines.Interfaces;
 using System.ComponentModel.DataAnnotations;
+using FitnessApp.Core.Validators.Interfaces;
+using System;
 
 namespace FitnessApp.Core.Orchestrators
 {
@@ -87,12 +89,35 @@ namespace FitnessApp.Core.Orchestrators
                     return OperationalResult<ResponseContext<IGetWorkoutApiRes>>.FailureResult(response.Message);
                 }
 
+                
                 GetWorkoutRequestDataObject? workoutId = parsedPayload.Data;
+                // Validate parsed payload data
+                OperationalResult<Tuple<bool, List<ValidationResult>>>? isValidData = DataValidator<GetWorkoutRequestDataObject>.TryValidate(workoutId);
 
-                ValidationContext context = new ValidationContext(workoutId);
-                List<ValidationResult> validationResults = new List<ValidationResult>();
+                // If validation failed with exception return error
+                if(!isValidData.IsSuccessfulOperation)
+                {
+                    response.StatusNOK();
+                    response.SetMessage("error");
 
-                bool isValid = Validator.TryValidateObject(workoutId, context, validationResults, true);
+                    return OperationalResult<ResponseContext<IGetWorkoutApiRes>>.FailureResult(response.Message);
+                } 
+                else
+                {
+                    //If data validation failed return validation error
+                    if (!isValidData.Data.Item1 && isValidData.Data.Item2.Any())
+                    {
+                        response.StatusNOK();
+                        response.SetMessage(isValidData.Data.Item2.First().ToString());
+
+                        return OperationalResult<ResponseContext<IGetWorkoutApiRes>>.SuccessResult(new ResponseContext<IGetWorkoutApiRes>()
+                        {
+                            StatusCode = 200,
+                            StatusMessage = response.Message,
+                            Response = null
+                        });
+                    }
+                }
 
                 if (workoutId != null)
                 {
