@@ -12,7 +12,12 @@ namespace FitnessApp.Core.DataObjects.Interfaces
 
         string? Message { get; }
         int WorkoutId { get;  }
-        void StatusOK(int WorkoutId);
+
+        int SystemWorkoutId { get; }
+
+        WorkoutItemDataObject WorkoutObject { get; }
+
+        void StatusOK(int WorkoutId, WorkoutItemDataObject WorkoutObject);
 
         void StatusNOK();
 
