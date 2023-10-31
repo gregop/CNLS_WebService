@@ -7,5 +7,6 @@ namespace FitnessApp.Core.ResourceAccess.Interfaces
     {
         Task<OperationalResult<WorkoutItemDataObject>> GetWorkoutItemAsync(WorkoutItemDataObject dataObject);
         Task<OperationalResult<WorkoutItemDataObject>> LogWorkoutItemAsync(WorkoutItemDataObject dataObject);
+        Task<OperationalResult<WorkoutItemDataObject>> UpdateWorkoutItemAsync(WorkoutItemDataObject dataObject);
     }
 }

@@ -25,23 +25,14 @@ namespace FitnessApp.Core.ResourceAccess
 
                 // retrieve from DB:WORKOUITEM all instances with the id = dataObject.Id
                 IQueryable<WorkoutItemModel> queryResult = (from s in _dbContext.WorkoutItem select s)
-                    .Where(a => a.WorkoutId == dataObject.Id);
+                    .Where(a => a.WorkoutId == dataObject.WorkoutId);
                 model = await queryResult.FirstOrDefaultAsync();
 
                 if (model != null)
                 {
                     model = await queryResult.FirstAsync();
 
-                    model.Duration = dataObject.Duration;
-                    model.Distance = dataObject.Distance;
-                    model.Calories = dataObject.Calories;
-                    model.Date = dataObject.Date;
-                    model.Cardio = dataObject.Cardio;
-                    model.Description = dataObject.Description;
-                    model.UserId = dataObject.UserId;
-
-                    _dbContext.Entry(model).State = EntityState.Modified;
-
+                    return OperationalResult<WorkoutItemDataObject>.FailureResult($"WorkoutId {model.WorkoutId} already exists");
 
                 }
                 else
@@ -101,6 +92,57 @@ namespace FitnessApp.Core.ResourceAccess
         }
 
 
+        public async Task<OperationalResult<WorkoutItemDataObject>> UpdateWorkoutItemAsync(WorkoutItemDataObject dataObject)
+        {
+            throw new NotImplementedException();
+
+            //try
+            //{
+            //    workoutitemmodel? model = null;
+
+            //    // retrieve from db:workouitem all instances with the id = dataobject.id
+            //    iqueryable<workoutitemmodel> queryresult = (from s in _dbcontext.workoutitem select s)
+            //        .where(a => a.workoutid == dataobject.workoutid);
+            //    model = await queryresult.firstordefaultasync();
+
+            //    if (model != null)
+            //    {
+            //        model = await queryresult.firstasync();
+
+            //        model.duration = dataobject.duration;
+            //        model.distance = dataobject.distance;
+            //        model.calories = dataobject.calories;
+            //        model.date = dataobject.date;
+            //        model.cardio = dataobject.cardio;
+            //        model.description = dataobject.description;
+            //        model.userid = dataobject.userid;
+
+            //        _dbcontext.entry(model).state = entitystate.modified;
+
+
+            //    }
+            //    else
+            //    {
+
+            //        model = workoutitemmodelmapper.mapworkoutitemdataobjecttomodel(dataobject);
+            //        if (model != null)
+            //        {
+            //            _dbcontext.add(model);
+            //        }
+
+            //    }
+
+            //    await _dbcontext.savechangesasync();
+
+            //    return operationalresult<workoutitemdataobject>.successresult(workoutitemmodelmapper.mapworkoutitemmodeltodataobject(model));
+
+            //}
+            //catch (exception ex)
+            //{
+            //    return operationalresult<workoutitemdataobject>.failureresult(ex);
+            //}
+
+        }
 
     }
 }
