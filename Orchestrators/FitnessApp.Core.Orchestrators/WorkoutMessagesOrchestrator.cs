@@ -38,19 +38,96 @@ namespace FitnessApp.Core.Orchestrators
                     return OperationalResult<ResponseContext<IRegisterWorkoutApiRes>>.FailureResult(response.Message);
                 }
 
-                // Send request object to Workout Engine
+                // Parse payload to DataObject
+                OperationalResult<WorkoutItemDataObject?> parsedPayload = PayloadParser<WorkoutItemDataObject>.TryParse(payload);
 
-                response.StatusOK(1);
-
-                WorkoutItemDataObject workoutItem = JsonSerializer.Deserialize<WorkoutItemDataObject>(payload);
-
-
-                return OperationalResult<ResponseContext<IRegisterWorkoutApiRes>>.SuccessResult(new ResponseContext<IRegisterWorkoutApiRes>
+                // If parsing was not successful return error
+                if (!parsedPayload.IsSuccessfulOperation)
                 {
-                    StatusCode = 200,
-                    StatusMessage = response.Message,
-                    Response = response
-                });
+                    response.StatusNOK();
+                    response.SetMessage("error");
+
+                    return OperationalResult<ResponseContext<IRegisterWorkoutApiRes>>.FailureResult(response.Message);
+                }
+
+                WorkoutItemDataObject? workoutItem = parsedPayload.Data;
+
+                // Validate parsed payload data
+                OperationalResult <Tuple<bool, List<ValidationResult>>> isValidWorkoutItemPayload = DataValidator<WorkoutItemDataObject>.TryValidate(parsedPayload.Data);
+
+                // If validation failed with exception return error
+                if (!isValidWorkoutItemPayload.IsSuccessfulOperation)
+                {
+                    response.StatusNOK();
+                    response.SetMessage("error");
+
+                    return OperationalResult<ResponseContext<IRegisterWorkoutApiRes>>.FailureResult(response.Message ?? string.Empty);
+                }
+                else
+                {
+                    //If data validation failed return validation error
+                    if (!isValidWorkoutItemPayload.Data.Item1 && isValidWorkoutItemPayload.Data.Item2.Any())
+                    {
+                        response.StatusNOK();
+                        response.SetMessage(isValidWorkoutItemPayload.Data.Item2.First().ToString());
+
+                        return OperationalResult<ResponseContext<IRegisterWorkoutApiRes>>.SuccessResult(new ResponseContext<IRegisterWorkoutApiRes>()
+                        {
+                            StatusCode = 200,
+                            StatusMessage = response.Message,
+                            Response = null
+                        });
+                    }
+                }
+
+                
+                // Send request object to Workout Engine
+                if (workoutItem != null)
+                {
+
+                    OperationalResult<WorkoutItemDataObject> loggedWorkoutItem = await _workoutItemEngine.HandleWorkoutCreationAsync(workoutItem);
+
+                    if (!loggedWorkoutItem.IsSuccessfulOperation)
+                    {
+                        response.StatusNOK();
+                        response.SetMessage(loggedWorkoutItem.FailureMessage.ToString());
+
+                        return OperationalResult<ResponseContext<IRegisterWorkoutApiRes>>.FailureResult(response.Message);
+
+                    } 
+                    else
+                    {
+                        if (loggedWorkoutItem.Data != null)
+                        {
+                            workoutItem = loggedWorkoutItem.Data;
+
+                            response.StatusOK(workoutItem.WorkoutId, workoutItem);
+
+                            return OperationalResult<ResponseContext<IRegisterWorkoutApiRes>>.SuccessResult(new ResponseContext<IRegisterWorkoutApiRes>()
+                            {
+                                StatusCode = 200,
+                                StatusMessage = response.Message,
+                                Response = response
+                            });
+                        }
+                        else
+                        {
+                            response.StatusNOK();
+                            response.SetMessage("error");
+
+                            return OperationalResult<ResponseContext<IRegisterWorkoutApiRes>>.FailureResult(response.Message);
+                        }
+
+                    }
+
+                }
+                else
+                {
+                    response.StatusNOK();
+                    response.SetMessage("error");
+
+                    return OperationalResult<ResponseContext<IRegisterWorkoutApiRes>>.FailureResult(response.Message);
+                }
 
 
             }
@@ -92,10 +169,10 @@ namespace FitnessApp.Core.Orchestrators
                 
                 GetWorkoutRequestDataObject? workoutId = parsedPayload.Data;
                 // Validate parsed payload data
-                OperationalResult<Tuple<bool, List<ValidationResult>>>? isValidData = DataValidator<GetWorkoutRequestDataObject>.TryValidate(workoutId);
+                OperationalResult<Tuple<bool, List<ValidationResult>>>? isValidRequestData = DataValidator<GetWorkoutRequestDataObject>.TryValidate(workoutId);
 
                 // If validation failed with exception return error
-                if(!isValidData.IsSuccessfulOperation)
+                if(!isValidRequestData.IsSuccessfulOperation)
                 {
                     response.StatusNOK();
                     response.SetMessage("error");
@@ -105,10 +182,10 @@ namespace FitnessApp.Core.Orchestrators
                 else
                 {
                     //If data validation failed return validation error
-                    if (!isValidData.Data.Item1 && isValidData.Data.Item2.Any())
+                    if (!isValidRequestData.Data.Item1 && isValidRequestData.Data.Item2.Any())
                     {
                         response.StatusNOK();
-                        response.SetMessage(isValidData.Data.Item2.First().ToString());
+                        response.SetMessage(isValidRequestData.Data.Item2.First().ToString());
 
                         return OperationalResult<ResponseContext<IGetWorkoutApiRes>>.SuccessResult(new ResponseContext<IGetWorkoutApiRes>()
                         {
