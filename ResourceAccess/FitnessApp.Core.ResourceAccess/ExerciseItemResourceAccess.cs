@@ -33,11 +33,7 @@ namespace FitnessApp.Core.ResourceAccess
                 {
                     model = await queryResult.FirstAsync();
 
-                    model.ExerciseUrl = dataObject.ExerciseUrl;
-                    model.ExerciseName = dataObject.ExerciseName;
-                    model.DateCreated = dataObject.DateCreated;
-
-                    _dbContext.Entry(model).State = EntityState.Modified;
+                    return OperationalResult<ExerciseItemDataObject>.FailureResult($"Exercise {model.ExerciseName} already exists with Id:{model.Id}");
 
                 }
                 else
@@ -103,6 +99,18 @@ namespace FitnessApp.Core.ResourceAccess
 
 
             }
+        }
+
+
+        public async Task<OperationalResult<ExerciseItemDataObject>> UpdateExerciseItemAsync(ExerciseItemDataObject dataObject)
+        {
+            throw new NotImplementedException();
+
+            //model.ExerciseUrl = dataObject.ExerciseUrl;
+            //model.ExerciseName = dataObject.ExerciseName;
+            //model.DateCreated = dataObject.DateCreated;
+
+            //_dbContext.Entry(model).State = EntityState.Modified;
         }
     }
 }
