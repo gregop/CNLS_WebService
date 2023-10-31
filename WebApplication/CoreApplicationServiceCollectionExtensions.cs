@@ -28,12 +28,14 @@ namespace WebService.Core.Web
         public static IServiceCollection AddCoreApplicationOrchestrators(this IServiceCollection services)
         {
             services.AddTransient<IWorkoutMessagesOrchestrator, WorkoutMessagesOrchestrator>();
+            services.AddTransient<IExerciseMessagesOrchestrator, ExerciseMessagesOrchestrator>();
             return services;
         }
 
         public static IServiceCollection AddCoreApplicationEngines(this IServiceCollection services)
         {
             services.AddTransient<IWorkoutItemEngine, WorkoutItemEngine>();
+            services.AddTransient<IExerciseItemEngine, ExerciseItemEngine>();
             return services;
         }
 

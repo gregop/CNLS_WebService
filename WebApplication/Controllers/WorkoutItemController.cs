@@ -13,11 +13,11 @@ namespace CNSL_WepService.Controllers
 {
     
     [ApiController]
-    public class WorkoutController : ControllerBase
+    public class WorkoutItemController : ControllerBase
     {
         private readonly IWorkoutMessagesOrchestrator _workoutMessagesOrchestrator;
 
-        public WorkoutController(IWorkoutMessagesOrchestrator workoutMessagesOrchestrator) 
+        public WorkoutItemController(IWorkoutMessagesOrchestrator workoutMessagesOrchestrator) 
         {
             _workoutMessagesOrchestrator = workoutMessagesOrchestrator;
         }

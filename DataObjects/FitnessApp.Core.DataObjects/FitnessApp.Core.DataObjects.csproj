@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="FitnessApp.Core.Validators">
       <HintPath>..\..\Validators\FitnessApp.Core.Validators\bin\Debug\net6.0\FitnessApp.Core.Validators.dll</HintPath>
     </Reference>
