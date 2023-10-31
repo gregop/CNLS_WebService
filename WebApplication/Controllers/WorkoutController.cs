@@ -42,7 +42,11 @@ namespace CNSL_WepService.Controllers
                 {
                     return StatusCode(StatusCodes.Status200OK, response.Data.Response);
                 } 
-                else 
+                else if (response.IsSuccessfulOperation && response.Data?.Response == null)
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, response.Data);
+                }
+                else
                 {
                     return StatusCode(StatusCodes.Status400BadRequest);
                 }
