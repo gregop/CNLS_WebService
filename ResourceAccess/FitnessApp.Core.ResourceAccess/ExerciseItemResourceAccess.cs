@@ -25,7 +25,7 @@ namespace FitnessApp.Core.ResourceAccess
                 ExerciseItemModel? model = null;
 
                 IQueryable<ExerciseItemModel> queryResult = (from s in _dbContext.ExerciseItems select s)
-                    .Where(a => a.Id == dataObject.Id);
+                    .Where(a => a.ExerciseName == dataObject.ExerciseName);
 
                 model = await queryResult.FirstOrDefaultAsync();
 
@@ -42,6 +42,7 @@ namespace FitnessApp.Core.ResourceAccess
 
                     if (model != null)
                     {
+                        
                         _dbContext.Add(model);
                     }
 
