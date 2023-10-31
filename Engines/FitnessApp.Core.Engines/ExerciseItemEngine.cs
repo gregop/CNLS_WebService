@@ -21,7 +21,27 @@ namespace FitnessApp.Core.Engines
 
         public async Task<OperationalResult<ExerciseItemDataObject>> HandleExerciseCreationAsync(ExerciseItemDataObject exerciseItemDataObject)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (exerciseItemDataObject != null) 
+                {
+
+                    exerciseItemDataObject.DateCreated = DateTime.UtcNow;
+                    return await _exerciseItemResourceAccess.LogExerciseItemAsync(exerciseItemDataObject);
+
+                }
+                else
+                {
+                    return OperationalResult<ExerciseItemDataObject>.SuccessResult(null);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                return OperationalResult<ExerciseItemDataObject>.FailureResult(ex);
+            }
         }
 
         public async Task<OperationalResult<ExerciseItemDataObject>> HandleExerciseRequestAsync(ExerciseItemDataObject exerciseItemDataObject)
