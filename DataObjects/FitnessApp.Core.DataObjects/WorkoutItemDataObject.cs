@@ -11,7 +11,7 @@ namespace FitnessApp.Core.DataObjects
     public class WorkoutItemDataObject
     {
         [StrictlyPositiveProperty("Id")]
-        public int Id { get; set; }
+        public int Id { get; set; } = 1;
 
         [Required]
         [StrictlyPositiveProperty("WorkoutId")]
