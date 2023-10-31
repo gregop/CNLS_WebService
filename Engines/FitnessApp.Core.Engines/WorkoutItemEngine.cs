@@ -23,7 +23,16 @@ namespace FitnessApp.Core.Engines
 
         public async Task<OperationalResult<WorkoutItemDataObject>> HandleWorkoutCreationAsync(WorkoutItemDataObject workoutItemDataObject)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _workoutItemResourceAccess.LogWorkoutItemAsync(workoutItemDataObject);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                return OperationalResult<WorkoutItemDataObject>.FailureResult(ex);
+            }
         }
 
         public async Task<OperationalResult<WorkoutItemDataObject>> HandleWorkoutRequestAsync(WorkoutItemDataObject workoutItemDataObject)
