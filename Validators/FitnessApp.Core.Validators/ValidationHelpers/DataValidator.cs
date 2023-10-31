@@ -7,7 +7,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FitnessApp.Core.Validators
+namespace FitnessApp.Core.Validators.ValidationHelpers
 {
     public static class DataValidator<T>
     {
