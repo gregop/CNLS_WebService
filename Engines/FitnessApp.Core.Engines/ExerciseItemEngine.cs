@@ -32,7 +32,7 @@ namespace FitnessApp.Core.Engines
                 }
                 else
                 {
-                    return OperationalResult<ExerciseItemDataObject>.SuccessResult(null);
+                    return OperationalResult<ExerciseItemDataObject>.FailureResult("Cannot log null object");
                 }
 
 
