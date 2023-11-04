@@ -1,4 +1,5 @@
 ﻿using FitnessApp.Core.DataObjects;
+using FitnessApp.Core.DataObjects.Interfaces;
 using FitnessApp.Core.Orchestrators.Interfaces;
 using FitnessApp.Core.Validators;
 using System;
@@ -16,12 +17,12 @@ namespace FitnessApp.Core.Orchestrators
 
         }
 
-        public async Task<OperationalResult<ExerciseItemDataObject>> HandleExerciseCreationMessagesAsync(string payload)
+        public async Task<OperationalResult<ResponseContext<ICreateExerciceItemApiRes>>> HandleExerciseCreationMessagesAsync(string payload)
         {
             return null;
         }
 
-        public async Task<OperationalResult<ExerciseItemDataObject>> HandleExerciseUpdateMessagesAsync(string payload)
+        public async Task<OperationalResult<ResponseContext<ExerciseItemDataObject>>> HandleExerciseUpdateMessagesAsync(string payload)
         {
             return null;
         }
