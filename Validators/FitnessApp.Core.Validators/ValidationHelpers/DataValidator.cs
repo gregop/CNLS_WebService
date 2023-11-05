@@ -11,8 +11,6 @@ namespace FitnessApp.Core.Validators.ValidationHelpers
 {
     public static class DataValidator<T>
     {
-        private static readonly T? _dataObject;
-
         private static List<ValidationResult>? _results;
 
         private static bool _valid = false;
