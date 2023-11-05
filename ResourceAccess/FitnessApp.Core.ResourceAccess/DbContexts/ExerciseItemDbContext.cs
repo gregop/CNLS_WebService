@@ -15,5 +15,7 @@ namespace FitnessApp.Core.ResourceAccess.DbContexts
         public DbSet<WorkoutExercisesHistoryModel>  ExerciseItemsHistory { get; set; }
 
         public DbSet<ExerciseSetModel> ExerciseSets { get; set; }
+
+        public DbSet<ExerciseTypeModel> ExerciseTypes { get; set; }
     }
 }
