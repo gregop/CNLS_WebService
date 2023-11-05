@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace FitnessApp.Core.ResourceAccess
 {
-    internal class ExerciseTypeResourceAccess : IExerciseTypeResourceAccess
+    public class ExerciseTypeResourceAccess : IExerciseTypeResourceAccess
     {
 
         private readonly ExerciseItemDbContext _dbContext;
