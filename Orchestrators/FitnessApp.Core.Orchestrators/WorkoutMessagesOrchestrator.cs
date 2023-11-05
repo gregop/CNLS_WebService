@@ -88,35 +88,34 @@ namespace FitnessApp.Core.Orchestrators
                     if (!loggedWorkoutItem.IsSuccessfulOperation)
                     {
                         response.StatusNOK();
-                        response.SetMessage(loggedWorkoutItem.FailureMessage.ToString());
+                        response.SetMessage(loggedWorkoutItem.FailureMessage ?? "error");
 
-                        return OperationalResult<ResponseContext<IRegisterWorkoutApiRes>>.FailureResult(response.Message);
+                        return OperationalResult<ResponseContext<IRegisterWorkoutApiRes>>.FailureResult(response.Message ?? string.Empty);
 
                     } 
+
+                    if (loggedWorkoutItem.Data != null)
+                    {
+                        workoutItem = loggedWorkoutItem.Data;
+
+                        response.StatusOK(workoutItem.WorkoutId, workoutItem);
+
+                        return OperationalResult<ResponseContext<IRegisterWorkoutApiRes>>.SuccessResult(new ResponseContext<IRegisterWorkoutApiRes>()
+                        {
+                            StatusCode = 200,
+                            StatusMessage = response.Message,
+                            Response = response
+                        });
+                    }
                     else
                     {
-                        if (loggedWorkoutItem.Data != null)
-                        {
-                            workoutItem = loggedWorkoutItem.Data;
+                        response.StatusNOK();
+                        response.SetMessage("error");
 
-                            response.StatusOK(workoutItem.WorkoutId, workoutItem);
-
-                            return OperationalResult<ResponseContext<IRegisterWorkoutApiRes>>.SuccessResult(new ResponseContext<IRegisterWorkoutApiRes>()
-                            {
-                                StatusCode = 200,
-                                StatusMessage = response.Message,
-                                Response = response
-                            });
-                        }
-                        else
-                        {
-                            response.StatusNOK();
-                            response.SetMessage("error");
-
-                            return OperationalResult<ResponseContext<IRegisterWorkoutApiRes>>.FailureResult(response.Message);
-                        }
-
+                        return OperationalResult<ResponseContext<IRegisterWorkoutApiRes>>.FailureResult(response.Message ?? string.Empty);
                     }
+
+
 
                 }
                 else
@@ -124,7 +123,7 @@ namespace FitnessApp.Core.Orchestrators
                     response.StatusNOK();
                     response.SetMessage("error");
 
-                    return OperationalResult<ResponseContext<IRegisterWorkoutApiRes>>.FailureResult(response.Message);
+                    return OperationalResult<ResponseContext<IRegisterWorkoutApiRes>>.FailureResult(response.Message ?? string.Empty);
                 }
 
 
@@ -215,7 +214,7 @@ namespace FitnessApp.Core.Orchestrators
                     }
 
                     response.StatusNOK();
-                    response.SetMessage(workout.FailureMessage);
+                    response.SetMessage(workout.FailureMessage ?? string.Empty);
 
                     return OperationalResult<ResponseContext<IGetWorkoutApiRes>>.SuccessResult(new ResponseContext<IGetWorkoutApiRes>()
                     {
