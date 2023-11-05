@@ -8,8 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="FitnessApp.Core.Validators">
-      <HintPath>..\..\Validators\FitnessApp.Core.Validators\bin\Debug\net6.0\FitnessApp.Core.Validators.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\..\Validators\FitnessApp.Core.Validators\FitnessApp.Core.Validators.csproj" />
   </ItemGroup>
+
 </Project>
