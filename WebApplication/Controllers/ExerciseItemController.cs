@@ -67,5 +67,22 @@ namespace WebService.Core.Web.Controllers
 
         }
 
+        [HttpPost]
+        [Route("api/[action]")]
+        [Produces("application/json")]
+        public async Task<ActionResult<IGetExercisesApiRes>> GetExercises(object requestData)
+        {
+            try
+            {
+                return StatusCode(StatusCodes.Status200OK);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
     }
 }
