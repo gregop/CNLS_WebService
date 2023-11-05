@@ -20,7 +20,7 @@ namespace FitnessApp.Core.DataObjects
         [Required]
         public string? ExerciseUrl { get; set; }
 
-        public string? ExerciseType { get; set; }
+        public int ExerciseType { get; set; }
 
         public DateTime DateCreated { get; set; }
     }
