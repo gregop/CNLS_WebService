@@ -30,6 +30,11 @@ namespace FitnessApp.Core.Validators
                 _options.Converters.Add(new DateTimeConverterUsingDateTimeParse());
                 _parsedPayload = JsonSerializer.Deserialize<T>(_payload, _options);
 
+                if (_parsedPayload != null )
+                {
+                    TrimStringProperties(_parsedPayload);
+                }
+                
                 return OperationalResult<T?>.SuccessResult(_parsedPayload);
             }
             catch (Exception ex)
@@ -38,6 +43,31 @@ namespace FitnessApp.Core.Validators
                 return OperationalResult<T?>.FailureResult(ex);
             }
             
+        }
+
+        private static void TrimStringProperties(object dataObject) 
+        { 
+            if (dataObject == null)
+            {
+                return;
+            }
+
+            PropertyInfo[] properties = dataObject.GetType().GetProperties();
+
+            foreach (PropertyInfo property in properties)
+            {
+                if(property.PropertyType == typeof(string) && property.CanRead && property.CanWrite)
+                {
+                    string currentValue = (string)property.GetValue(dataObject, null); 
+
+                    if (currentValue != null)
+                    {
+                        string trimmedValue = currentValue.Trim();
+                        property.SetValue(dataObject, trimmedValue, null);
+                    }
+                }
+
+            }
         }
 
     }
