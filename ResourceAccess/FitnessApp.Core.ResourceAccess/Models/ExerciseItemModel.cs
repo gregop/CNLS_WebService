@@ -19,6 +19,8 @@ namespace FitnessApp.Core.ResourceAccess.Models
         [Required]
         public string? ExerciseUrl { get; set; }
 
+        public int ExerciseType { get; set; }
+
         public DateTime DateCreated { get; set; }
     }
 }
