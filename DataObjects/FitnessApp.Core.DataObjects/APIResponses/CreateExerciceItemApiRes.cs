@@ -23,10 +23,11 @@ namespace FitnessApp.Core.DataObjects.APIResponses
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public ExerciseItemDataObject ExerciseItem { get { return _exerciseItem; } set { } }
 
-        public void StatusOK()
+        public void StatusOK(ExerciseItemDataObject ExerciseItem)
         {
             _status = "Success";
             _message = "Success";
+            _exerciseItem = ExerciseItem;
         }
 
         public void StatusNOK()

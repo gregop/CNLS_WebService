@@ -10,6 +10,6 @@
         void SetMessage(string message);
         void SetWorkoutItem(ExerciseItemDataObject exerciseItem);
         void StatusNOK();
-        void StatusOK();
+        void StatusOK(ExerciseItemDataObject ExerciseObject);
     }
 }
