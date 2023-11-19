@@ -1,4 +1,5 @@
 ﻿using FitnessApp.Core.DataObjects;
+using FitnessApp.Core.DataObjects.Requests;
 using FitnessApp.Core.ResourceAccess.DbContexts;
 using FitnessApp.Core.ResourceAccess.Interfaces;
 using FitnessApp.Core.ResourceAccess.Mappers;
@@ -71,6 +72,45 @@ namespace FitnessApp.Core.ResourceAccess
                 List<ExerciseItemModel> models = null;
 
                 IQueryable<ExerciseItemModel> queryResult = (from s in _dbContext.ExerciseItems select s);
+
+                models = await queryResult.ToListAsync();
+
+                if (models.Count == 0)
+                {
+                    return OperationalResult<List<ExerciseItemDataObject>>.FailureResult("ExerciseItemsNotFound");
+                }
+                else
+                {
+                    List<ExerciseItemDataObject> objects = new List<ExerciseItemDataObject>();
+
+                    foreach (ExerciseItemModel m in models)
+                    {
+                        ExerciseItemDataObject obj = ExerciseItemModelMapper.MapExerciseItemModelToDataObject(m);
+                        objects.Add(obj);
+                    }
+
+                    return OperationalResult<List<ExerciseItemDataObject>>.SuccessResult(objects);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                return OperationalResult<List<ExerciseItemDataObject>>.FailureResult(ex);
+
+
+            }
+        }
+
+        public async Task<OperationalResult<List<ExerciseItemDataObject>>> GetAllExerciseItemsAsync(GetExercisesRequestDataObject getExercisesRequestData)
+        {
+            try
+            {
+                List<ExerciseItemModel> models = null;
+
+                IQueryable<ExerciseItemModel> queryResult = (from s in _dbContext.ExerciseItems select s)
+                    .Where(a => a.ExerciseType == getExercisesRequestData.ExerciseTypeId);
 
                 models = await queryResult.ToListAsync();
 

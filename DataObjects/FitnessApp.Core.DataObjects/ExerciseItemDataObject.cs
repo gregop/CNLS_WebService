@@ -1,5 +1,4 @@
-﻿using FitnessApp.Core.DataObjects.Constants;
-using FitnessApp.Core.Validators;
+﻿using FitnessApp.Core.Validators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

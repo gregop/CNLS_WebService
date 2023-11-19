@@ -1,6 +1,7 @@
 ﻿using FitnessApp.Core.DataObjects;
 using FitnessApp.Core.ResourceAccess.Models;
 using FitnessApp.Core.Validators;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace FitnessApp.Core.ResourceAccess.Mappers
 {
@@ -47,6 +48,7 @@ namespace FitnessApp.Core.ResourceAccess.Mappers
                     Id = model.Id,
                     ExerciseName = model.ExerciseName,
                     ExerciseUrl = model.ExerciseUrl,
+                    ExerciseType = model.ExerciseType,
                     DateCreated = model.DateCreated,
 
                 };

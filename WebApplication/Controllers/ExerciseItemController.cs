@@ -74,7 +74,29 @@ namespace WebService.Core.Web.Controllers
         {
             try
             {
-                return StatusCode(StatusCodes.Status200OK);
+                if (object.ReferenceEquals(requestData, null))
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest);
+
+                }
+
+                string requestDataSerialized = JsonSerializer.Serialize(requestData);
+
+                OperationalResult<ResponseContext<IGetExercisesApiRes>> response = await _exerciseMessagesOrchestrator.HandleExerciseRequestMessagesAsync(requestDataSerialized);
+
+
+                if (response.IsSuccessfulOperation && response.Data?.Response != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, response.Data.Response);
+                }
+                else if (response.IsSuccessfulOperation && response.Data?.Response == null)
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, response.Data);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest);
+                }
 
             }
             catch (Exception ex)
