@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\DataObjects\FitnessApp.Core.DataObjects\FitnessApp.Core.DataObjects.csproj" />
+    <ProjectReference Include="..\FitnessApp.Core.ResourceAccess.Interfaces\FitnessApp.Core.ResourceAccess.Interfaces.csproj" />
   </ItemGroup>
 
   <ItemGroup>

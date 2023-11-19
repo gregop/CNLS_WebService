@@ -4,18 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Json;
-using CNSL_WepService.APIResponses;
-using FitnessApp.Core.ResourceAccess.DbContexts;
-using Microsoft.EntityFrameworkCore;
-using sysCongif = System.Configuration;
-using FitnessApp.Core.ResourceAccess;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using FitnessApp.Core.DataObjects.Interfaces;
-using FitnessApp.Core.Orchestrators;
-using FitnessApp.Core.Engines;
 using WebService.Core.Web;
-using System.Configuration;
 
 namespace CNSL_WepService
 {

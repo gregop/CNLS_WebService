@@ -1,4 +1,3 @@
-using FitnessApp.Core.ResourceAccess.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc;
 using FitnessApp.Core.DataObjects.Interfaces;
