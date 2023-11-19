@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Engines\FitnessApp.Core.Engines.Interfaces\FitnessApp.Core.Engines.Interfaces.csproj" />
+    <ProjectReference Include="..\..\DataObjects\FitnessApp.Core.DataObjects\FitnessApp.Core.DataObjects.csproj" />
+    <ProjectReference Include="..\..\Validators\FitnessApp.Core.Validators\FitnessApp.Core.Validators.csproj" />
   </ItemGroup>
 
 </Project>
