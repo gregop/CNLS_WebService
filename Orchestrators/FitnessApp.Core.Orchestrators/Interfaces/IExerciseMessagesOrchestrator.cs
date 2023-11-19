@@ -8,5 +8,7 @@ namespace FitnessApp.Core.Orchestrators.Interfaces
     {
         Task<OperationalResult<ResponseContext<ICreateExerciceItemApiRes>>> HandleExerciseCreationMessagesAsync(string payload);
         Task<OperationalResult<ResponseContext<ExerciseItemDataObject>>> HandleExerciseUpdateMessagesAsync(string payload);
+
+        Task<OperationalResult<ResponseContext<IGetExercisesApiRes>>> HandleExerciseRequestMessagesAsync(string payload);
     }
 }
