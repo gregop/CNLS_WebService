@@ -10,9 +10,9 @@ namespace FitnessApp.Core.ResourceAccess.Interfaces
 {
     public interface IExerciseTypeResourceAccess
     {
-        Task<OperationalResult<List<ExerciseTypeDataObject>>> GetAllExerciseItemsAsync();
-        Task<OperationalResult<ExerciseTypeDataObject>> LogExerciseItemAsync(ExerciseTypeDataObject dataObject);
+        Task<OperationalResult<List<ExerciseTypeDataObject>>> GetAllExerciseTypesAsync();
+        Task<OperationalResult<ExerciseTypeDataObject>> LogExerciseTypeAsync(ExerciseTypeDataObject dataObject);
 
-        Task<OperationalResult<ExerciseTypeDataObject>> UpdateExerciseItemAsync(ExerciseTypeDataObject dataObject);
+        Task<OperationalResult<ExerciseTypeDataObject>> UpdateExerciseTypeAsync(ExerciseTypeDataObject dataObject);
     }
 }

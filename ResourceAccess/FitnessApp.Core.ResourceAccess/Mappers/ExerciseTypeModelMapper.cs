@@ -37,7 +37,7 @@ namespace FitnessApp.Core.ResourceAccess.Mappers
 
         }
 
-        internal static ExerciseTypeDataObject? MapExerciseItemModelToDataObject(ExerciseTypeModel model)
+        internal static ExerciseTypeDataObject? MapExerciseTypeModelToDataObject(ExerciseTypeModel model)
         {
             try
             {
