@@ -43,5 +43,13 @@ namespace FitnessApp.Core.DataObjects.APIResponses
         {
             _exerciseItems = exerciseItems;
         }
+
+        public void SetWorkoutItems(ExerciseItemDataObject exerciseItems)
+        {
+            _exerciseItems = new List<ExerciseItemDataObject>
+            {
+                exerciseItems
+            };
+        }
     }
 }

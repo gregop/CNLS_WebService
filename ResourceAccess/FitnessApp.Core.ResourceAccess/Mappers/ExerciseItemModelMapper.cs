@@ -21,7 +21,7 @@ namespace FitnessApp.Core.ResourceAccess.Mappers
                     ExerciseName = dataObject.ExerciseName,
                     ExerciseUrl = dataObject.ExerciseUrl,
                     DateCreated = dataObject.DateCreated,
-
+                    ExerciseType = dataObject.ExerciseType,
                 };
 
             }

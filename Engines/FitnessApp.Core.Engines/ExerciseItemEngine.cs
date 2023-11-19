@@ -99,5 +99,29 @@ namespace FitnessApp.Core.Engines
                 return OperationalResult<List<ExerciseItemDataObject>>.FailureResult(ex);
             }
         }
+
+        public async Task<OperationalResult<ExerciseItemDataObject>> HandleExerciseUpdateAsync(ExerciseItemDataObject exerciseItemDataObject)
+        {
+            try
+            {
+                if (exerciseItemDataObject != null)
+                {
+
+                    return await _exerciseItemResourceAccess.UpdateExerciseItemAsync(exerciseItemDataObject);
+
+                }
+                else
+                {
+                    return OperationalResult<ExerciseItemDataObject>.FailureResult("Cannot update null object");
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                return OperationalResult<ExerciseItemDataObject>.FailureResult(ex);
+            }
+        }
     }
 }

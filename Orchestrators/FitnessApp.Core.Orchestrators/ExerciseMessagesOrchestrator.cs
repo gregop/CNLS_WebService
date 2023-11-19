@@ -250,9 +250,131 @@ namespace FitnessApp.Core.Orchestrators
             }
         }
 
-        public async Task<OperationalResult<ResponseContext<ExerciseItemDataObject>>> HandleExerciseUpdateMessagesAsync(string payload)
+        public async Task<OperationalResult<ResponseContext<IGetExercisesApiRes>>> HandleExerciseUpdateMessagesAsync(string payload)
         {
-            return null;
+            try
+            {
+                IGetExercisesApiRes response = new GetExercisesApiRes();
+
+                if (String.IsNullOrWhiteSpace(payload))
+                {
+                    response.StatusNOK();
+                    response.SetMessage("error");
+
+                    return OperationalResult<ResponseContext<IGetExercisesApiRes>>.FailureResult(response.Message ?? String.Empty);
+                }
+
+                // Parse payload to DataObject
+                OperationalResult<ExerciseItemDataObject?> parsedPayload = PayloadParser<ExerciseItemDataObject>.TryParse(payload);
+
+                // If parsing was not successful return error
+                if (!parsedPayload.IsSuccessfulOperation)
+                {
+                    response.StatusNOK();
+                    response.SetMessage("error");
+
+                    return OperationalResult<ResponseContext<IGetExercisesApiRes>>.FailureResult(response.Message ?? String.Empty);
+                }
+
+                // Validate parsed payload data
+                ExerciseItemDataObject? requestDataObject = parsedPayload.Data;
+                OperationalResult<Tuple<bool, List<ValidationResult>>> isValidRequestDataObject = DataValidator<ExerciseItemDataObject>.TryValidate(requestDataObject);
+
+                // If validation failed with exception return error
+                if (!isValidRequestDataObject.IsSuccessfulOperation)
+                {
+                    response.StatusNOK();
+                    response.SetMessage("error");
+
+                    return OperationalResult<ResponseContext<IGetExercisesApiRes>>.FailureResult(response.Message ?? String.Empty);
+                }
+                else
+                {
+                    if (isValidRequestDataObject.Data.Item1 && isValidRequestDataObject.Data.Item2.Any())
+                    {
+                        response.StatusNOK();
+                        response.SetMessage(isValidRequestDataObject.Data?.Item2?.FirstOrDefault()?.ToString() ?? String.Empty);
+
+                        return OperationalResult<ResponseContext<IGetExercisesApiRes>>.SuccessResult(new ResponseContext<IGetExercisesApiRes>
+                        {
+                            StatusCode = 200,
+                            StatusMessage = response.Message,
+                            Response = null,
+
+                        });
+                    }
+
+                    // if exercise id is invalid
+                    if (requestDataObject.Id <= 0)
+                    {
+                        response.StatusNOK();
+                        response.SetMessage("Invalid Exercise Item Id");
+
+                        return OperationalResult<ResponseContext<IGetExercisesApiRes>>.SuccessResult(new ResponseContext<IGetExercisesApiRes>
+                        {
+                            StatusCode = 200,
+                            StatusMessage = response.Message,
+                            Response = null,
+
+                        });
+                    }
+                }
+
+
+                // Send request object to Workout Engine
+                if (requestDataObject != null)
+                {
+                    OperationalResult<ExerciseItemDataObject> exerciseItems = await _exerciseItemEngine.HandleExerciseUpdateAsync(requestDataObject);
+
+                    if (!exerciseItems.IsSuccessfulOperation && !String.IsNullOrWhiteSpace(exerciseItems.FailureMessage))
+                    {
+                        response.StatusNOK();
+                        response.SetMessage(exerciseItems.FailureMessage ?? "error");
+
+                        return OperationalResult<ResponseContext<IGetExercisesApiRes>>.SuccessResult(new ResponseContext<IGetExercisesApiRes>
+                        {
+                            StatusCode = 200,
+                            StatusMessage = response.Message,
+                            Response = null,
+                        });
+                    }
+
+                    if (exerciseItems.Data != null)
+                    {
+
+                        response.StatusOK();
+                        response.SetWorkoutItems(exerciseItems.Data);
+
+                        return OperationalResult<ResponseContext<IGetExercisesApiRes>>.SuccessResult(new ResponseContext<IGetExercisesApiRes>
+                        {
+                            StatusCode = 200,
+                            StatusMessage = response.Message,
+                            Response = response,
+                        });
+                    }
+                    else
+                    {
+                        response.StatusNOK();
+                        response.SetMessage("error");
+
+                        return OperationalResult<ResponseContext<IGetExercisesApiRes>>.FailureResult(response.Message ?? string.Empty);
+                    }
+
+                }
+                else
+                {
+                    response.StatusNOK();
+                    response.SetMessage("error");
+
+                    return OperationalResult<ResponseContext<IGetExercisesApiRes>>.FailureResult(response.Message ?? string.Empty);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                return OperationalResult<ResponseContext<IGetExercisesApiRes>>.FailureResult(ex.Message);
+            }
         }
 
     }

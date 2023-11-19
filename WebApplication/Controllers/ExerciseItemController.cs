@@ -3,15 +3,7 @@ using FitnessApp.Core.Orchestrators.Interfaces;
 using FitnessApp.Core.Validators;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Net;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace WebService.Core.Web.Controllers
 {
@@ -83,6 +75,45 @@ namespace WebService.Core.Web.Controllers
                 string requestDataSerialized = JsonSerializer.Serialize(requestData);
 
                 OperationalResult<ResponseContext<IGetExercisesApiRes>> response = await _exerciseMessagesOrchestrator.HandleExerciseRequestMessagesAsync(requestDataSerialized);
+
+
+                if (response.IsSuccessfulOperation && response.Data?.Response != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, response.Data.Response);
+                }
+                else if (response.IsSuccessfulOperation && response.Data?.Response == null)
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, response.Data);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/[action]")]
+        [Produces("application/json")]
+        public async Task<ActionResult<IGetExercisesApiRes>> UpdateExercise(object requestData)
+        {
+            try
+            {
+                if (object.ReferenceEquals(requestData, null))
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest);
+
+                }
+
+                string requestDataSerialized = JsonSerializer.Serialize(requestData);
+
+                OperationalResult<ResponseContext<IGetExercisesApiRes>> response = await _exerciseMessagesOrchestrator.HandleExerciseUpdateMessagesAsync(requestDataSerialized);
 
 
                 if (response.IsSuccessfulOperation && response.Data?.Response != null)

@@ -145,13 +145,39 @@ namespace FitnessApp.Core.ResourceAccess
 
         public async Task<OperationalResult<ExerciseItemDataObject>> UpdateExerciseItemAsync(ExerciseItemDataObject dataObject)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ExerciseItemModel? model = null;
 
-            //model.ExerciseUrl = dataObject.ExerciseUrl;
-            //model.ExerciseName = dataObject.ExerciseName;
-            //model.DateCreated = dataObject.DateCreated;
+                IQueryable<ExerciseItemModel> query = (from e in _dbContext.ExerciseItems select e)
+                    .Where(e => e.Id == dataObject.Id);
 
-            //_dbContext.Entry(model).State = EntityState.Modified;
+                model = await query.FirstOrDefaultAsync();
+
+                if (model == null)
+                {
+                    return OperationalResult<ExerciseItemDataObject>.FailureResult("ExerciseItemsNotFound");
+                }
+                else
+                {
+                    
+                    model.ExerciseUrl = dataObject.ExerciseUrl;
+                    model.ExerciseName = dataObject.ExerciseName;
+                    model.ExerciseType = dataObject.ExerciseType;
+
+                    _dbContext.Entry(model).State = EntityState.Modified;
+                }
+
+                _dbContext.SaveChanges();
+
+                return OperationalResult<ExerciseItemDataObject>.SuccessResult(ExerciseItemModelMapper.MapExerciseItemModelToDataObject(model));
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                return OperationalResult<ExerciseItemDataObject>.FailureResult(ex);
+            }
         }
     }
 }

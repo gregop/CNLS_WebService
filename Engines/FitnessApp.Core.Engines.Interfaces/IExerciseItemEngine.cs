@@ -8,5 +8,7 @@ namespace FitnessApp.Core.Engines.Interfaces
     {
         Task<OperationalResult<ExerciseItemDataObject>> HandleExerciseCreationAsync(ExerciseItemDataObject exerciseItemDataObject);
         Task<OperationalResult<List<ExerciseItemDataObject>>> HandleExercisesRequestAsync(GetExercisesRequestDataObject getExercisesRequestData);
+
+        Task<OperationalResult<ExerciseItemDataObject>> HandleExerciseUpdateAsync(ExerciseItemDataObject exerciseItemDataObject);
     }
 }

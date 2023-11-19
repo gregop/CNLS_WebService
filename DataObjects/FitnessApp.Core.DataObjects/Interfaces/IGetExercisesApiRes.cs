@@ -7,6 +7,7 @@
 
         void SetMessage(string message);
         void SetWorkoutItems(List<ExerciseItemDataObject> exerciseItems);
+        void SetWorkoutItems(ExerciseItemDataObject exerciseItems);
         void StatusNOK();
         void StatusOK();
     }
