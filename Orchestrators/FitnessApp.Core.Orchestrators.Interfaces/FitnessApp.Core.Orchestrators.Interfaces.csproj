@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataObjects\FitnessApp.Core.DataObjects\FitnessApp.Core.DataObjects.csproj" />
+    <ProjectReference Include="..\..\Validators\FitnessApp.Core.Validators\FitnessApp.Core.Validators.csproj" />
+  </ItemGroup>
+
+</Project>

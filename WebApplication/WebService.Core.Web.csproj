@@ -24,6 +24,7 @@
     <ProjectReference Include="..\Engines\FitnessApp.Core.Engines.Interfaces\FitnessApp.Core.Engines.Interfaces.csproj" />
     <ProjectReference Include="..\Engines\FitnessApp.Core.Engines\FitnessApp.Core.Engines.csproj" />
     <ProjectReference Include="..\Orchestrators\FitnessApp.Core.Orchestrators\FitnessApp.Core.Orchestrators.csproj" />
+    <ProjectReference Include="..\Orchestrators\FitnessApp.Core.Orchestrators.Interfaces\FitnessApp.Core.Orchestrators.Interfaces.csproj" />
     <ProjectReference Include="..\ResourceAccess\FitnessApp.Core.ResourceAccess\FitnessApp.Core.ResourceAccess.csproj" />
   </ItemGroup>
 
