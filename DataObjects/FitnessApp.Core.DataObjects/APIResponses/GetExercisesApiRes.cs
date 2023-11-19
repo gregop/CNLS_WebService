@@ -21,7 +21,7 @@ namespace FitnessApp.Core.DataObjects.APIResponses
         public string? Message { get { return _message; } }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        private List<ExerciseItemDataObject>? ExerciseItems { get { return _exerciseItems; } set { } }
+        public List<ExerciseItemDataObject>? ExerciseItems { get { return _exerciseItems; } set { } }
 
         public void StatusOK()
         {
