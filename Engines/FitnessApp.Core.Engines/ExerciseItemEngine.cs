@@ -1,4 +1,5 @@
 ﻿using FitnessApp.Core.DataObjects;
+using FitnessApp.Core.DataObjects.Requests;
 using FitnessApp.Core.Engines.Interfaces;
 using FitnessApp.Core.ResourceAccess.Interfaces;
 using FitnessApp.Core.Validators;
@@ -13,10 +14,14 @@ namespace FitnessApp.Core.Engines
     public class ExerciseItemEngine : IExerciseItemEngine
     {
         private readonly IExerciseItemResourceAccess _exerciseItemResourceAccess;
+        private readonly IExerciseTypeResourceAccess _exerciseTypeResourceAccess;
 
-        public ExerciseItemEngine(IExerciseItemResourceAccess exerciseItemResourceAccess)
+        public ExerciseItemEngine(
+            IExerciseItemResourceAccess exerciseItemResourceAccess,
+            IExerciseTypeResourceAccess exerciseTypeResourceAccess)
         {
             _exerciseItemResourceAccess = exerciseItemResourceAccess;
+            _exerciseTypeResourceAccess = exerciseTypeResourceAccess;
         }
 
         public async Task<OperationalResult<ExerciseItemDataObject>> HandleExerciseCreationAsync(ExerciseItemDataObject exerciseItemDataObject)
@@ -44,9 +49,55 @@ namespace FitnessApp.Core.Engines
             }
         }
 
-        public async Task<OperationalResult<ExerciseItemDataObject>> HandleExerciseRequestAsync(ExerciseItemDataObject exerciseItemDataObject)
+        public async Task<OperationalResult<List<ExerciseItemDataObject>>> HandleExercisesRequestAsync(GetExercisesRequestDataObject getExercisesRequestData)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (getExercisesRequestData != null)
+                {
+
+                    // Map Exercise Type to Exercise Type Id - to be implemented
+                    OperationalResult<List<ExerciseTypeDataObject>> exerciseTypes = await _exerciseTypeResourceAccess.GetAllExerciseTypesAsync();
+
+                    if (exerciseTypes.IsSuccessfulOperation && exerciseTypes.Data != null)
+                    {
+                        // Map Exercise Type
+                        foreach (ExerciseTypeDataObject exerciseType in exerciseTypes.Data)
+                        {
+                            if (getExercisesRequestData.ExerciseType.ToUpper() == exerciseType.TypeName.ToUpper())
+                            {
+                                getExercisesRequestData.SetExerciseId(exerciseType.Id);
+                            }
+                        }
+                    }
+
+
+                    switch (getExercisesRequestData.ExerciseTypeId)
+                    {
+                        case null:
+                            return await _exerciseItemResourceAccess.GetAllExerciseItemsAsync();
+
+                        case ( > 0):
+                            return await _exerciseItemResourceAccess.GetAllExerciseItemsAsync(getExercisesRequestData);
+
+                        default:
+                            return await _exerciseItemResourceAccess.GetAllExerciseItemsAsync();
+                            
+                    }
+                
+                }
+                else
+                {
+                    return OperationalResult<List<ExerciseItemDataObject>>.FailureResult("Null object request");
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                return OperationalResult<List<ExerciseItemDataObject>>.FailureResult(ex);
+            }
         }
     }
 }
